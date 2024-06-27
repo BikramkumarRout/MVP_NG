@@ -1,0 +1,114 @@
+<app-toast></app-toast>
+<app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual>
+<app-notification></app-notification>
+<p-dialog [(visible)]="displayEdit" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    [closable]="false" class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true"
+    [resizable]="true" [contentStyle]="{height: '550px'}" [baseZIndex]="1000">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold text-white">{{header}}</h5>
+        <div class="custom-right">
+            <span class="float-right" type="button" (click)="onClose()">
+                <i class="pi pi-times mt-1 close-icon"></i>
+            </span>
+        </div>
+    </ng-template>
+    
+
+
+        <div class="col-md-12 col-lg-12 px-3 aos-init aos-animate" data-aos="fade-down">
+            <div class="mb-5 jobs_form">
+                <div class="min-ht px-3 py-2">
+                    
+                    <form #jobForm="ngForm" autocomplete="off">
+                        <fieldset>
+                            <div class="form-group   px-2 profile-container" id="user-input">
+                                <div class="justify-content-between">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4 ">
+                                            <label for="inputEmail4">Job Title<span
+                                                    class="text-danger text-small">*</span></label>
+                                            <input placeholder="Enter Job Title" type="text" class="form-control mt-2 pl_3"
+                                                name="jobTitle" required #jobTitle="ngModel"
+                                                [(ngModel)]="jobDetails.jobTitle" />
+
+                                            <div *ngIf="jobTitle.errors  &&  submittedError"
+                                                class="text-danger text-small">
+                                                <div [hidden]="!jobTitle.errors.required">
+                                                    Job Title is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="inputPassword4">Location <span
+                                                    class="text-danger text-small">*</span></label>
+                                            <input placeholder="Enter Location" type="text" class="form-control mt-2 pl_3"
+                                                 name="location" required
+                                                #location="ngModel" [(ngModel)]="jobDetails.location" />
+
+                                            <div *ngIf="location.errors  &&  submittedError"
+                                                class="text-danger text-small">
+                                                <div [hidden]="!location.errors.required">
+                                                    Location is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="inputPassword4">Date Posted <span
+                                                    class="text-danger text-small">*</span></label>
+                                            <div class="p-field">
+                                                <p-calendar numbersOnly pmCalender placeholder="MM/DD/YYYY"
+                                                    dateFormat="mm/dd/yy" [(ngModel)]="jobDetails.datePosted"
+                                                    [monthNavigator]="true" name="datePosted" #datePosted="ngModel" [showIcon]="true"
+                                                    inputId="icon" [showOnFocus]="false" [yearNavigator]="true"
+                                                    yearRange="1900:2022" inputId="navigators" [showButtonBar]="true">
+                                                </p-calendar>
+                                                <div *ngIf="datePosted.errors  &&  submittedError"
+                                                    class="text-danger text-small">
+                                                    <div [hidden]="!datePosted.errors.required">
+                                                        Date of posted is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4 ">
+                                            <label for="inputEmail4">Job Description<span
+                                                    class="text-danger text-small">*</span></label>
+                                                    <!-- <textarea class="mt-2" name="" id="" cols="100" rows="5" name="jobDescription" #jobDescription="ngModel" [(ngModel)]="jobDetails.jobDescription"></textarea> -->
+
+                                        </div>
+                                    </div>
+
+                                    <!-- <p-editor [(ngModel)]="text" [style]="{'height':'320px'}">
+                                        <ng-template pTemplate="header">
+                                            <span class="ql-format-group">
+                                                <span title="Bold" class="ql-format-button ql-bold"></span>
+                                                <span class="ql-format-separator"></span>
+                                                <span title="Italic" class="ql-format-button ql-italic"></span>
+                                                <span class="ql-format-separator"></span>
+                                                <span title="Underline" class="ql-format-button ql-underline"></span>
+                                                <span class="ql-format-separator"></span>
+                                                <span title="Strikethrough" class="ql-format-button ql-strike"></span>
+                                            </span>
+                                        </ng-template>
+                                    </p-editor> -->
+
+                                    <p-editor [(ngModel)]="jobDetails.jobDescription"  name="jobDescription" #jobDescription="ngModel" [style]="{'height':'320px'}"></p-editor>
+                                </div>
+
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+        <p-footer class="pFooter">
+            <button type="button" class="py-1 px-1 btn btn-primary" (click)="onSave()"
+            [disabled]="!jobForm.dirty">Save</button>
+            <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+        </p-footer>
+        

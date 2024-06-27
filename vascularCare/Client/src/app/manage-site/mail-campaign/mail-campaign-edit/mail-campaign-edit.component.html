@@ -1,0 +1,87 @@
+<!-- <app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual> -->
+<app-notification></app-notification>
+<app-toast></app-toast>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true"
+    [contentStyle]="{height: '550px'}" [closable]="false">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Mail Campaign Edit </h5>
+        <div class="custom-right">
+            <span class="float-right" type="button" (click)="onClose()">
+                <i class="pi pi-times close-icon"></i>
+            </span>
+        </div>
+    </ng-template>
+    <div class="container">
+        <form #mailEditForm="ngForm" autocomplete="off">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-3 text-right">Mail Campaign</div>
+                    <div class="col-md-7"><input disabled class="form-control"  type="text"
+                            value={{this.rowData.name}}></div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-md-3 text-right">Description</div>
+                    <div class="col-md-7">
+                        <textarea class="form-control" cols="200" rows="5"  type="text"
+                            value={{this.rowData.description}} name="description" #description="ngModel"
+                            [(ngModel)]="mailCampaginEditDetail.description" required></textarea>
+
+                        <div *ngIf="description.errors &&  submittedError" class="text-danger text-small1">
+                            <div [hidden]="!description.errors.required">
+                                Description is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-md-3 text-right">To Recipients</div>
+                    <div class="col-md-7 input-group">
+                        <input title="{{this.rowData.to}}" value={{this.rowData.to}} disabled type="text"
+                            class="form-control ellipsis" placeholder="Please input" aria-label="Please input"
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append" (click)="onToShowDialog(this.rowData,'to')">
+                            <span class="input-group-text cursor-pointer" id="basic-addon2">Add/Edit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-1">
+                    <div class="col-md-3 text-right">CC Recipients</div>
+                    <div class="col-md-7 input-group">
+                        <input title="{{this.rowData.cc}}" value={{this.rowData.cc}} disabled type="text"
+                            class="form-control ellipsis" placeholder="Please input" aria-label="Please input"
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append" (click)="onToShowDialog(this.rowData,'cc')">
+                            <span class="input-group-text cursor-pointer" id="basic-addon2">Add/Edit</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-md-3 text-right">BCC Recipients</div>
+                    <div class="col-md-7 input-group">
+                        <input title="{{this.rowData.bcc}}" value={{this.rowData.bcc}} disabled type="text"
+                            class="form-control ellipsis" placeholder="Please input" aria-label="Please input"
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append" (click)="onToShowDialog(this.rowData,'bcc')">
+                            <span class="input-group-text cursor-pointer" id="basic-addon2">Add/Edit</span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <p-footer class="pFooter">
+        <span title="Please insert/update description to save.">
+            <button type="button" [disabled]="!mailEditForm.dirty" class="py-1 px-1 btn btn-primary" (click)="onSave()">Save</button>
+        </span>
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>
+
+<div *ngIf="displayTo">
+    <to-edit [rowData]="rowData" [typeId]="typeId" [listingData]="listingData"
+        (displayChangeTo)="onToDialogClose($event)">
+    </to-edit>
+</div>

@@ -1,0 +1,12 @@
+<app-toast></app-toast>
+<app-spinner></app-spinner>
+<div>
+    <div class="row">
+        <div class="col-md-12">
+            <home-topbar *ngIf="displayHomeTopBar" id="customScroll" [locations]="locations"></home-topbar>
+            <top-bar *ngIf="!displayHomeTopBar" id="customScroll" [isProviderExist]="isProviderExist"></top-bar>
+            <router-outlet #o="outlet"></router-outlet>
+        </div>
+
+    </div>
+</div>

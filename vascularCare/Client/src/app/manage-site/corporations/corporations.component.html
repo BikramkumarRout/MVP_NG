@@ -1,0 +1,116 @@
+<app-toast></app-toast>
+<p-confirmDialog header="" icon="fa fa-question-circle" [style]="{width: '40%'}" [baseZIndex]="20000" #cd>
+    <p-footer class="confirm_btn">
+        <button type="button" class="py-1 px-2 btn yes-btn" pButton label="Yes" (click)="cd.accept()"></button>
+        <button id="confirm-footer-no-btn" type="button" class=" py-1 px-1 btn no-btn" pButton label="No"
+            (click)="cd.reject()"></button>
+
+    </p-footer>
+</p-confirmDialog>
+<div class="">
+    <div class="implicit-pag mt-4">
+        <p-table #dt2 class="table-striped table-hover" (onFilter)="onFilter($event)" [scrollable]="true" scrollDirection="both" [value]="listing"
+            [paginator]="true" [rows]="10" sortField="name" [sortOrder]="1"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['name','email','phone','address']" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,25,50,100,500]">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex search-icon">
+                    <button *ngIf="searchGlobalText || nameFilter || emailFilter || PhoneFilter || addressFilter" (click)="dt2.filterGlobal($event.target.value, 'contains')" (click)="clear(dt2)" pButton label="Clear Filters" id="custom-btn"
+                        class="p-button-outlined" icon="pi pi-filter-slash"></button>
+                    <span class=" ml-auto search-baricon">
+                        <i class="pi pi-search mt-1"></i>
+                        <input pInputText type="text" class="form-control-35"
+                            (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword"
+                            [(ngModel)]="searchGlobalText" />
+                    </span>
+                   
+                    <div class="add_icon" *ngIf="isEditPermission"
+                        title="&#13; &nbsp; Create New User&#13;">
+                        <i class="pi pi-plus-circle cursor-pointer"
+                            (click)="showDialog(corporationDetail)"></i>
+                    </div>
+                    <span *ngIf="!isEditPermission" class="mr-2"></span>
+                    <span><img (click)="onExport()" src="../../../assets/images/excel-icon.png" title="&#13; &nbsp; Export&#13;" width="25px"
+                        class="cursor-pointer mt-1" /></span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr class="corporate-tr">
+                    <th pSortableColumn="name" class="corporation_name">
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Name</span>
+                            <p-sortIcon field="name"></p-sortIcon>
+                            <p-columnFilter type="text" field="name" display="name"></p-columnFilter>
+                        </div>
+
+                    </th>
+                    <th pSortableColumn="email" class="corporation_email">
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Email</span>
+                            <p-sortIcon field="email"></p-sortIcon>
+                            <p-columnFilter type="text" field="email" display="email"></p-columnFilter>
+
+                        </div>
+
+                    </th>
+                    <th pSortableColumn="phone" class="corporation_phone">
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Phone</span>
+                            <p-sortIcon field="phone"></p-sortIcon>
+                            <p-columnFilter type="text" field="phone" display="phone"></p-columnFilter>
+
+                        </div>
+
+                    </th>
+                    <th pSortableColumn="address" class="corporation_address">
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Address</span>
+                            <p-sortIcon field="address"></p-sortIcon>
+                            <p-columnFilter type="text" field="address" display="address"></p-columnFilter>
+
+                        </div>
+
+                    </th>
+                    <th class="corporation_edit">
+
+                    </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-listingData>
+                <tr>
+                    <td class="corporation_name"><span class="ml-1">{{listingData.name}}</span></td>
+                    <td class="corporation_email">{{listingData.email}}</td>
+                    <td class="corporation_phone"> {{listingData.phone | phoneFormat}}</td>
+                    <td class="corporation_address">{{listingData.address}}</td>
+                    <td class="text-right corporation_edit">
+                        <div *ngIf="isEditPermission" class="d-flex" >
+                            <img src="../../../assets/themeIcons/edit.svg" title="&#13; &nbsp; Edit Corporation&#13;" width="16px" class="cursor-pointer ml-2"
+                                (click)="showDialog(listingData)" />
+
+                                <span *ngIf="isEditPermission" width="16px" class="cursor-pointer ml-2">
+                                </span>
+                                <span *ngIf="isEditPermission">
+                                    <img src="../../../assets/images/remove.svg" title="&#13; &nbsp; Delete Corporation&#13;"
+                                        width="16px" class="cursor-pointer ml-2"   (click)="onDeleteCorporation(listingData)" />
+                                </span> 
+                        </div>
+
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr *ngIf="isNoRecorsFound">
+                    <td colspan="5">No records found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<div *ngIf="display">
+    <manage-corporation [falcilityData]="falcilityLists" [display]="display" [listing]="listing"
+        [corporationDetail]="corporationDetail" (displayChange)="onDialogClose($event)">
+    </manage-corporation>
+</div>

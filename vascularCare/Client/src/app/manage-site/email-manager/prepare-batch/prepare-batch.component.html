@@ -1,0 +1,317 @@
+<app-toast></app-toast>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true"
+    [contentStyle]="{height: '600px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Prepare Emails Batch </h5>
+
+    </ng-template>
+    <div class="container">
+        <form #prepareBatchForm="ngForm" autocomplete="off">
+            <fieldset>
+                <div class="row">
+
+
+                    <div class="col-md-3 text-right"><span class="red-clr">* </span> Select Campaign</div>
+                    <div class="col-md-7 prepare-batch">
+                        <p-dropdown (onChange)="onSelectCampagin($event)" [options]="listing"
+                            [(ngModel)]="selectedCampaign" optionLabel="name" [filter]="true" filterBy="name"
+                            [showClear]="true" placeholder="Select a Campaign" name="mailcampaign">
+
+                        </p-dropdown>
+
+                        <span *ngIf="!selectedCampaign &&  submittedError" class="text-danger text-small">Campaign is
+                            required </span>
+                    </div>
+
+                </div>
+                <div class="row mt-1">
+                    <div class="col-md-3  mt-3 text-right">Test Batch</div>
+                    <div class="col-md-7">
+                        <label class="switch">
+                            <input type="checkbox" (click)="onCheckBatch($event)" name="isChecked" #isChecked="ngModel"
+                                [(ngModel)]="prepareBatchDto.isChecked">
+                            <span class="slider round"></span>
+                        </label>
+
+
+                    </div>
+                </div>
+<div *ngIf="!prepareBatchDto.isChecked && this.mailcampaignType === 'Resume'">
+    <div class="implicit-pag mt-4">
+                     
+        <p-table #dt2 class="table-striped table-hover jobPager" [scrollable]="true" selectionMode="single"
+            [(selection)]="selectedApplicant" dataKey="id" scrollDirection="both" [value]="listingData"
+            [paginator]="true" id="prepareBAtch" [rows]="10" sortField="name" [sortOrder]="1"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['id','name','jobId','jobTitle']" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,25,50,100,500]">
+            <ng-template pTemplate="caption">
+               
+                <div class="p-d-flex search-icon m-2">
+                    <!-- <div *ngIf="!selectedApplicant &&  submittedError1" class="text-danger text-small">
+                        Applicant selection is required
+                    </div> -->
+                    <button *ngIf="searchGlobalText " (click)="clear(dt2)" pButton label="Clear Filters"
+                        id="custom-btn" class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="dt2.filterGlobal($event.target.value, 'contains')"></button>
+                    <span class=" p-ml-auto search-baricon">
+                        <i class="pi pi-search mt-1"></i>
+                        <input pInputText type="text" class="form-control-35"
+                            [(ngModel)]="searchGlobalText" name="searchGlobalText"
+                            (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Search keyword" />
+                    </span>
+                   
+
+                </div>
+                
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr class="corporate-tr">
+                    <!--  -->
+                    <th class="wt_2rem" ></th>
+                    <th pSortableColumn="id" class="wt_12rem" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Applicant Id</span>
+                            <p-sortIcon field="id"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="id" display="id"></p-columnFilter> -->
+
+                        </div>
+
+                    </th>
+                    <th pSortableColumn="name" class="wt_12rem" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Applicant Name</span>
+                            <p-sortIcon field="name"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="name" display="name"></p-columnFilter> -->
+                        </div>
+                    </th>
+                    <th pSortableColumn="jobId" class="wt_12rem" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Job Id</span>
+                            <p-sortIcon field="jobId"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="jobId" display="jobId"></p-columnFilter> -->
+                        </div>
+                    </th>
+                    <th pSortableColumn="jobTitle" class="wt_12rem" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Job Title</span>
+                            <p-sortIcon field="jobTitle"></p-sortIcon>
+                            <!-- <p-columnFilter type="text" field="jobTitle" display="jobTitle"></p-columnFilter> -->
+                        </div>
+                    </th>
+                    <th pSortableColumn="status" class="wt_12rem" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Resume</span>
+                            <p-sortIcon field="status"></p-sortIcon>
+                            <p-columnFilter type="text" field="status" display="status">
+                            </p-columnFilter>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr>
+                    <td class="wt_2rem" >
+                        <span class="ml-1"><p-tableRadioButton [value]="rowData"></p-tableRadioButton></span>
+                    </td>
+                    <td class="wt_12rem" >{{rowData.id}}</td>
+                    <td class="wt_12rem" >{{rowData.name}}</td>
+                    <td class="wt_12rem" >{{rowData.jobId}}</td>
+                    <td class="wt_12rem" >{{rowData.jobTitle}}</td>
+
+
+                    <td class="wt_12rem"  class="cursor-pointer"
+                        (click)="onShowPreview(rowData.documentId)"><span
+                            class="py-1 px-1 btn btn-outline-info" style="z-index: 9999999 !important;">
+                            preview
+                        </span></td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr *ngIf="isNoRecorsFound">
+                    <td colspan="6">No records found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+                <div *ngIf="prepareBatchDto.isChecked" class="row mt-2">
+                    <div class="col-md-3 text-right">Test Email</div>
+                    <div class="col-md-7"><input class="form-control" style="width: inherit;" type="text" name="email"
+                            #email="ngModel" [(ngModel)]="prepareBatchDto.email" required>
+                        <div *ngIf="email.errors  &&  submittedError" class="text-danger text-small">
+                            <div [hidden]="!email.errors.required">
+                                Email is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div *ngIf="this.mailcampaignType === 'Resume'" class="row mt-1">
+
+
+                    <div class="col-md-3 text-right"><span class="red-clr">* </span> Select Applicant</div>
+                    <div class="col-md-7 prepare-batch">
+                        <p-dropdown [options]="batch" [(ngModel)]="selectedApplicant" optionLabel="label"
+                            [filter]="true" filterBy="label" [showClear]="true" placeholder="Select a Applicant"
+                            name="applicantList">
+
+                        </p-dropdown>
+
+                        <button class="cursor-pointer resume-list" (click)="onShowResumeList()">Show Applicant
+                            List</button>
+                    </div>
+                </div> -->
+
+                <div *ngIf="this.mailcampaignType === 'New Face Sheet'" class="row mt-1">
+
+
+                    <div class="col-md-3 text-right"><span class="red-clr">* </span> Select Name</div>
+                    <div class="col-md-7 prepare-batch">
+                        <p-dropdown [options]="batch" [(ngModel)]="selectedfacesheet" optionLabel="label"
+                            [filter]="true" filterBy="label" [showClear]="true" placeholder="Select a name"
+                            name="facesheetLists" #facesheetLists="ngModel">
+
+                        </p-dropdown>
+
+                        <!-- <button class="cursor-pointer resume-list" (click)="onShowResumeList()">Show Applicant
+                            List</button> -->
+                    </div>
+                </div>
+                
+                <div *ngIf="this.mailcampaignType === 'Resume' && prepareBatchDto.isChecked" class="container">
+                   
+                    <div class="implicit-pag mt-4">
+                     
+                        <p-table #dt2 class="table-striped table-hover" (onFilter)="onFilter($event)" selectionMode="single"
+                        [(selection)]="selectedApplicant"  dataKey="siNo"
+                        [scrollable]="true" scrollDirection="both" [value]="jobListingData" [paginator]="true"
+                        [rows]="10" sortField="name" [sortOrder]="1"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        [globalFilterFields]="['siNo','jobTitle','location','datePosted']"
+                        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50,100,500]">
+                        <ng-template pTemplate="caption">
+                            <div class="p-d-flex search-icon m-2">
+                                <button
+                                    *ngIf="searchGlobalText || serialNo || jobTitle || location || datePosted"
+                                    (click)="clear(dt2)" pButton label="Clear Filters" id="custom-btn"
+                                    class="p-button-outlined" icon="pi pi-filter-slash"></button>
+                                <span class=" p-ml-auto search-baricon">
+                                    <i class="pi pi-search mt-1"></i>
+                                    <input pInputText type="text" class="form-control-35"
+                                        (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                        placeholder="Search keyword" [(ngModel)]="searchGlobalText" />
+                                </span>
+
+                                
+
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr class="corporate-tr">
+                                <th class="wt_2rem" ></th>
+                                <th pSortableColumn="siNo" class="corporation_name">
+                                    <div class="p-d-flex  p-ai-center">
+                                        <span class="ml-1">No.</span>
+                                        <p-sortIcon field="siNo"></p-sortIcon>
+                                        <p-columnFilter type="text" field="siNo" display="siNo">
+                                        </p-columnFilter>
+                                    </div>
+
+                                </th>
+                                <th pSortableColumn="jobTitle" class="corporation_email">
+                                    <div class="p-d-flex  p-ai-center">
+                                        <span class="ml-1">Job Title</span>
+                                        <p-sortIcon field="jobTitle"></p-sortIcon>
+                                        <p-columnFilter type="text" field="jobTitle" display="jobTitle">
+                                        </p-columnFilter>
+
+                                    </div>
+
+                                </th>
+                                <th pSortableColumn="location" class="corporation_phone">
+                                    <div class="p-d-flex  p-ai-center">
+                                        <span class="ml-1">Location</span>
+                                        <p-sortIcon field="location"></p-sortIcon>
+                                        <p-columnFilter type="text" field="location" display="location">
+                                        </p-columnFilter>
+
+                                    </div>
+
+                                </th>
+                                <th pSortableColumn="datePosted" class="corporation_address">
+                                    <div class="p-d-flex  p-ai-center">
+                                        <span class="ml-1">Date Posted</span>
+                                        <p-sortIcon field="datePosted"></p-sortIcon>
+                                        <p-columnFilter type="text" field="datePosted" display="datePosted">
+                                        </p-columnFilter>
+
+                                    </div>
+
+                                </th>
+                                
+
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-listingData>
+                            <tr  [ngClass]="{'red-clr_row': listingData.status === 2}">
+                                <td class="wt_2rem" >
+                                    <span class="ml-1"><p-tableRadioButton [value]="listingData" (click)="onJobSelect(listingData)"></p-tableRadioButton></span>
+                                </td>
+                                <td class="corporation_name">
+                                    <span class="ml-1">{{listingData.siNo}}</span>
+                                </td>
+                                <td class="corporation_email">
+                                        {{listingData.jobTitle}}</td>
+                                <td class="corporation_phone"> {{listingData.location}}</td>
+                                <td class="corporation_address">{{listingData.datePosted}}</td>
+                                
+                                
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr *ngIf="isNoRecorsFound">
+                                <td colspan="6">No records found.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    </div>
+                </div>
+                <div *ngIf="this.mailcampaignType === 'Contact Us'" class="row" style="margin-top: -60px;">
+                   <contact-details [prepareBatchDto]="prepareBatchDto" [mailCampaingId]="mailCampaingId"></contact-details>
+                </div>
+                
+            </fieldset>
+        </form>
+
+    </div>
+    <p-footer class="pFooter">
+        <button *ngIf="!hideSave" type="button" class="py-1 px-1 btn btn-primary" [disabled]="!prepareBatchForm.valid"
+            (click)="onSave()">Save</button>
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>
+
+<div *ngIf="displayResume">
+    <resume-list [displayResume]="displayResume" (displayChange)="oncloseResumeList($event)">
+
+    </resume-list>
+</div>
+
+<div *ngIf="displayFile">
+    <preview-file [displayFile]="displayFile" [documentId]="documentId" (displayFileChange)="onClosePreview($event)">
+
+    </preview-file>
+</div>
+
+<div *ngIf="showJobDetail" class="xyz">
+    <job-details [display]="showJobDetail" [isTesting]="isTesting" [mailCampaingId]="mailCampaingId" [testEmail]="testEmail" [listingData]="jobData" (displayChange)="onDetailDialogClose($event)">
+    </job-details>
+</div>
+
+<!-- <div *ngIf="contactDisplay" class="xyz">
+    <contact-test [contactDisplay]="contactDisplay" [isTesting]="isTesting" [mailCampaingId]="mailCampaingId" [testEmail]="testEmail"  (displayChange)="onHideContact($event)">
+    </contact-test>
+</div> -->

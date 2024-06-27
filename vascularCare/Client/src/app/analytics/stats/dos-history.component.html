@@ -1,0 +1,109 @@
+<ul class="nav nav-tabs customNav customDosNav" id="myTab" role="tablist">
+    <h4 class="card-title text-body" style="margin-top: 10px;margin-right: 0.5rem;">Stats</h4>
+    <li class="nav-item">
+        <a (click)="onGetDashboardData('previousDos')" #active class="nav-link active" id="corporation-tab" (click)="onActive()" data-toggle="tab" href="#corporation" role="tab" aria-controls="corporation" aria-selected="true">Previous
+            DOS
+            ({{previousDosData.previousDosDate}})</a>
+    </li>
+
+    <li class="nav-item">
+        <a (click)="onGetDashboardData(currentMonth)" #active1 class="nav-link" id="user-tab" data-toggle="tab" href="#corporation" role="tab" aria-controls="user" aria-selected="false">{{currentMonth}}
+            {{currentYear}}</a>
+    </li>
+    <li class="nav-item">
+        <a (click)="onGetDashboardData(previousMonth)" #active2 class="nav-link" id="user-tab" data-toggle="tab" href="#corporation" role="tab" aria-controls="user" aria-selected="false">{{previousMonth}}
+            {{previousYear}}</a>
+    </li>
+    <!-- <li class="nav-item">
+        <a (click)="onGetDashboardData(previousMonth)" #active2 class="nav-link" id="user-tab" data-toggle="tab" href="#corporation" role="tab" aria-controls="user" aria-selected="false">{{previousMonth}}
+            {{currentYear}}</a>
+    </li> -->
+    <li class="nav-item">
+        <a (click)="onGetDashboardData(currentYear)" #active3 class="nav-link" id="user-tab" data-toggle="tab" href="#corporation" role="tab" aria-controls="user" aria-selected="false"> Rolling Year</a>
+    </li>
+
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade in active" id="corporation" role="tabpanel" aria-labelledby="corporation-tab">
+        <hr class="mt-0">
+        <div class="row">
+            <div class="col-md-6 pl-6" style="padding-top: 14px !important;">
+                <div class="row mb-1 border border-complete complete-border">
+                    <div class="col-md-10 pl-1 pt-2 text-normal">
+                        Completed Appointments:
+                    </div>
+                    <div class="col-md-015 pt-2 text-normal  font-weight-bold complete-text" style="text-align: right;padding-right: 4px;">
+                        <span class="" style="text-align: right; ">{{previousDosData.completeCount}} </span>
+                    </div>
+                    <div class="col-md-005" *ngIf="!isCompleteCount" style="text-align: right; margin-top: 5px;">
+                        <img src="../../../assets/images/view.svg" style="height: 20px;width: 20px;" alt="viewIcon" class="cursor-pointer" title="View Appointments" (click)="showDialog('Complete', previousDosData.completeCount)" />
+                    </div>
+                </div>
+
+                <div class="pl-3">
+                    <div class="row mb-1 border border-consult consult-border">
+                        <div class="col-md-10 pl-1 pt-2 text-normal">
+                            Consultations:
+                        </div>
+                        <div class="col-md-015 pt-2 text-normal  font-weight-bold consult-text" style="text-align: right;padding-right: 4px;">
+                            <span class="" style="text-align: right; ">{{previousDosData.consultationsCount}} </span>
+                        </div>
+                        <div class="col-md-005" *ngIf="!isConsultation" style="text-align: right;margin-top: 5px;">
+                            <img src="../../../assets/images/view.svg" style="height: 20px;width: 20px;" alt="viewIcon" class="cursor-pointer" title="View Appointments" (click)="showDialog('Consultation', previousDosData.consultationsCount)" />
+                        </div>
+                    </div>
+                    <div class="row mb-1 border border-procedure procedure-border">
+                        <div class="col-md-10 pl-1 pt-2 text-normal">
+                            Procedures Performed:
+                        </div>
+                        <div class="col-md-015 pt-2 text-normal  font-weight-bold procedure-text" style="text-align: right;padding-right: 4px;">
+                            <span class="" style="text-align: right; ">{{previousDosData.procedureCount}} </span>
+                        </div>
+                        <div class="col-md-005" *ngIf="!isProcedureCount" style="text-align: right;margin-top: 5px;">
+                            <img src="../../../assets/images/view.svg" style="height: 20px;width: 20px;" alt="viewIcon" class="cursor-pointer" title="View Appointments" (click)="showDialog('Procedure', previousDosData.procedureCount)" />
+                        </div>
+                    </div>
+                    <div class="row mb-1 border ultrasound-border border-ultrasound">
+                        <div class="col-md-10 pl-1 pt-2 text-normal">
+                            Ultrasounds Performed:
+                        </div>
+                        <div class="col-md-015 pt-2 text-normal  font-weight-bold ultrasound-text" style="text-align: right;padding-right: 4px;">
+                            <span class="" style="text-align: right; ">{{previousDosData.ultrasoundsCount}} </span>
+                        </div>
+                        <div class="col-md-005" *ngIf="!isUltrasoundCount" style="text-align: right;margin-top: 5px;">
+                            <img src="../../../assets/images/view.svg" style="height: 20px;width: 20px;" alt="viewIcon" class="cursor-pointer" title="View Appointments" (click)="showDialog('Ultrasound', previousDosData.ultrasoundsCount)" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1 border warning-border  border-warning">
+                    <div class="col-md-10 pl-1 pt-2 text-normal">
+                        Rescheduled Appointments:
+                    </div>
+                    <div class="col-md-015 pt-2 text-normal  font-weight-bold text-warning" style="text-align: right;padding-right: 4px;">
+                        <span class="" style="text-align: right; ">{{previousDosData.rescheduledCount}} </span>
+                    </div>
+                    <div class="col-md-005" *ngIf="!isReseduleCount" style="text-align: right;margin-top: 5px;">
+                        <img src="../../../assets/images/view.svg" style="height: 20px;width: 20px;" alt="viewIcon" class="cursor-pointer" title="View Appointments" (click)="showDialog('Rescheduled', previousDosData.rescheduledCount)" />
+                    </div>
+                </div>
+                <div class="row mb-1 border danger-border   border-danger">
+                    <div class="col-md-10 pl-1 pt-2 text-normal">
+                        Cancelled Appointments:
+                    </div>
+                    <div class="col-md-015 pt-2 text-normal  font-weight-bold text-danger" style="text-align: right;padding-right: 4px;">
+                        <span class="" style="text-align: right; ">{{previousDosData.cancelledCount}} </span>
+                    </div>
+                    <div class="col-md-005" *ngIf="!isCancelCount" style="text-align: right;margin-top: 5px;">
+                        <img src="../../../assets/images/view.svg" style="height: 20px;width: 20px;" alt="viewIcon" class="cursor-pointer" title="View Appointments" (click)="showDialog('Cancelled', previousDosData.cancelledCount)" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6 px-3">
+                <analytics-doshistory-chart></analytics-doshistory-chart>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+label {
+    font-weight: 700;
+    font-variant: all-petite-caps!important;
+    color: #969696;
+    margin-bottom: 5px!important;
+}
+
+.form-row .form-control {
+    padding: 4px!important;
+    height: 31px!important;
+}
+
+.btn-outline-info:hover {
+    color: #fff !important;
+}
+
+.btn {
+    border-radius: 0px !important;
+}
+
+.text-info {
+    color: #049fda!important;
+}
+
+.p-datatable .p-datatable-tbody>tr>td {
+    font-family: 'Inter' !important;
+}

@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light z-index-10  custom-nav w-100 position-fixed">
+    <div class="d-flex">
+        <div class=" container navbar-brand brand">
+            <img style="height: 32px;"
+                src="https://static.wixstatic.com/media/1a18f1_e2433a18bb96479cb8b83aa265a72748~mv2.png/v1/fill/w_369,h_79,al_c,q_85,usm_0.66_1.00_0.01/MVP_Horizontal_2C_01.webp">
+        </div>
+        <button class="navbar-toggler humburger" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse collapse1 navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav custom-ul">
+            
+            
+          
+            <li *ngIf="isReferAPatientVisible" class="nav-item" (click)="showDialog()">
+                <a class="nav-link btn text-small mvpHoverBorder  btn-secondary text-uppercase mt-3 mt-lg-0 ml-lg-4 d-block d-lg-inline-block"
+                    style="
+                    color: #fff;
+                    padding: 4px;
+                    background-color: #da3458;
+                    border-color: #da3458;
+                    box-shadow: none!important;width: 140px;">Refer a Patient</a>
+            </li>
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle pt-0" href="#" id="navbarDocs"
+                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
+                        class="login-user">{{flName | uppercase}}</span></a>
+                <div class="dropdown-menu d-block d-lg-table" aria-labelledby="navbarDocs">
+                    <div class="row no-gutters d-flex d-lg-table-row flex-lg-nowrap mb-2">
+                        <div class="d-lg-table-cell col">
+                            <div class="row no-gutters d-lg-table-row">
+                                <div class="col">
+                                    <h6 class="dropdown-header text-uppercase pt-3 pb-2">{{user}} <span *ngIf="isDesignation">,</span> {{securityObject.designation}}
+                                    </h6>
+                                    <a [routerLink]="[ '/setting']"
+                                        class="dropdown-item pt-0 pb-1 d-flex align-items-center mb-2"
+                                        href="javascript:void(0)">
+                                        <span class="mr-3 icon-img"><img src="assets/themeIcons/cog-circle.svg"></span>
+                                        <span>Settings<small class="text-muted d-block mt-n1">
+                                                Manage settings</small> </span></a>
+                                    <a *ngIf = "isManagesiteVisible"
+                                        class="dropdown-item pt-0 pb-1 d-flex align-items-center mb-2"
+                                        [routerLink]="[ '/manage-site']">
+                                        <span class="mr-3 icon-img"><img
+                                                src="assets/themeIcons/wench-double.svg"></span><span>Manage Site<small
+                                                class="text-muted d-block mt-n1">Manage users</small> </span></a>
+                                    <a class="dropdown-item pt-0 pb-1 d-flex align-items-center mb-2"
+                                        href="javascript:void(0)">
+                                        <span class="mr-3 icon-img"><img src="assets/themeIcons/logout-1.svg">
+                                        </span><span (click)="logOut()">Log Out<small
+                                                class="text-muted d-block mt-n1">Return to MVP web
+                                                site</small> </span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

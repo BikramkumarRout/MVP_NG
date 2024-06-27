@@ -1,0 +1,116 @@
+<app-toast></app-toast>
+<app-spinner></app-spinner>
+<app-notification></app-notification>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()" [closable]="false" class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">{{header}}</h5>
+        <div class="custom-right">
+            <span class="float-right" type="button" (click)="onClose()">
+                <i class="pi pi-times mt-1 close-icon"></i>
+            </span>
+        </div>
+    </ng-template>
+    <ul class="nav nav-tabs customNav" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="Detail-tab" data-toggle="tab" href="#Detail" role="tab" aria-controls="Detail" aria-selected="true">Details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="permission-tab" data-toggle="tab" href="#permission" role="tab" aria-controls="permission" aria-selected="false">
+                Permissions</a>
+        </li>
+    </ul>
+    <div [class.divDisabled]="!isEditPermission" class="tab-content" id="myTabContent">
+        <div class="tab-pane fade in active" id="Detail" role="tabpanel" aria-labelledby="Detail-tab">
+            <div class="px-2 profile-container" id="user-input">
+                <form #corporateForm="ngForm" autocomplete="off">
+                    <fieldset>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Name <span class="text-danger text-small">*</span></label>
+                                <input [class.divDisabled]="isRoleAssigned" #name="ngModel" [(ngModel)]="roleDetail.name" type="text" placeholder="Enter Name" class="form-control" name="name" required />
+                                <div *ngIf="name.errors &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!name.errors.required">
+                                        Name is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Display Name <span class="text-danger text-small">*</span></label>
+                                <input type="text" [(ngModel)]="roleDetail.displayName" placeholder="Enter Display Name" class="form-control" #displayName="ngModel" name="displayName" required />
+                                <div *ngIf="displayName.errors &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!displayName.errors.required">
+                                        Display Name is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Role Description <span class="text-danger text-small">*</span></label>
+                                <input type="text" [(ngModel)]="roleDetail.roleDescription" placeholder="Enter Roles" class="form-control" #roleDescription="ngModel" name="roleDescription" required />
+                                <div *ngIf="roleDescription.errors &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!roleDescription.errors.required">
+                                        Role is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="tab-pane fade mb-10" id="permission" role="tabpanel" aria-labelledby="permission-tab">
+
+            <p-treeTable #tt [value]="listingData" class="table-striped table-hover" [paginator]="false" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['name','displayName']" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,50,100]"
+                [(selection)]="selections">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex search-icon m-2">
+
+                    </div>
+
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th ttSortableColumn="name">NAME
+                            <p-treeTableSortIcon field="name"></p-treeTableSortIcon>
+                        </th>
+
+                        <!-- <th ttSortableColumn="displayName">
+                            <span style="margin-left: -.7rem;">DISPLAY NAME</span>
+                            <p-treeTableSortIcon field="displayName"></p-treeTableSortIcon>
+                        </th> -->
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                    <tr [ttRow]="rowNode">
+
+                        <td>
+                            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                            {{rowData.name}}
+                        </td>
+                        <td></td>
+                        <!-- <td>{{rowData.displayName}}</td> -->
+
+                        <td>
+                            <!-- <div *ngIf="rowData.parentId != null">
+                                <p-checkbox name="rowData.name" id="showLinkedRisksOnlyChkBx" binary="true" [ngModel]="rowData.isGranted" (onChange)="checked(rowNode,$event,rowData)"></p-checkbox>
+                            </div> -->
+                            <p-dropdown [style]="{'width':'200px'}" [options]="permissionsDropdiwn" optionLabel="label" [(ngModel)]="rowData.permissionDetail"></p-dropdown>
+                        </td>
+                        <!-- <td></td> -->
+
+                    </tr>
+                </ng-template>
+            </p-treeTable>
+
+
+        </div>
+    </div>
+    <p-footer>
+        <button [class.divDisabled]="!isEditPermission" (click)="onSaveRole()" type="button" class="py-1 px-1 btn btn-primary">Save</button>
+        <button [class.divDisabled]="!isEditPermission" type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>

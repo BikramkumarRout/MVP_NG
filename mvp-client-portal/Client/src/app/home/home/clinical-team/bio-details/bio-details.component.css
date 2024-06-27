@@ -1,0 +1,50 @@
+
+/* .team-single .entry-table .table td .content .experties-list li {
+    margin-bottom: 14px;
+    list-style: circle !important;
+} */
+
+
+.team-more a {
+    height: 42px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--global--color-secondary);
+    font-family: var(--global--font-secondary);
+    text-transform: capitalize;
+    -webkit-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    border-radius: 8px 8px 0 8px !important;
+}
+ .team-more a {
+    margin-top: 14px;
+    width: 100px !important;
+    justify-content: center !important;
+    background-color: var(--global--color-secondary);
+    color: var(--global--color-white);
+}
+
+ .team-more a:hover {
+    color: var(--global--color-white);
+    background-color: var(--global--color-secondary);
+    padding: 0 13px 0 15px;
+}
+
+  .btn-line .line::after {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 0;
+    font-size: 10px;
+    content: '\e91a' !important;
+    font-family: 'primeicons'; 
+  }

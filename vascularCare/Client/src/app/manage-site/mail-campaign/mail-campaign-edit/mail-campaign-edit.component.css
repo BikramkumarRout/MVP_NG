@@ -1,0 +1,32 @@
+.form-control:disabled, .form-control[readonly] {
+    background-color: #e9ecef !important;
+    opacity: 1;
+}
+
+.input-group-text {
+    background-color: #fff !important;
+}
+
+.form-control {
+    line-height: 1.5;
+    border-radius: 0px !important;
+}
+
+
+.input-group {
+    flex-wrap: initial !important;
+    width: 58.3333333333% !important;
+}
+
+textarea {
+    background-color: #fff !important;
+    border: 2px solid #eee;
+}
+
+.p-dialog .p-dialog-header-icons {
+    align-items: center;
+    display: flex;
+    position: absolute;
+    right: 24px;
+    margin-top: -1px;
+}

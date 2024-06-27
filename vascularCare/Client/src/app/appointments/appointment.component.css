@@ -1,0 +1,29 @@
+
+
+.table-footer {
+    background-color: #dee2e6;
+    height: 34px;
+}
+
+.pi-search:before {
+    font-size: 1.3rem !important;
+}
+
+.p-table th {
+    background: white;
+    position: sticky;
+    top: 0; /* Don't forget this, required for the stickiness */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+  }
+
+  th, td {
+    padding: 0.25rem;
+  }
+
+  table {
+    text-align: left;
+    position: relative;
+    border-collapse: collapse; 
+  }
+
+  

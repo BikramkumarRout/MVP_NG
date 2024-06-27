@@ -1,0 +1,357 @@
+<app-toast></app-toast>
+<app-spinner></app-spinner>
+<app-notification></app-notification>
+<form #userForm="ngForm" autocomplete="false" novalidate>
+    <p-dialog [(visible)]="display" [closable]="false" modal="modal" [transitionOptions]="'3ms'" [responsive]="true"
+        (onHide)="onClose()" class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true"
+        [resizable]="true" [contentStyle]="{height: '550px'}">
+
+
+        <ng-template pTemplate="header">
+            <h5 class="m-0 font-weight-bold">{{header}} </h5>
+            <div class="custom-right">
+                <span class="float-right" type="button" (click)="onClose()">
+                    <i class="pi pi-times mt-1 close-icon"></i>
+                </span>
+            </div>
+        </ng-template>
+
+        <div>
+
+            <ul class="nav nav-tabs customNav" role="tablist">
+
+                <li (click)="onUserDetails()" class="nav-item">
+                    <a class="nav-link active" id="UserDetail-tab" data-toggle="tab" href="#UserDetail" role="tab"
+                        aria-controls="UserDetail" aria-selected="false">
+                        User Details</a>
+
+                    <!-- <a href="#UserDetail" class="nav-link" [ngClass]="isUserDetails?'active font-weight-bold text-info':''">User Details</a> -->
+                </li>
+                <li (click)="onUserRoles()" class="nav-item">
+                    <a class="nav-link" id="mangeRole-tab" data-toggle="tab" href="#mangeRoleDetail" role="tab"
+                        aria-controls="mangeRoleDetail" aria-selected="false">
+                        User Roles</a>
+
+                </li>
+
+            </ul>
+
+        </div>
+        <div [class.divDisabled]="!isEditPermission" class="px-2 profile-container" id="user-input">
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade in active" id="UserDetail" role="tabpanel" aria-labelledby="UserDetail-tab">
+
+                    <div id="UserDetail">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">First Name<span class="text-danger text-small">*</span></label>
+                                <input type="text" autocomplete="off" class="form-control"
+                                    placeholder="Enter First Name" name="firstName" #firstName="ngModel"
+                                    [(ngModel)]="userDetail.firstName" required />
+
+                                <div *ngIf="firstName.errors &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!firstName.errors.required">
+                                        First name is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Last Name <span
+                                        class="text-danger text-small">*</span></label>
+                                <input type="text" class="form-control" placeholder="Enter Last Name" name="lastName"
+                                    #lastName="ngModel" [(ngModel)]="userDetail.lastName" required />
+                                <div *ngIf="lastName.errors  &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!lastName.errors.required">
+                                        Last name is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Email<span class="text-danger text-small">*</span></label>
+                                <input type="email" autocomplete="none"
+                                    onfocus="this.setAttribute('autocomplete', 'none');" class="form-control"
+                                    placeholder="Enter Email" name="email" #email="ngModel"
+                                    [(ngModel)]="userDetail.email" required (blur)="onEmailMatch()"
+                                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" />
+                                <span class="text-danger text-small" *ngIf="emailExists">Email Id is taken. Try
+                                    another.</span>
+                                <div *ngIf="email.errors  &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!email.errors.required">
+                                        Email is required
+                                    </div>
+                                    <div [hidden]="!email.errors.pattern">
+                                        Please enter valid email.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Phone Number<span
+                                        class="text-danger text-small">*</span></label>
+                                <input type="text" phoneMask class="form-control" placeholder="(xxx) xxx-xxxx"
+                                    minlength="10" maxlength="14" name="phone" #phone="ngModel"
+                                    [(ngModel)]="userDetail.phoneNumber" required />
+
+                                <div *ngIf="phone.errors  &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!phone.errors.required">
+                                        Phone no. required
+                                    </div>
+                                    <div [hidden]="!phone.errors.minlength">
+                                        Please enter atleast a 10 digit no.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Password<span class="text-danger text-small">*</span></label>
+                                <input type="password" autocomplete="none"
+                                    onfocus="this.setAttribute('autocomplete', 'none');" class="form-control"
+                                    placeholder="Enter Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                                    name="password" #password="ngModel" [(ngModel)]="userDetail.password" required />
+                                <div *ngIf="password.errors  &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!password.errors.required">
+                                        Password is required
+                                    </div>
+                                    <div [hidden]="!password.errors.pattern">
+                                        Password must contain at least one lowercase, uppercase, numeric & special
+                                        character
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Confirm Password<span
+                                        class="text-danger text-small">*</span></label>
+                                <input type="password" class="form-control"
+                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" placeholder="Re-enter Password"
+                                    required name="validaconfirmPassword" #validaconfirmPassword="ngModel"
+                                    [(ngModel)]="confirmPassword" />
+                                <span class="text-danger text-small"
+                                    *ngIf="validaconfirmPassword.errors?.required &&  submittedError">
+                                    Confirm password is required
+                                </span>
+                                <span class="text-danger text-small"
+                                    *ngIf="password.value !== validaconfirmPassword.value &&  submittedError">
+                                    Password not matched
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputAddress">Address <span class="text-danger text-small">*</span></label>
+                                <input type="text" class="form-control" placeholder="Enter Address" name="address"
+                                    #address="ngModel" [(ngModel)]="userDetail.address" required />
+                                <div *ngIf="address.errors  &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!address.errors.required">
+                                        Address is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">City <span class="text-danger text-small">*</span></label>
+                                <input type="text" placeholder="Enter City" class="form-control" name="city"
+                                    #city="ngModel" [(ngModel)]="userDetail.city" required>
+                                <div *ngIf="city.errors  &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!city.errors.required">
+                                        City is required
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6 corporate">
+                                <label for="inputAddress">State <span class="text-danger text-small">*</span></label>
+                                  <div class="top-margin">
+                                      <p-dropdown [options]="stateList" defaultLabel="Select State" name="state" #state="ngModel" [(ngModel)]="userState" optionLabel="name" >
+                                      </p-dropdown>
+                                  </div>
+                                  <div *ngIf="state.errors  &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!state.errors.required">
+                                        State is required
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label for="inputZip">Zipcode<span class="text-danger text-small">*</span></label>
+                                <input type="number" placeholder="Enter Zipcode" class="form-control" name="zip"
+                                    #zip="ngModel" [(ngModel)]="userDetail.zipCode" required minlength="5"
+                                    pattern="[0-9]{5}" onKeyPress="if(this.value.length==5) return false;" />
+                                <div *ngIf="zip.errors &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!zip.errors.required">
+                                        Zipcode is required
+                                    </div>
+                                    <div [hidden]="!zip.errors.pattern">
+                                        Enter a 5 digit valid zip
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <input class="user-checkbox" type="checkbox" checked name="isActive" #isActive="ngModel"
+                                    [(ngModel)]="active" />
+                                <label class="mt-3">Is Active</label>
+                                <span class="text-danger text-small ml-5"
+                                    *ngIf="isActive.errors?.required &&  submittedError">
+                                    Field is required
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputAddress">Designation <span class="text-danger text-small">*</span></label>
+                                <input type="text" class="form-control" placeholder="Enter Designation" name="designation"
+                                    #designation="ngModel" [(ngModel)]="userDetail.designation" required maxlength="100"/>
+                                <div *ngIf="designation.errors  &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!designation.errors.required">
+                                        Designation is required
+                                    </div>
+                                </div>
+                            </div>
+                           
+
+                        </div>
+                        <div *ngIf="!isMVPUser" class="form-row">
+                            <div *ngIf="superUserRole.role == 'SuperUser'" class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="userRoles" id="Mvp Adminstrative"
+                                    value="MVPAdministrative" (change)="onSelectedRole($event.target.value)"
+                                    name="userRole" #userRole="ngModel" [(ngModel)]="userDetail.userRolename" required>
+                                <label class="form-check-label" for="Mvp Adminstrative">Mvp Adminstrative</label>
+
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="userRoles" id="Corporate"
+                                    value="Corporate" (change)="onSelectedRole($event.target.value)" name="userRole"
+                                    #userRole="ngModel" [(ngModel)]="userDetail.userRolename" required>
+                                <label class="form-check-label" for="Corporate">Corporate</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="userRoles" id="Facility"
+                                    value="Facility" (change)="onSelectedRole($event.target.value)" name="userRole"
+                                    #userRole="ngModel" [(ngModel)]="userDetail.userRolename" required>
+                                <label class="form-check-label" for="Facility">Facility</label>
+                            </div>
+                            <div class="text-danger text-small"
+                                *ngIf="userRole.errors?.required &&  submittedError && role != 'MvpAdminstrative' && userDetail.id == 0">
+                                User role is required
+                            </div>
+                        </div>
+
+                        <div class="form-row mt-1 mb-8">
+                            <div class="form-group col-md-6 corporate" *ngIf="role == 'Corporate'">
+                                <label for="inputPassword4">Corporations</label>
+                                <div class="top-margin">
+                                    <p-dropdown [options]="corporateList" [(ngModel)]="corporation"
+                                        placeholder="Select a Corporation" defaultLabel="Select a Corporation"
+                                        optionLabel="name" name="corporates" #corporates="ngModel"
+                                        (onChange)="onCorporateChange()">
+                                    </p-dropdown>
+                                </div>
+
+                                <div *ngIf="submittedError1" class="text-danger text-small">
+                                    Corporation and it's facilities required.
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6" *ngIf="role == 'Corporate'">
+                                <label for="inputPassword4">Facilities</label>
+                                <p-multiSelect [options]="facilityList" [(ngModel)]="selectedFacilities"
+                                    defaultLabel="Select a facility" optionLabel="name" display="chip" appendTo="body"
+                                    name="corporatesFacility" #corporatesFacility="ngModel"
+                                    (onChange)="onChange($event)">
+                                </p-multiSelect>
+
+                                <div *ngIf="submittedError2" class="text-danger text-small">
+                                    Facility is required.
+                                </div>
+                                <div *ngIf="selectedFacilities && selectedFacilities.length <= 0 &&  submittedError"
+                                    class="text-danger text-small">
+                                    <div [hidden]="selectedFacilities && selectedFacilities.length >= 1">
+                                        Facility is required.
+                                    </div>
+                                </div>
+                                <div *ngIf="selectedFacilities && selectedFacilities.length > 0"
+                                    class="custom-scroll mt-2">
+                                    <div>
+                                        <div *ngFor="let option of selectedFacilities" class="multi-select form-group">
+                                            <div>
+                                                {{option.name}}
+                                                <span
+                                                    class="p-multiselect-token-icon pi pi-times-circle ng-tns-c100-4 ng-star-inserted"
+                                                    (click)="onChange(null, true,option)"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6" *ngIf="role == 'Facility'">
+                                <label for="inputPassword4">Facilities</label>
+                                <p-multiSelect [options]="facilityList" [(ngModel)]="selectedFacilities"
+                                    defaultLabel="Select a facility" optionLabel="name" display="chip" appendTo="body"
+                                    name="facilities" #facilities="ngModel" (onChange)="onChange($event)"
+                                    selectionLimit='1'>
+
+                                </p-multiSelect>
+                                <div *ngIf="selectedFacilities && selectedFacilities.length <= 0 &&  submittedError"
+                                    class="text-danger text-small">
+                                    <div [hidden]="selectedFacilities && selectedFacilities.length >= 1">
+                                        Facility is required.
+                                    </div>
+                                </div>
+                                <div *ngIf="selectedFacilities && selectedFacilities.length > 0"
+                                    class="custom-scroll1  col-md-6 mt-2">
+                                    <div>
+                                        <div *ngFor="let option of selectedFacilities" class="multi-select form-group">
+                                            <div>
+                                                {{option.name}}
+                                                <span
+                                                    class="p-multiselect-token-icon pi pi-times-circle ng-tns-c100-4 ng-star-inserted"
+                                                    (click)="onChange(null, true,option)"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+                <div class="tab-pane fade row-fluid" id="mangeRoleDetail" role="tabpanel"
+                    aria-labelledby="mangeRole-tab">
+
+                    <div *ngFor="let role of roles; let i = index" class="p-field-checkbox">
+
+                        <p-checkbox name="group2" value="role" [value]="role" [(ngModel)]="selectedRoles"
+                            [inputId]="role.id">
+                        </p-checkbox>
+
+                        <label [for]="role.id">{{role.displayName}}</label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <p-footer>
+            <button type="submit" [class.divDisabled]="!isEditPermission" class="py-1 px-1 btn btn-primary"
+                (click)="onSave()">Save</button>
+            <button type="button" [class.divDisabled]="!isEditPermission" class=" py-1 px-1 btn btn-outline-info"
+                (click)="onClose()">Close</button>
+
+        </p-footer>
+
+    </p-dialog>
+</form>

@@ -1,0 +1,116 @@
+<app-toast></app-toast>
+<app-spinner></app-spinner>
+<app-notification></app-notification>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    [closable]="false" class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true"
+    [resizable]="true" [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">{{header}}</h5>
+        <div class="custom-right">
+            <span class="float-right" type="button" (click)="onClose()">
+                <i class="pi pi-times close-icon"></i>
+            </span>
+        </div>
+    </ng-template>
+    <div [class.divDisabled]="!isEditPermission" class="px-2 profile-container" id="user-input">
+        <form #corporateForm="ngForm" novalidate autocomplete="off">
+            <fieldset>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Name <span class="text-danger text-small">*</span></label>
+                        <input type="text" placeholder="Enter Name" class="form-control" name="displayName" required
+                            #displayName="ngModel" [(ngModel)]="corporationDetail.name" />
+                            <pm-validation-errors class="text-danger text-small" *ngIf="displayName.errors  &&  submittedError"  [formCtrl]="displayName" [text]="'Name'"  ></pm-validation-errors>
+                        <!-- <div *ngIf="displayName.errors  &&  submittedError" class="text-danger text-small">
+                            <div [hidden]="!displayName.errors.required">
+                                Name is required
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Address <span class="text-danger text-small">*</span></label>
+                        <input type="text" placeholder="Enter Address" class="form-control" name="address"
+                            #address="ngModel" [(ngModel)]="corporationDetail.address" required />
+                            <pm-validation-errors class="text-danger text-small" *ngIf="address.errors  &&  submittedError"  [formCtrl]="address" [text]="'Address'"  ></pm-validation-errors>
+
+                        <!-- <div *ngIf="address.errors  &&  submittedError" class="text-danger text-small">
+                            <div [hidden]="!address.errors.required">
+                                Address is required
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Email <span class="text-danger text-small">*</span></label>
+                        <input type="email" placeholder="Enter Email" class="form-control" name="email" #email="ngModel"
+                            [(ngModel)]="corporationDetail.email" required (keyup)="emailMatch()"
+                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" />
+                        <span class="text-danger text-small" *ngIf="emailExists ">Email Id is taken. Try another.</span>
+                        <pm-validation-errors class="text-danger text-small" *ngIf="email.errors  &&  submittedError"  [formCtrl]="email" [text]="'Email'"  ></pm-validation-errors>
+                        <!-- <div *ngIf="email.errors  &&  submittedError" class="text-danger text-small">
+                            <div [hidden]="!email.errors.required">
+                                Email is required
+                            </div>
+                            <div [hidden]="!email.errors.pattern">
+                                Please enter a valid email
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Phone Number <span class="text-danger text-small">*</span></label>
+                        <input type="tel" phoneMask class="form-control" placeholder="(xxx) xxx-xxxx" maxlength="14"
+                            minlength="14" name="phone" #phone="ngModel" [(ngModel)]="corporationDetail.phone" autocomplete="none"
+                            onfocus="this.setAttribute('autocomplete', 'none');"
+                            required />
+                            <pm-validation-errors class="text-danger text-small" *ngIf="phone.errors  &&  submittedError"  [formCtrl]="phone" [text]="'Phone no.'"  ></pm-validation-errors>
+                        <!-- <div *ngIf="phone.errors &&  submittedError" class="text-danger text-small">
+                            <div [hidden]="!phone.errors.required">
+                                Phone no. is required.
+                            </div>
+                            <div [hidden]="!phone.errors?.minlength">
+                                Please enter atleast a 10 digit no.
+                            </div>
+                            
+                        </div> -->
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6 facility">
+                        <label>Facilities <span class="text-danger text-small">*</span></label>
+                        <p-multiSelect #filter required [options]="facilityList" [(ngModel)]="selectedFacilities"
+                            defaultLabel="Select a facility" optionLabel="name" display="chip" appendTo="body"
+                            name="facilities" #facilities="ngModel" (onChange)="onChange($event)">
+
+                        </p-multiSelect>
+                <!-- <pm-validation-errors class="text-danger text-small" *ngIf="facilities.errors  &&  submittedError"  [formCtrl]="facilities" [text]="'Facility'"  ></pm-validation-errors> -->
+
+                        <div *ngIf="selectedFacilities.length <= 0 &&  submittedError" class="text-danger text-small mt-3">
+                            <div [hidden]="selectedFacilities && selectedFacilities.length >= 1">
+                                Facility is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="selectedFacilities.length > 0" class="col-md-6 custom-scroll">
+                    <div>
+                        <div *ngFor="let option of selectedFacilities" class="multi-select form-group">
+                            <div>
+                                {{option.name}}
+                                <span class="p-multiselect-token-icon pi pi-times-circle ng-tns-c100-4 ng-star-inserted"
+                                    (click)="onChange(null, true,option)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+    <p-footer class="pFooter">
+        <button [class.divDisabled]="!isEditPermission" type="button" class="py-1 px-1 btn btn-primary" (click)="save()"
+            [disabled]="!corporateForm.dirty">Save</button>
+        <button [class.divDisabled]="!isEditPermission" type="button" class=" py-1 px-1 btn btn-outline-info"
+            (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>

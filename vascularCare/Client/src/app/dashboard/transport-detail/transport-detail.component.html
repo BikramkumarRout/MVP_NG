@@ -1,0 +1,162 @@
+<p-dialog [(visible)]="displayTransportPopUp" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()" class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Confirm Details</h5>
+    </ng-template>
+    <div>
+        Transportation Details
+        <hr>
+    </div>
+    <div class="container">
+        <form #transportDetailsForm="ngForm" autocomplete="off">
+            <div style="margin-left: 1.4rem !important;">
+                <div class="row mb-2">
+                    <div class="col-md-12 col-lg-12 px-2">
+                        <div class="d-flex">
+                            <label class="mr-5 custom-right" id="chkLbl">Confirming Appointment<span
+                                    class="text-danger text-small">*</span></label>
+                            <input type="checkbox" name="isConfirmed" required #isConfirmed="ngModel" [(ngModel)]="transportDetail.isConfirmed" />
+
+                            
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div *ngIf="isConfirmed.errors  &&  submittedError" class="text-danger ml-10 text-small" style="margin-top: -27px;">
+                    <div [hidden]="!isConfirmed.errors.required">
+                        Confirmation is required
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6 col-lg-6 px-2 mb-2">
+                        <div class="d-flex">
+                            <label class="mr-5 custom-right">Level Of Service<span
+                                    class="text-danger text-small">*</span></label>
+                            <select id="levelOfService" name="levelOfService" required #levelOfService="ngModel" [(ngModel)]="transportDetail.levelOfService" (change)="selected($event)">
+                                <option>Choose a Service</option>
+                                <option value=0>Wheelchair</option>
+                                <option value=1>ALS</option>
+                                <option value=2>BLS</option>
+
+                            </select>
+                           
+
+                        </div>
+                    </div>
+                    
+                    <div *ngIf="isEscort" class="col-md-12 col-lg-12 px-2">
+                        <div class="d-flex">
+                            <label class="mr-5 custom-right">Should MVP Provide an Escort?<span
+                                    class="text-danger text-small">*</span></label>
+                            <select id="isEscort" name="isEscort" required #isEscort="ngModel" [(ngModel)]="transportDetail.escortService">
+                                <option>Choose a Service</option>
+                                <option value=0>Yes</option>
+                                <option value=1>No</option>
+
+
+                            </select>
+                            <div *ngIf="submittedError1" class="text-danger text-small ml-4" style="margin-top: -17px;">
+                                Service is required
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="submittedError1" class="text-danger text-small ml-10">
+                    Level of service is required
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 px-2 ">
+                        <div class="d-flex">
+                            <label class="mr-5 custom-right">Arrival Time (EST)<span
+                                    class="text-danger text-small">*</span></label>
+                            <input type="time" name="arrivalTime" name="arrivalTime" required #arrivalTime="ngModel" [(ngModel)]="transportDetail.arrivalTime" />
+
+
+                            <div>
+                                <label class="ml-1">[Appointment is at {{time}} on {{arrivalDate}}]</label>
+                            </div>
+                        </div>
+                        <div *ngIf="arrivalTime.errors  &&  submittedError" class="text-danger text-small error-mr">
+                            <div [hidden]="!arrivalTime.errors.required" style="margin-top: 7px;">
+                                Arrival Time is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <strong>Ordering Person</strong>
+            <hr class="mt-1">
+
+            <div class="row mb-2">
+                <div class="col  px-2 ">
+                    <div class="d-flex">
+                        <label class="col-md-2 col-lg-2 custom-right">Name<span
+                                class="text-danger text-small">*</span></label>
+                        <input type="text" disabled class="form-control col-md-10 col-lg-10" name="name" required #name="ngModel" [(ngModel)]="transportDetail.name" />
+
+
+                    </div>
+                    <div *ngIf="name.errors  &&  submittedError" class="text-danger error-mr1 text-small">
+                        <div [hidden]="!name.errors.required">
+                            Name is required
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mb-2">
+                <div class="col  px-2 ">
+                    <div class="d-flex">
+                        <label class="col-md-2 col-lg-2 custom-right">Phone<span
+                                class="text-danger text-small">*</span></label>
+                        <input type="text" phoneMask placeholder="(xxx) xxx-xxxx" maxlength="14" minlength="10" class="form-control col-md-10 col-lg-10" name="phone" required #phone="ngModel" [(ngModel)]="transportDetail.phone" />
+                    </div>
+                    <div *ngIf="phone.errors  &&  submittedError" class="text-danger error-mr1 text-small">
+                        <div [hidden]="!phone.errors.required">
+                            Phone is required
+                        </div>
+                        <div [hidden]="!phone.errors.minlength">
+                            Please enter atleast a 10 digit no.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col px-2 ">
+                    <div class="d-flex">
+                        <label class="col-md-2 col-lg-2 custom-right">Phone Ext</label>
+                        <input type="text" (keypress)="numberOnly($event)" class="form-control col-md-10 col-lg-10" name="phoneExt" #phoneExt="ngModel" [(ngModel)]="transportDetail.phoneExt">
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col  px-2 ">
+                    <div class="d-flex">
+                        <label class="col-md-2 col-lg-2 custom-right">Floor</label>
+                        <input type="text" class="form-control col-md-10 col-lg-10" name="floor" #floor="ngModel" [(ngModel)]="transportDetail.floor">
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col px-2">
+                    <div class="d-flex">
+                        <label class=" col-md-2 col-lg-2 custom-right" style="padding-left: 0px !important;">Transportation Note</label>
+                        <textarea class="col-md-10 col-lg-10" name="" id="" cols="200" rows="2" name="note" #note="ngModel" [(ngModel)]="transportDetail.note"></textarea>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+    <p-footer class="pFooter">
+        <button type="submit" class="py-1 px-2 btn btn-primary" (click)="onSave()" [disabled]="!transportDetailsForm.dirty">Save</button>
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Cancel</button>
+    </p-footer>
+</p-dialog>

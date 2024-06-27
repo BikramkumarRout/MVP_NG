@@ -1,0 +1,87 @@
+.dialog-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+    opacity: 0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    display: none;
+}
+
+.inActive {
+    display: none;
+}
+
+#confirmationModal {
+    display: inline-block !important;
+    opacity: 1;
+    z-index: 1100;
+}
+
+.dialog-container .modal-content {
+    border-radius: .3rem !important;
+    background-clip: unset !important;
+    border: none !important;
+}
+
+.dialog-container .modal-header {
+    padding-top: .5rem !important;
+    height: 40px !important;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+
+.dialog-container .modal-footer {
+    height: 48px !important;
+    padding-top: 2px !important;
+}
+
+.btn {
+    width: auto !important;
+    height: auto !important;
+}
+
+.btn-primary{
+    background-color: #000;
+}
+
+
+.btn-primary:hover{
+    background-color: #000;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active {
+    background-color: #000;
+  
+}
+  h5 {
+    font-size: 1rem;
+}
+ h5 {
+    font-weight: 900;
+    line-height: 1.4;
+    margin-top: 0;
+    color: #fff !important;
+}
+div{
+    color: #000;
+}
+
+.bg-info {
+    background-color: #17a2b8!important;
+}
+
+/* .btn-outline-info {
+    border: 1px solid !important;
+}
+
+.btn{
+    margin: 0 0.5rem 0 0 !important;
+    width: auto !important;
+    border: 1px solid !important;
+} */

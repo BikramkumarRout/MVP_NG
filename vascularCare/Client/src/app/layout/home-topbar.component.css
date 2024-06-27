@@ -1,0 +1,29 @@
+.navbar-nav .nav-link {
+    padding-right: 8px !important;
+    padding-left: 0 !important;
+    font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif !important;
+}
+
+.btn {
+    font-weight: 700 !important;
+}
+
+.careerActive{
+    color: #13c5dd !important;
+}
+.header .navbar .navbar-nav > li {
+    margin-right: 7px !important;
+}
+
+.navbar .pi {
+    font-size: 19px;
+    color: #000 !important;
+    position: relative;
+    top: 2px;
+}
+
+.navbar .pi:hover {
+    color: #049fda !important;
+  
+}
+

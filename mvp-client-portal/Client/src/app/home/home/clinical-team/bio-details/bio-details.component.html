@@ -1,0 +1,138 @@
+<app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual>
+<!-- <app-spinner></app-spinner> -->
+<section *ngIf="this.isDisplay" class="banner-section-bio">
+  <div class="container">
+    <div class="row">
+      <div class="bio-col">
+
+        <div class="col-12 col-lg-12">
+          <div class="bio-image-section">
+            <div class="image-panel"><img [src]="safeUrl" alt="">
+          </div>
+            <div class="banner_text">
+              <div  class="center-panel eric-text">
+
+                <div class="text-panel">{{bioData.name}}</div>
+                <h4>{{bioData.designation}}</h4>
+                <p [innerHTML]="bioData.description"> </p>
+
+              </div>
+            </div>
+            <div class="mvg-logo-rounded team-more">
+              <a (click)="goBackToListing()" type="button" title="Go back to listing" class="btn-line btn-line-inversed btn-line-before" href="javascript:void(0)"> <span
+                                        class="line"> <span></span></span><span>Back
+                                        </span></a>
+              <!-- <button (click)="goBackToListing()" type="button" title="Go back to listing" class="px-1 btn btn-info goback_to_clinical">Go Back</button> -->
+              <img src="assets/images/mvp-stamp-transparent.svg"  class="mt-2" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section  *ngIf="this.isDisplay" class="team-single team-single-standard teaminfosection">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-12 col-lg-12">
+
+        <div class="entry-table">
+          <table class="table table-striped">
+            <tbody>
+              <tr *ngIf="bioData.residency">
+                <td>
+                  <div class="content head">Residency: </div>
+                </td>
+                <td>
+                  <div class="content head-list-right">
+                    <ul class="list-unstyled experties-list in-list">
+                      <span [innerHTML]="bioData.residency"></span>
+
+
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="bioData.education">
+                <td class="mt-4">
+                  <div class="content head">Education: </div>
+                </td>
+                <td>
+                  <!-- <div class="content" ></div> -->
+                  <div class="content head-list-right">
+                    <ul class="list-unstyled experties-list in-list education">
+                       <span [innerHTML]="bioData.education"></span>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <!-- <tr>
+                  <td>
+                    <div class="content head head-list-left">Residency:</div>
+                  </td>
+                  <td>
+                    <div class="content head-list-right">
+                      <ul class="list-unstyled experties-list in-list">
+                        <li><i class="fas fa-check"></i> sdfsdfds</li>
+                        <li><i class="fas fa-check"></i> sdfsdfds</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr> -->
+              <tr *ngIf="bioData.speciality">
+                <td>
+                  <div class="content head head-list-left">Speciality</div>
+                </td>
+                <td>
+                  <div class="content head-list-right spe-list">
+                    <ul class="list-unstyled experties-list">
+                      <span [innerHTML]="bioData.speciality"></span> 
+                      <!-- <li><i class="fas fa-check"></i> Family Education </li>
+                        <li><i class="fas fa-check"></i> Managing Psychosocial Complications </li> -->
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="bioData.fellowship">
+                <td>
+                  <div class="content head head-list-left">Fellowship:</div>
+                </td>
+                <td>
+                  <div class="content head-list-right">
+                    <ul class="list-unstyled experties-list">
+                      <span [innerHTML]="bioData.fellowship"></span>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="bioData.hosAndClinicAff">
+                <td>
+                  <div class="content head head-list-left">Hospital and Clinic
+                    Affiliations:</div>
+                </td>
+                <td>
+                  <div class="content head-list-right">
+                    <ul class="list-unstyled experties-list chief-col">
+                      <span [innerHTML]="bioData.hosAndClinicAff"></span>
+                      
+                      <!-- <li><i class="fas fa-check"></i> Memorial Sloan Kettering
+                          Cancer Center, New York, NY,
+                          Clinical Nurse </li> -->
+
+
+                    </ul>
+
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+

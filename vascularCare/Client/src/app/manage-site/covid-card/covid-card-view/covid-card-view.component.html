@@ -1,0 +1,28 @@
+<app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual>
+<p-dialog id="covidPopup" [(visible)]="displayCovidPrintIcon" modal="modal"
+    [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()" class="alert alert-info"
+    [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true" [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Covid-19 Vaccination Card : {{listing.primaryProvider}}</h5>
+        <!-- <div class="custom-right">
+            <span class="float-right" type="button" (click)="onClose()">
+                <i class="pi pi-times mt-1 close-icon"></i>
+            </span>
+        </div> -->
+    </ng-template>
+    <div id="viewCard">
+        <div class="text-left h-100 w-100">
+            <span *ngIf="isExist">
+                <!-- <img class="img" [src]="safeUrl" style="height: 505px; width: 500px;"> -->
+                <iframe  class="overview-video" [src]="safeUrl" width="100%" height="500px" frameBorder="0" scrolling="no">
+                </iframe>
+            </span>
+        </div>
+
+    </div>
+    <p-footer class="pFooter">
+        <button type="submit" class="py-1 px-1 btn btn-primary" (click)="onPrint()">Print</button>
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+
+    </p-footer>
+</p-dialog>

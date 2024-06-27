@@ -1,0 +1,130 @@
+<p-dialog [(visible)]="displayVcc" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true"
+    [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">{{facilityName}} </h5>
+    </ng-template>
+    <div class="col-md-12 custom-page" style="left: -1.8%;">
+        <h2>Upcoming Appointments at VCC</h2>
+    </div>
+    <div class="implicit-pag mt-4">
+        <p-table class="table-striped table-hover" #dt1 [value]="vccAppointmentList" [paginator]="true" [rows]="10"
+            [showCurrentPageReport]="true" (onFilter)="onFilter($event)"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['patient','provider','date','status','location']"
+            [rowsPerPageOptions]="[10,25,50,100,500]" sortField="patient" [sortOrder]="1">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex search-icon m-2">
+                    <button *ngIf="searchGlobalText || statusFilter || providerFilter || patientFilter
+                                        || locationFilter || dateFilter" pButton label="Clear Filters" id="custom-btn"
+                        class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="dt1.filterGlobal($event.target.value, 'contains')" (click)="onClear(dt1)"></button>
+                    <span class="search-baricon p-ml-auto">
+                        <i class="pi pi-search" id="search-pi"></i>
+                        <input pInputText type="text" [(ngModel)]="searchGlobalText" class="form-control-35"
+                            (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+                    <span ><img (click)="onExport()" src="../../../assets/images/excel-icon.png" title="&#13; &nbsp; Export&#13;" width="25px"
+                        class="cursor-pointer ml-2 mt-1" /></span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="patient">
+                        <div class="p-d-flex  p-ai-center text-uppercase">
+                            <span class="ml-2">PATIENT</span>
+                            <p-sortIcon field="patient"></p-sortIcon>
+                            <p-columnFilter type="text" field="patient" display="patient">
+                            </p-columnFilter>
+                        </div>
+                    </th>
+
+                    <th pSortableColumn="provider">
+                        <div class="p-d-flex  p-ai-center text-uppercase ml-1">
+                            PROVIDER
+                            <p-sortIcon field="provider"></p-sortIcon>
+                            <p-columnFilter type="text" field="provider" display="provider">
+                            </p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="date">
+                        <div class="p-d-flex  p-ai-center text-uppercase ml-1">
+                            date
+
+                            <p-sortIcon field="date"></p-sortIcon>
+                            <p-columnFilter type="text" field="date" display="date">
+                            </p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="status">
+                        <div class="p-d-flex  p-ai-center text-uppercase ml-1">
+                            status
+                            <p-sortIcon field="status"></p-sortIcon>
+                            <p-columnFilter type="text" field="status" display="status">
+                            </p-columnFilter>
+                        </div>
+
+                    </th>
+                    <th pSortableColumn="location">
+                        <div class="p-d-flex  p-ai-center text-uppercase ml-1">
+                            location
+                            <p-sortIcon field="location"></p-sortIcon>
+                            <p-columnFilter type="text" field="location" display="location">
+                            </p-columnFilter>
+                        </div>
+
+                    </th>
+                    <th>PROFILE</th>
+                    <th></th>
+
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>{{row.patient |titlecase}}</td>
+
+                    <td>{{row.provider}}</td>
+                    <td>{{row.date}}</td>
+                    <td>{{row.status}}</td>
+                    <td>{{row.location}}</td>
+                    <td class="">
+                        <div class="" title="&#13;Profile&#13;">
+                            <img src="/assets/themeIcons/single-neutral-id-card-4.svg" width="24px"
+                                class="cursor-pointer text-center" (click)="showDialog(row.patientId)">
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="" title="&#13; &nbsp; Confirm Appointments&#13;">
+                            <img src="../../../assets/themeIcons/edit.svg" width="16px" class="cursor-pointer ml-2"
+                                (click)="showConfirmDialog(row)" />
+                        </div>
+                    </td>
+
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr *ngIf="isNoRecorsFound">
+                    <td colspan="7">No records found.</td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+    <p-footer class="pFooter">
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Cancel</button>
+    </p-footer>
+</p-dialog>
+
+<div *ngIf="display">
+    <patient-profile [display]="display" [patientId]="patientId" [facilityId]="facilityId"
+        (displayChange)="onProfileDialogClose($event)">
+    </patient-profile>
+</div>
+<div *ngIf="displayTransportPopUp">
+    <transport-detail [vccPatientData]="vccPatientData" [transportDetail]="transportDetail"
+        [displayTransportPopUp]="displayTransportPopUp" (displayChange)="onTransportDialogClose($event)">
+    </transport-detail>
+</div>

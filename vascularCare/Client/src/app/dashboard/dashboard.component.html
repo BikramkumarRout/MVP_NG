@@ -1,0 +1,173 @@
+<app-toast></app-toast>
+<!-- <top-bar [isProviderExist]="isProviderExist"></top-bar> -->
+<section class="mt-6 pt-4 pb-8 managesite_section_height">
+    <div class="padding-container">
+        <div class="row justify-content-center">
+            <div *ngIf="userRole == 'Facility'" class="col-md-12 px-3">
+                <div class="dropdown show float-right text-info text-black">
+                    <a class="facility-name dropdown-toggle" href="javascript:void(0)"
+                        *ngFor="let Facility of facilities" id="dropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        {{Facility.name}}
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="userRole == 'Corporate' || userRole === 'SuperUser' || userRole == 'MvpAdminstrative'"
+                class="col-md-12 px-3">
+                <facility-selector (facilityEmit)="onFacilityEmit($event)">
+                </facility-selector>
+            </div>
+            <div class="col-md-6 col-lg-6 px-3 aos-init aos-animate" data-aos="fade-up">
+                <div class="card shadow lift DOS_card">
+                    <div class="card-body px-3 py-2 pb-4">
+                        <h4 *ngIf="!todaysDate" class="card-title text-body mb-2"> Next DOS ({{nextDosDate}}):
+                            {{totalCount}} Scheduled</h4>
+                        <h4 *ngIf="todaysDate" class="card-title text-body mb-2"> Today’s Appointments
+                            ({{nextDosDate}}): {{totalCount}} Scheduled</h4>
+                        <hr class="mt-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="text-uppercase font-weight-bold table-header">
+                                        <th>Patient</th>
+                                        <th>Provider</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        <th>Location</th>
+                                        <th class="text-center">Profile</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let PatientData of NextDosData  |slice:0:10">
+                                        <td class="text-justify ">{{PatientData.patient| titlecase}}</td>
+                                        <td>{{PatientData.provider| titlecase}}</td>
+                                        <td style="width: 15%;">{{PatientData.time}}</td>
+                                        <td>{{PatientData.status}}</td>
+                                        <td>{{PatientData.location}}</td>
+                                        <td class="text-center">
+                                            <div class="" title="&#13;Profile&#13;">
+                                                <img src="/assets/themeIcons/single-neutral-id-card-4.svg" width="24px"
+                                                    class="cursor-pointer text-center"
+                                                    (click)="showDialog(PatientData.patientId)">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td class="text-center">
+                                            <button *ngIf="!isNextDosData"
+                                                class="btn  btn-info text-white font-normal px-2 py-0 font-weight-normal seeall_btn"
+                                                (click)="navigateToAppointment()"> See All </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 px-3 aos-init aos-animate" data-aos="fade-down">
+                <div class="card shadow lift mb-5">
+                    <div class="card-body min-ht px-3 py-2">
+                        <h4 class="card-title text-body mb-2">Connect</h4>
+                        <hr class="mt-0">
+                        <ul class="add-details">
+                            <li><span><img src="/assets/themeIcons/1.svg"></span>(516) 717-1839</li>
+                            <li><span><img src="/assets/themeIcons/answer-machine-paper.svg"></span>(516) 232-9789 - Fax
+                            </li>
+                            <li><span><img src="/assets/themeIcons/pin-location-1.svg"></span>120 Hicksville Rd,
+                                Bethpage, NY 11714<a class="ml-5" (click)="show()">Vascular Care Center
+                                    Locations
+                                </a></li>
+                            <li><span><img src="/assets/themeIcons/calendar-3.svg" class="clndimg"></span>Monday -
+                                Friday: 8 AM - 5 PM</li>
+                            <li><span><img src="/assets/themeIcons/calendar-3.svg" class="clndimg"></span>Saturay -
+                                Sunday: Closed
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card shadow lift mb-5">
+                    <div class="card-body min-ht max-ht px-3 py-2">
+                        <h4>Upcoming Appointments at VCC: {{vccTotalCount}} Scheduled</h4>
+                        <hr class="mt-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="text-uppercase font-weight-bold table-header">
+                                        <th>Patient</th>
+                                        <th>Provider</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Location</th>
+                                        <th class="text-center">Profile</th>
+                                        <th style="width: 5rem;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let vccPatientData of vccNextDosData">
+                                        <td>{{vccPatientData.patient| titlecase}}</td>
+                                        <td>{{vccPatientData.provider| titlecase}}</td>
+                                        <td>{{vccPatientData.date}}</td>
+                                        <td>{{vccPatientData.status}}</td>
+                                        <td>{{vccPatientData.location}}</td>
+                                        <td class="text-center">
+                                            <div class="" title="&#13;Profile&#13;">
+                                                <img src="/assets/themeIcons/single-neutral-id-card-4.svg" width="24px"
+                                                    class="cursor-pointer text-center"
+                                                    (click)="showDialog(vccPatientData.patientId)">
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="" title="&#13; &nbsp; Confirm Appointments&#13;">
+                                                <img src="../../../assets/themeIcons/edit.svg" width="16px"
+                                                    class="cursor-pointer ml-2"
+                                                    (click)="showConfirmDialog(vccPatientData)" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-center">
+                                            <button *ngIf="!isVccData"
+                                                class="btn  btn-info text-white font-normal px-2 py-0 font-weight-normal"
+                                                (click)="showVccDialog()"> See All </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<common-footer [portalFooter] ="portalFooter"></common-footer>
+<div *ngIf="display">
+    <patient-profile [display]="display" [patientId]="patientId" [facilityId]="facilityId"
+        (displayChange)="onDialogClose($event)">
+    </patient-profile>
+</div>
+<div *ngIf="displayTransportPopUp">
+    <transport-detail [vccPatientData]="vccPatientData" [transportDetail]="transportDetail"
+        [displayTransportPopUp]="displayTransportPopUp" (displayChange)="onDialogClose($event)">
+    </transport-detail>
+</div>
+
+<div *ngIf="displayVcc">
+    <vcc-appointments [displayVcc]="displayVcc" (displayChange)="onDialogClose($event)">
+    </vcc-appointments>
+</div>

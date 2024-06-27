@@ -1,0 +1,121 @@
+<app-toast id="contact"></app-toast>
+<app-notification></app-notification>
+<div class="contact-info" id="contact">
+    <section class="contact-info contactus-page contactblueSection">
+        <div class="container">
+            <div class="row">
+                <div class="contact-panel contact-panel-4">
+                    <div class="row align-items-stretch">
+                        <div class="col-12  col-md-12 col-lg-6 ">
+                            <div class="contact-card contact-form-section">
+                                <div class="contact-body">
+                                    <h5 class="card-heading">How can we help?</h5>
+                                    <p class="card-desc">Get comprehensive, on-site care from expert vascular
+                                        physicians: </p>
+                                    <form #contactForm="ngForm" autocomplete="off" id="contact-us-form"
+                                        name="service-form" novalidate="novalidate">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-12 col-md-12 col-lg-6">
+                                                    <input type="text" placeholder="Name*" class="form-control"
+                                                        name="displayName" required #displayName="ngModel"
+                                                        [(ngModel)]="contactDetail.name" />
+                                                        <pm-validation-errors class="text-danger text-small" *ngIf="displayName.errors  &&  submittedError"  [formCtrl]="displayName" [text]="'Name'"   ></pm-validation-errors>
+                                                    
+                                                </div>
+                                                <div class="col-12 col-md-12 col-lg-6">
+                                                    <input type="email" placeholder="Email*" class="form-control"
+                                                        name="email" #email="ngModel" [(ngModel)]="contactDetail.email"
+                                                        required
+                                                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" />
+                                                        <pm-validation-errors class="text-danger text-small" *ngIf="email.errors  &&  submittedError"  [formCtrl]="email" [text]="'Email'"  ></pm-validation-errors>
+
+                                                   
+                                                </div>
+                                                <div class="col-12 col-md-12 col-lg-6">
+                                                    <input class="form-control" type="text" name="subject" required
+                                                        #subject="ngModel" [(ngModel)]="contactDetail.subject"
+                                                        placeholder="Subject*" />
+                                                        <pm-validation-errors class="text-danger text-small" *ngIf="subject.errors  &&  submittedError"  [formCtrl]="subject" [text]="'Subject'"  ></pm-validation-errors>
+                                                   
+                                                </div>
+                                                <div class="col-12 col-md-12 col-lg-6">
+                                                    <input type="tel" phoneMask class="form-control"
+                                                        placeholder="(xxx) xxx-xxxx*" maxlength="14" minlength="10"
+                                                        name="phone" #phone="ngModel" [(ngModel)]="contactDetail.phone"
+                                                        required />
+                                                        <pm-validation-errors class="text-danger text-small" *ngIf="phone.errors  &&  submittedError"  [formCtrl]="phone" [text]="'Phone no.'"  ></pm-validation-errors>
+                                                  
+                                                </div>
+                                                <div class="col-12">
+                                                    <textarea class="form-control" id="message" name="message" cols="30"
+                                                        rows="2" placeholder="message" name="message" #message="ngModel"
+                                                        [(ngModel)]="contactDetail.message"></textarea>
+                                                   
+                                                </div>
+                                                <div *ngIf="this.mailCampaingId" class="mt-2"></div>
+                                                <div class="col-12">
+                                                    <pm-captcha [item]="isCaptcha" [config]="captchaConfig"></pm-captcha> 
+                                                     <!-- <ngx-captcha [config]="captchaConfig" ></ngx-captcha>  -->
+                                                     <div *ngIf="!isCaptcha && submittedError"  class="text-danger text-small1">
+                                                         <div [hidden]="isCaptcha">
+                                                             Captcha mismatch.
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-12 heigth_0 saveBtn" >
+                                                    <button (click)="save()"
+                                                        class="btn btn--secondary btn-line btn-line-before btn--block sendmessage pull-right"><span
+                                                        class="line"> <span> </span></span><span>submit
+                                                        request</span></button>
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <div class="dynamic"></div>
+                                                        <div class="loading"></div>
+                                                        <div class="success_message"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 offset-lg-0 col-lg-5 offset-lg-1 img-card-holder">
+                            <div class="contact-section-bg">
+                                <div class="card-content">
+                                    <h2>Get the best.</h2>
+                                    <ul class="contact-info-list">
+                                        <li>
+                                            <img src="assets/images/contact-icon-new-1.svg" alt=""><span
+                                                class="address">LOCATIONS IN<br>NY, NJ and PA.</span>
+                                        </li>
+
+                                        <li>
+                                            <img src="assets/images/contact-icon-new-2.svg" alt=""><span
+                                                class="address">CERTIFIED<br>OUTPATIENT SURGICAL CENTERS</span>
+                                        </li>
+
+                                        <li>
+                                            <img src="assets/images/contact-icon-new-3.svg"
+                                                alt=""><span>{{patientCount}}+<br>PATIENTS SERVED</span>
+                                        </li>
+
+                                        <li>
+                                            <img src="assets/images/contact-icon-new-4.svg" alt=""><span>EXPERT
+                                                VASCULAR<br>CLINICIANS</span>
+                                        </li>
+
+                                    </ul>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

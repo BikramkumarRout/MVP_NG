@@ -1,0 +1,115 @@
+<app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual>
+<!-- <home-topbar id="customScroll"></home-topbar> -->
+<section class="mb-6" id="about-1">
+    <div class="container">
+        <div class="" style="min-height: 65vh;">
+            <div class="col-md-12 px-3 aos-init aos-animate">
+                <div class="mb-3 p-headermenu">
+                    <h2 class="mb-1 card-title text-black">Jobs</h2>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="">
+                            <div class="implicit-pag mt-4 jobPager job">
+                                <p-table #dt2 class="table-striped table-hover" (onFilter)="onFilter($event)"
+                                    [scrollable]="true" scrollDirection="both" [value]="jobsList" [paginator]="true"
+                                    [rows]="500"  sortField="datePosted" [sortOrder]="-1"
+                                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                    [globalFilterFields]="['siNo','jobTitle','location','datePosted']"
+                                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50,100,500]">
+                                    <ng-template pTemplate="caption">
+                                        <div class="p-d-flex search-icon m-2">
+                                            <button *ngIf="searchGlobalText || serialNo || jobTitle || location || datePosted" (click)="clear(dt2)" pButton
+                                                label="Clear Filters" id="custom-btn" class="p-button-outlined"
+                                                icon="pi pi-filter-slash"></button>
+                                            <span class=" p-ml-auto search-baricon">
+                                                <i class="pi pi-search mt-1"></i>
+                                                <input pInputText type="text" class="form-control-35"
+                                                    (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                                    placeholder="Search keyword" [(ngModel)]="searchGlobalText" />
+                                            </span>
+    
+                                            
+                                            
+                                        </div>
+                                    </ng-template>
+                                    <ng-template pTemplate="header">
+                                        <tr class="corporate-tr">
+                                            <th pSortableColumn="siNo" class="jobs_no">
+                                                <div class="p-d-flex  p-ai-center">
+                                                    <span class="ml-1">NO.</span>
+                                                    <p-sortIcon field="siNo"></p-sortIcon>
+                                                    <p-columnFilter type="text" field="siNo" display="siNo">
+                                                    </p-columnFilter>
+                                                </div>
+    
+                                            </th>
+                                            <th pSortableColumn="jobTitle" class="job_title">
+                                                <div class="p-d-flex  p-ai-center">
+                                                    <span class="ml-1">JOB TITLE</span>
+                                                    <p-sortIcon field="jobTitle"></p-sortIcon>
+                                                    <p-columnFilter type="text" field="jobTitle" display="jobTitle">
+                                                    </p-columnFilter>
+    
+                                                </div>
+    
+                                            </th>
+                                            <th pSortableColumn="location" class="job_location">
+                                                <div class="p-d-flex  p-ai-center">
+                                                    <span class="ml-1">LOCATION</span>
+                                                    <p-sortIcon field="location"></p-sortIcon>
+                                                    <p-columnFilter type="text" field="location" display="location">
+                                                    </p-columnFilter>
+    
+                                                </div>
+    
+                                            </th>
+                                            <th pSortableColumn="datePosted" class="job_posted">
+                                                <div class="p-d-flex  p-ai-center">
+                                                    <span class="ml-1">DATE POSTED</span>
+                                                    <p-sortIcon field="datePosted"></p-sortIcon>
+                                                    <p-columnFilter type="text" field="datePosted" display="datePosted">
+                                                    </p-columnFilter>
+    
+                                                </div>
+    
+                                            </th>
+                                            
+    
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-listingData>
+                                        <tr>
+                                            <td class="jobs_no">
+                                                <span class="ml-1">{{listingData.siNo}}</span></td>
+                                            <td class="job_title" title="&#13; &nbsp; Apply Job" ><a href="javascript:void(0)" style="color: blue !important; text-decoration: underline !important;" (click)="showDialog(listingData)">{{listingData.jobTitle}}</a></td>
+                                            <td class="job_location"> {{listingData.location}}</td>
+                                            <td class="job_posted">{{listingData.datePosted}}</td>
+                                            
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage">
+                                        <tr *ngIf="isNoRecorsFound">
+                                            <td colspan="4">No records found.</td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</section>
+
+
+
+<div *ngIf ="display" class="xyz">
+    <job-details  [display]="display" [listingData]="listingData"
+    (displayChange)="onDetailDialogClose($event)"></job-details>
+</div>
+
+

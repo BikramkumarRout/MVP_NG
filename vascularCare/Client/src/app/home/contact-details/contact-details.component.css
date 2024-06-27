@@ -1,0 +1,21 @@
+/* :host #contact {
+    position: absolute;
+    top: 0;
+} */
+@media only screen and (min-width: 1400px){
+.sendmessage{
+    position: relative;
+    top: -128px;
+    width: 200px!important;
+}
+}
+.sendmessage{
+    margin-top: 10px;
+    width: 100%;
+ }
+
+ @media only screen and (max-width: 1570px){
+ .saveBtn{
+    margin-left: 50px !important;
+ }
+}

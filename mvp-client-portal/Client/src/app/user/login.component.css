@@ -1,0 +1,15 @@
+::placeholder {
+    color: #666 !important;
+    opacity: 1;
+    font-size: 15px !important;
+}
+
+ :-ms-input-placeholder {
+    color: #666 !important;
+    font-size: 15px !important;
+}
+
+ ::-ms-input-placeholder {
+    color: #666 !important;
+    font-size: 15px !important;
+}

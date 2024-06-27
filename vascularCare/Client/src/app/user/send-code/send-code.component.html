@@ -1,0 +1,76 @@
+<p-dialog [(visible)]="displaySendCode" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    class="alert alert-info" [style]="{width: '90%',height: '90%',top:'0px',position:'relative'}" [maximizable]="true" [modal]="true" [resizable]="true"
+    [contentStyle]="{height: '90%'}" [baseZIndex]="100009999999999">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold"> </h5>
+    </ng-template>
+
+<div>
+    <form  autocomplete="off">
+        <fieldset>
+            <section id=content>
+                <div class="bg-image bg-cover cover-img w-100 vh-100"></div>
+                <div class=container>
+                    <div class="row  text-center justify-content-center align-items-center">
+                        <div class="col-11 col-md-8 col-lg-5">
+                            <div>
+                                <div class="square d-flex w-100 mt-2">
+                                    <div
+                                    class="square-inner bg-white border mx-auto p-4 p-lg-6 d-flex flex-column w-100 justify-content-center">
+                                    <h1 class="no-mrg">Client Portal</h1>
+                                    <h1>Send Security Code</h1>
+                                    <p>You should verify yourself to login. Please select a verification type. A code will be sent based on selected  verification type.
+                                    </p>
+                                        <div class="form-group pos-relative">
+                                            
+                                                    <div class="d-flex">
+                                                        
+                                                        <select name="levelOfService" [(ngModel)]="levelOfService"  (change)="selected($event)" required >
+                                                            <option value=1 selected>Email</option>
+                                                            <option value=2>SMS</option>
+                                                            <option value=3>Google Authenticator</option>
+                            
+                                                        </select>
+                                                       
+                            
+                                                    
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group pos-relative">
+                                            <span class="p-input-icon-left">
+                                                <i class="pi pi-lock text-info"></i>
+                                                <input class="form-control login" id="passwordId" type="password"
+                                                    pattern=".{1,}" placeholder="Password *" required ngModel
+                                                    name="password" #passwordVar="ngModel" />
+                                            </span>
+                                            <div *ngIf="passwordVar.errors  &&  submittedError"
+                                                class="text-danger text-small">
+    
+                                                <div [hidden]="!passwordVar.errors.pattern">
+                                                    Authentication failed.Please enter valid userid and password. </div>
+                                            </div>
+                                            <div *ngIf="invalidCredential" class="text-danger text-small">
+                                                Authentication failed.Please enter valid userid and password.
+                                            </div>
+    
+                                        </div> -->
+                                        <div class=form-group>
+                                            <button type="submit" class="btn btn-primary btn-lg btn-block text-uppercase"
+                                               
+                                              (click)="sendCode()"  >Send Code</button>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+        </fieldset>
+    </form>
+</div>
+</p-dialog>
+
+

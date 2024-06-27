@@ -1,0 +1,22 @@
+.card {
+    
+    word-wrap: none !important;
+    background-clip: auto !important;
+    border: none !important;
+    border-radius: 0px !important;
+}
+
+h2 {
+    font-size: calc(1.3125rem + .75vw) !important;
+}
+
+.btn {
+    font-weight: 700 !important;
+}
+
+@media (max-width: 767px){
+.px-3 {
+    padding-right: 0rem!important;
+    padding-left: 0rem!important;
+}
+}

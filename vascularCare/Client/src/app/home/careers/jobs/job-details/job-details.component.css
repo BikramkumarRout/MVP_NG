@@ -1,0 +1,62 @@
+p {
+    margin-bottom: 0px !important;
+}
+
+.upload-zone .form-control {
+    display: contents !important;
+}
+.form-row .form-control {
+    padding: 4px !important;
+    height: 31px !important;
+}
+
+.text-info {
+    color: #049fda !important;
+}
+
+/* .btn {
+    padding-left: 0px !important; 
+     padding-right: 0px !important;
+} */
+
+ul, a, dl, dt, dd, ol, ul,li {
+    list-style: initial!important;
+}
+
+ul {
+    list-style: initial !important;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: none !important;
+    outline: 0;
+    box-shadow: none !important;
+}
+
+label {
+    font-weight: bold;
+    font-variant: all-petite-caps !important;
+    color: #969696;
+    margin-bottom: 5px !important;
+}
+
+.jobDescriptionForm .form-control {
+    color: #495057;
+    background-color: #fff;
+    border-color: none !important;
+    outline: 0;
+    box-shadow: none !important;
+}
+
+.input-group-append {
+    margin-left: -1px;
+    /* width: 300px; */
+}
+
+.input-group-append .btn{
+    z-index: 2;
+    /* width: 300px; */
+    text-align: center;
+}

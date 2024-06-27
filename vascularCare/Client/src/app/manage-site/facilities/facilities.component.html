@@ -1,0 +1,73 @@
+<app-toast></app-toast>
+<app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual>
+<p-confirmDialog header="" icon="fa fa-question-circle" [style]="{width: '40%'}" [baseZIndex]="20000" #cd>
+    <p-footer class="confirm_btn">
+        <button type="button" class="py-1 px-2 btn yes-btn" pButton label="Yes" (click)="cd.accept()"></button>
+        <button id="confirm-footer-no-btn" type="button" class=" py-1 px-1 btn no-btn" pButton label="No"
+            (click)="cd.reject()"></button>
+
+    </p-footer>
+</p-confirmDialog>
+<div class="">
+    <div class="implicit-pag mt-4">
+        <p-table #dt2 class="table-striped table-hover"  (onFilter)="onFilter($event)" [scrollable]="true" dataKey="id" [(selection)]="selected"
+            scrollDirection="both" [value]="facilityList" [paginator]="true" [rows]="10" sortField="name" [sortOrder]="1"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['name']" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,25,50,100,500]">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex search-icon m-2">
+                    <button *ngIf="searchGlobalText || nameFilter " (click)="clear(dt2)"
+                        pButton label="Clear Filters" id="custom-btn" class="p-button-outlined"
+                        icon="pi pi-filter-slash" (click)="dt2.filterGlobal($event.target.value, 'contains')"></button>
+                    <span class=" p-ml-auto search-baricon">
+                        <i class="pi pi-search mt-1"></i>
+                        <input pInputText type="text" class="form-control-35" [(ngModel)]="searchGlobalText"
+                            (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                            <div class="cursor-pointer pFooter float-right ml-1">
+                                <button type="button" title="Pull facilities from cerebro"  class="btn btn-info pull_btn" (click)="onPullFacilities()"
+                                    >Pull facilities</button>
+                            </div>
+                    </span>
+                    <!-- <button class="ml-2 py-1 px-1 btn btn-outline-info" (click)="onUpdate()">update</button> -->
+                
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr class="corporate-tr">
+                    <th pSortableColumn="name" class="wt_12rem" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Name</span>
+                            <p-sortIcon field="name"></p-sortIcon>
+                            <p-columnFilter type="text" field="name" display="name"></p-columnFilter>
+
+                        </div>
+
+                    </th>
+                    <th class="text-right wt_12rem"><span class="mr-3">Actions</span></th>
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr [pSelectableRow]="rowData">
+                    <td class="wt_12rem"  ><span class="ml-1">{{rowData.name}}</span></td>
+                    <td class="text-right wt_12rem" >
+                        <label class="switch">
+                            <input type="checkbox" (change)="onCheckCampaign($event,rowData)" [checked]="rowData.activeInactive" name="{{rowData.id}}" [(ngModel)]="rowData.activeInactive">
+                            <span class="slider round"></span>
+                        </label>
+                       
+            </td>
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr *ngIf="isNoRecorsFound">
+                    <td colspan="6">No records found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+

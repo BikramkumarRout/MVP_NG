@@ -1,0 +1,260 @@
+<section class="about about-1 careerbg team team-grid" id="about-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+                <div class="heading heading-2 text--center">
+                    <h2 class="heading-title">Leadership Team</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="team-all">
+
+
+                <bioDetails-selector [teamType]="teamType" [item]="item" *ngFor="let item of bioData" data-hover="" class="col-12 col-md-6 col-lg-4 team-member"></bioDetails-selector>
+
+
+            <!-- <div [formGroup]="card" *ngFor="let card of t.controls; let i = index" class="col-12 col-md-6 col-lg-4 team-member">
+                  
+                    
+                        <div  data-hover="">
+                            <div class="team-member-holder">
+                                <div class="team-img"><a class="link" href="javascript:void(0)"></a><img [src]="this.listing.imageUrl"
+                                        alt="Mark Feuer" />
+        
+                                </div>
+                                <div class="team-content readmoresection">
+                                    <div class="team-title">
+                                        <h4><a href="javascript:void(0)">{{this.listing.name}}</a></h4>
+                                    </div>
+                                    <div class="team-cat"><a href="javascript:void(0)">{{this.listing.designation}}</a>
+                                    </div>
+                                    <read-more [text]="this.listing.description" [maxHeight]="140"></read-more>
+                                   
+                                </div>
+        
+                            </div>
+                        </div>
+                  
+                </div> -->
+
+
+
+            <!-- <div class="col-12 col-md-6 col-lg-4">
+                <div class="team-member" data-hover="">
+                    <div class="team-member-holder">
+                        <div class="team-img"><a class="link" href="javascript:void(0)"></a><img
+                                src="assets/images/team/crystal.jpg" alt="Crystal O'Sullivan" />
+                        </div>
+                        <div class="team-content readmoresection">
+                            <div class="team-title">
+                                <h4><a href="javascript:void(0)">Crystal O'Sullivan</a></h4>
+                            </div>
+                            <div class="team-cat"><a href="javascript:void(0)">Chief Operating Officer</a></div>
+                            <div class="team-desc">
+                                <p class="subtitle">Crystal O’Sullivan is Chief Operating Officer and brings Mobile
+                                    Vascular Physicians more than 15 years of experience in management, leadership and
+                                    operations in the healthcare, mobile diagnostics, imaging and radiology space.
+                                    <br><br>
+                                    Crystal has been involved in numerous healthcare related startups and has focused on
+                                    developing operational efficiencies within startup healthcare organizations. Her
+                                    expertise revolves around the analysis, creation and implementation of strategies
+                                    relating to process-oriented organizational growth, logistics management, asset
+                                    acquisition, and the capture of market share in multiple states for early stage
+                                    companies. Crystal holds a bachelor's degree in Business Administration from Adelphi
+                                    University.
+
+                                    <a class="read_more_trigger" href="javascript:void(0)">+ More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="team-member" data-hover="">
+                    <div class="team-member-holder">
+                        <div class="team-img"><a class="link" href="javascript:void(0)"></a><img
+                                src="assets/images/team/peterdevito.jpg" alt="Peter Devito" /></div>
+                        <div class="team-content readmoresection">
+                            <div class="team-title">
+                                <h4><a href="javascript:void(0)">Peter Devito</a></h4>
+                            </div>
+                            <div class="team-cat"><a href="javascript:void(0)">General Manager</a></div>
+                            <div class="team-desc">
+                                <p class="subtitle">Peter DeVito leads the company’s operations, with responsibility for
+                                    centers in New York, New Jersey, and Pennsylvania. He also oversees the company’s
+                                    ongoing expansion efforts into emerging markets.<br><br>
+                                    In his previous role with MVP, he served as Director of clinical operations and
+                                    development. He was responsible for the company’s increasing development and
+                                    expansion efforts into high growth, for both existing and new vascular care
+                                    business.<br><br>
+                                    Before joining MVP in January 2020, he served in various Operational roles and as
+                                    corporate Radiology Services Manager for Lifeline Vascular/ DaVita, where he was
+                                    instrumental in growing the Lifeline system, and multiple physician practices during
+                                    a 16-year period.<br><br>
+                                    Peter holds degrees in Radiologic Science, and Healthcare Administration.
+                                    <a class="read_more_trigger" href="javascript:void(0)">+ More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="team-member" data-hover="">
+                    <div class="team-member-holder">
+                        <div class="team-img"><a class="link" href="javascript:void(0)"></a><img
+                                src="assets/images/team/kelly-moore.jpg" alt="Kelly Moore" />
+                        </div>
+                        <div class="team-content readmoresection">
+                            <div class="team-title">
+                                <h4><a href="javascript:void(0)">Kelly Moore</a></h4>
+                            </div>
+                            <div class="team-cat"><a href="javascript:void(0)">Director of Human Resources</a></div>
+                            <div class="team-desc">
+                                <p class="subtitle">Kelly Moore is currently the Director of Human Resources at Mobile
+                                    Vascular Physicians. Her experience spans a broad spectrum of industries including
+                                    technology, medical device, business services and healthcare where she worked with
+                                    executive leadership on matters that include talent acquisition and development,
+                                    performance management, organizational change, and culture. <br> <br> At Mobile
+                                    Vascular Physicians, Kelly partners with leaders and business units to drive
+                                    transformational change and achieve organizational goals by aligning HR with the
+                                    business strategy. She is a trusted partner and steward of developing our workplace
+                                    culture and ensuring it aligns with our company mission, vision, and values. She is
+                                    passionate about people and places a high value on engaging top talent to further
+                                    accelerate and achieve business goals. <a class="read_more_trigger" href="#">+
+                                        More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="team-member" data-hover="">
+                    <div class="team-member-holder">
+                        <div class="team-img"><a class="link" href="javascript:void(0)"></a><img
+                                src="assets/images/team/christian_r_thomas.jpg" alt="Richard Rallo" /></div>
+                        <div class="team-content readmoresection">
+                            <div class="team-title">
+                                <h4><a href="javascript:void(0)">Christian R. Thomas</a></h4>
+                            </div>
+                            <div class="team-cat"><a href="javascript:void(0)">Chief Legal Officer</a></div>
+                            <div class="team-desc">
+                                <p class="subtitle">Since January 2020, Christian R. Thomas began serving as Chief Legal
+                                    Officer for Vascular Management Consultants LLC, the dedicated service provider to
+                                    Mobile Vascular Physicians. Mr. Thomas has practiced law for over twenty years and
+                                    previously held senior legal positions with New York based businesses in both the
+                                    financial services and insurance sectors. Mr. Thomas began his legal career with the
+                                    law firm of White and Case LLP.<a class="read_more_trigger" href="#">+ More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="team-member" data-hover="">
+                    <div class="team-member-holder">
+                        <div class="team-img"><a class="link" href="javascript:void(0)"></a><img
+                                src="assets/images/team/Richard_Rallo_Headshot.jpg" alt="Richard Rallo" /></div>
+                        <div class="team-content readmoresection">
+                            <div class="team-title">
+                                <h4><a href="javascript:void(0)">Richard Rallo</a></h4>
+                            </div>
+                            <div class="team-cat"><a href="javascript:void(0)">Chief Financial and Accounting
+                                    Officer</a></div>
+                            <div class="team-desc">
+                                <p class="subtitle">Mr. Richard Rallo was the Senior VP, Chief Financial and Accounting
+                                    Officer of Alico, Inc., one of the nation’s largest citrus producers and land
+                                    management company, since July 1, 2019. Prior to Mr. Rallo serving as Senior VP,
+                                    Chief Financial and Accounting Officer, Mr. Rallo served Chief Accounting Officer.
+                                    Before joining Alico, Inc., Mr. Rallo was employed by American Medical Alert Corp
+                                    (“AMAC”), a company involved in the manufacturing and distribution of personal
+                                    emergency response systems and provider of telephone answering services, over a
+                                    16-year period in different capacities including Chief Financial officer, Chief
+                                    Operating officer and Chief Service officer. AMAC was a publicly traded company
+                                    until it was acquired by Tunstall Healthcare Group Limited in December 2011 at which
+                                    time AMAC began doing business as Tunstall Americas. Prior to his involvement with
+                                    AMAC, he held similar financial positions with Tradewell, Inc., a barter company and
+                                    Connoisseur Communications Partners L.P., a company that owned and operated radio
+                                    stations. Mr. Rallo started his career in public accounting for Touche Ross & Co.
+                                    and Margolin, Winer and Evens LLP. He is a certified Public Accountant and has a
+                                    B.S. in accounting for the University of Denver.<a class="read_more_trigger"
+                                        href="#">+ More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="team-member" data-hover="">
+                    <div class="team-member-holder">
+                        <div class="team-img"><a class="link" href="javascript:void(0)"></a><img
+                                src="assets/images/team/Dr_Grossman_Headshot.jpg" alt="team member" /></div>
+                        <div class="team-content readmoresection">
+                            <div class="team-title">
+                                <h4><a href="javascript:void(0)">Dr. Martin Grossman</a></h4>
+                            </div>
+                            <div class="team-cat"><a href="javascript:void(0)">Chief Compliance Officer</a></div>
+                            <div class="team-desc">
+                                <p class="subtitle">Dr. Grossman is currently the Chief Compliance Officer at Mobile
+                                    Vascular Physicians. He holds an MD from the Albert Einstein College of Medicine and
+                                    completed his residency at LIJ specializing in internal medicine. Dr. Grossman is
+                                    board-certified internal medicine and hospice and palliative medicine. <br><br>
+                                    Before joining MVP, he owned and operated a private practice in internal medicine
+                                    for 15 years. He has also served various clinical and administrative roles such as
+                                    being the Chairman of Medicine at Peninsula Hospital for 6 years where he started an
+                                    inpatient hospice program. He previously worked as Chief of Palliative Medicine at
+                                    Northwell Health Forest Hills, and as Chief Medical Officer for a Tri-State nursing
+                                    home group. Dr. Grossman has also held medical directorships at various nursing
+                                    homes. <br><br>
+                                    Dr. Grossman is married and has four children and enjoys teaching bible and Torah
+                                    classes outside of work.
+                                    <a class="read_more_trigger" href="#">+ More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="team-member" data-hover="">
+                    <div class="team-member-holder">
+                        <div class="team-img"><a class="link" href="javascript:void(0)"></a><img
+                                src="assets/images/team/michelle-misiti-kenney.jpg" alt="team member" /></div>
+                        <div class="team-content readmoresection">
+                            <div class="team-title">
+                                <h4><a href="javascript:void(0)">Michelle Misiti Kenney</a></h4>
+                            </div>
+                            <div class="team-cat"><a href="javascript:void(0)">Director of Client Services</a></div>
+                            <div class="team-desc">
+                                <p class="subtitle">Michelle Kenney is the Director of Client Services at Mobile
+                                    Vascular Physicians. She manages a team that oversees the relationships between MVP
+                                    and its clients within the LTC community. Michelle is responsible for new business
+                                    development, the roll out of new service lines and initiatives to clients, and the
+                                    maintenance of consistent high levels of client satisfaction with MVP’s current
+                                    clients. <br><br>
+                                    Michelle has over 15 years of experience in the healthcare and long term care
+                                    industry – with specific focus on pharmacy, sales, and account management. She has
+                                    been instrumental in building MVP’s team as the company has continued to grow.
+                                    <br><br>
+
+                                    <a class="read_more_trigger" href="#">+ More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+
+
+        </div>
+    </div>
+</section>
+<common-footer></common-footer>

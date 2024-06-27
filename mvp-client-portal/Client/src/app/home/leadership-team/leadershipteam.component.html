@@ -1,0 +1,21 @@
+<section class="about about-1 careerbg team team-grid" id="about-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+                <div class="heading heading-2 text--center">
+                    <h2 class="heading-title">Leadership Team</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="team-all">
+
+
+                <bioDetails-selector [teamType]="teamType" [item]="item" *ngFor="let item of bioData" data-hover="" class="col-12 col-md-6 col-lg-4 team-member"></bioDetails-selector>
+
+
+
+
+
+        </div>
+    </div>
+</section>

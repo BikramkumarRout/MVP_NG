@@ -1,0 +1,99 @@
+<app-notification></app-notification>
+<app-toast></app-toast>
+<div class="main_container">
+    <section class="banner">
+        <div class="container">
+            <h2 class="wow fadeInUp">
+                GET EXPERT <br>
+                VASCULAR <br>
+                CARE TODAY.
+            </h2>
+            <div class="banner-doc">
+                <img src="assets/images/contact-banner-doc.png" alt="" />
+            </div>
+        </div>
+    </section>
+
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="left-bar wow fadeInUp">
+                <img src="assets/images/stamp.png" alt="" />
+            </div>
+            <div class="right-bar wow fadeInUp">
+                <h2>Message Us</h2>
+                <form id="contact-us-form" name="service-form" #contactForm="ngForm"
+                    (ngSubmit)="onSendMessage(contactForm)" novalidate="novalidate">
+                    <div class="form-row half">
+                        <div class="sub"><input type="text" class="" id="name" name="name" placeholder="Your Name *"
+                                required #name="ngModel" [(ngModel)]="contactDto.name" />
+                            <div *ngIf="name.errors &&  submittedError" class="text-danger text-small1">
+                                <div [hidden]="!name.errors.required">
+                                    Name is required
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="sub"><input type="text" class="" id="email" name="email" placeholder="Your Email *"
+                                required #email="ngModel" [(ngModel)]="contactDto.email"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" />
+                            <div *ngIf="email.errors &&  submittedError" class="text-danger text-small1">
+                                <div [hidden]="!email.errors.required">
+                                    Email is required
+                                </div>
+                                <div [hidden]="!email.errors.pattern">
+                                    Please enter valid email.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="sub"><input type="tel" phoneMask class="" id="phone" name="phone"
+                                placeholder="Your Phone No" required #phone="ngModel" [(ngModel)]="contactDto.phone" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="sub"><textarea id="message" name="message" placeholder="Your Message *" required
+                                #message="ngModel" [(ngModel)]="contactDto.message"></textarea>
+                            <div *ngIf="message.errors &&  submittedError" class="text-danger text-small1">
+                                <div [hidden]="!message.errors.required">
+                                    Message is required
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" style="padding-left: 0px !important;">
+                        <pm-captcha [item]="isCaptcha" [config]="captchaConfig"></pm-captcha> 
+                         <!-- <ngx-captcha [config]="captchaConfig" ></ngx-captcha>  -->
+                         <div *ngIf="!isCaptcha && submittedError"  class="text-danger text-small1">
+                             <div [hidden]="isCaptcha">
+                                 Captcha mismatch.
+                             </div>
+                         </div>
+                     </div>
+                    <div class="form-row mt-4">
+                        <div class="sub" style="text-align:right;">
+                            <div id="recaptcha2" class="g-recaptcha"
+                                data-sitekey="6LdZuCodAAAAAONGueDMEI64gw40glCwHFv-vQGR" data-size="invisible"
+                                data-callback="form2Callback"></div>
+                            <button type="submit" class="btn btn--primary btn-line btn-line-after"><span>Send Now</span><span class="line"> <span></span></span></button>
+                        </div>
+                        <div class="dynamic"></div>
+                        <div class="loading"></div>
+                        <div class="success_message"></div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="contanct-location">
+         <all-locations-list></all-locations-list>
+    </div>
+</div>

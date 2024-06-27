@@ -1,0 +1,51 @@
+label {
+    font-weight: bold;
+    font-variant: all-petite-caps !important;
+    color: #969696;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    margin-left: 0 !important;
+}
+
+.profile-container .form-control,
+        .profile-container .form-control[readonly] {
+            height: 25px;
+            background: white;
+            border-radius: 0px;
+            border: none;
+            padding: 0px;
+            border-bottom: solid 2px #eee;
+        }
+
+input{
+    font-size: 0.7300rem !important;
+}
+
+
+
+.btn-info.disabled, .btn-info:disabled {
+    color: #fff;
+    background-color: grey;
+    border-color: grey;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    font-size: 1em; /* 1em -> input font-size * 1 -> 40px * 1 = 40px */
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    font-size: 1em;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+     font-size: 1em;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    font-size: 1em;
+} 
+
+.btn {
+    color: #fff !important;
+}

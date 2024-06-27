@@ -1,0 +1,16 @@
+.search {
+    height: 25px !important;
+    margin-top: 6px !important;
+}
+
+.table-footer {
+    background-color: #dee2e6;
+    height: 34px;
+}
+
+.p-dropdown-panel {
+    z-index: 1007 !important;
+    transform-origin: center bottom !important;
+    top: -138px !important;
+    left: 0px !important;
+}

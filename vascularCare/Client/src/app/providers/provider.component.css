@@ -1,0 +1,50 @@
+
+
+.table-footer {
+    background-color: #dee2e6;
+    height: 34px;
+}
+
+
+
+.custom-th4 {
+    width: 8rem;
+}
+
+.height100{
+  height: 100%;
+}
+
+/* 
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    position: -webkit-fixed;
+    position: fixed;
+    width: 100%;
+    background: blue;
+    color: white;
+    top: 0px;
+    z-index: 1;
+  }
+  
+  :host ::ng-deep .p-datatable-resizable > .p-datatable-wrapper {
+    overflow-x: initial !important;
+  }
+  
+  :host ::ng-deep .p-datatable-resizable .ui-resizable-column {
+    position: fixed !important;
+  }
+  
+  @media screen and (max-width: 64em) {
+    :host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+      top: 1000px;
+    }
+  } */
+
+  /* :host ::ng-deep .ui-table-scrollable-header{
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+  } */
+
+  

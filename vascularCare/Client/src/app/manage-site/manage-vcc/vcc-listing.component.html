@@ -1,0 +1,127 @@
+<app-toast></app-toast>
+<app-notification></app-notification>
+<app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual>
+<p-confirmDialog header="" icon="fa fa-question-circle" [style]="{width: '40%'}" [baseZIndex]="20000" #cd>
+    <p-footer class="confirm_btn">
+        <button type="button" class="py-1 px-2 btn yes-btn" pButton label="Yes" (click)="cd.accept()"></button>
+        <button id="confirm-footer-no-btn" type="button" class=" py-1 px-1 btn no-btn" pButton label="No"
+            (click)="cd.reject()"></button>
+
+    </p-footer>
+</p-confirmDialog>
+<div class="">
+    <div class="implicit-pag mt-4">
+        <p-table #dt2 class="table-striped table-hover"  (onFilter)="onFilter($event)" [scrollable]="true" dataKey="id" [(selection)]="selected"
+            scrollDirection="both" [value]="vccList" [paginator]="true" [rows]="10" sortField="name" [sortOrder]="1"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['name','phone','fax','workingHour','address']" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,25,50,100,500]">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex search-icon m-2">
+                    <button *ngIf="searchGlobalText || nameFilter || phoneFilter || faxFilter || workingHourFilter || addressFilter " (click)="clear(dt2)"
+                        pButton label="Clear Filters" id="custom-btn" class="p-button-outlined"
+                        icon="pi pi-filter-slash" (click)="dt2.filterGlobal($event.target.value, 'contains')"></button>
+                    <span class=" p-ml-auto search-baricon">
+                        <i class="pi pi-search mt-1"></i>
+                        <input pInputText type="text" class="form-control-35" [(ngModel)]="searchGlobalText"
+                            (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+                    <!-- <button class="ml-2 py-1 px-1 btn btn-outline-info" (click)="onUpdate()">update</button> -->
+                
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr class="corporate-tr">
+                    <th pSortableColumn="name" class="wt_vcc" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Name</span>
+                            <p-sortIcon field="name"></p-sortIcon>
+                            <p-columnFilter type="text" field="name" display="name"></p-columnFilter>
+
+                        </div>
+
+                    </th>
+                    
+                    <th pSortableColumn="phone" class="wt_vcc_phone" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Phone</span>
+                            <p-sortIcon field="phone"></p-sortIcon>
+                            <p-columnFilter type="text" field="phone" display="phone"></p-columnFilter>
+
+                        </div>
+
+                    </th>
+                    <th pSortableColumn="fax" class="wt_vcc_fax" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Fax</span>
+                            <p-sortIcon field="fax"></p-sortIcon>
+                            <p-columnFilter type="text" field="fax" display="fax"></p-columnFilter>
+
+                        </div>
+
+                    </th>
+                    <th pSortableColumn="workingHour" class="wt_vcc" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Working Hours</span>
+                            <p-sortIcon field="workingHour"></p-sortIcon>
+                            <p-columnFilter type="text" field="workingHour" display="workingHour"></p-columnFilter>
+
+                        </div>
+
+                    </th>
+                    <th pSortableColumn="address" class="wt_vcc_add" >
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Address</span>
+                            <p-sortIcon field="address"></p-sortIcon>
+                            <p-columnFilter type="text" field="address" display="address"></p-columnFilter>
+
+                        </div>
+
+                    </th>
+                    <!-- <th  class="text-right"><span class="mr-3">Actions</span></th> -->
+                    <th class="wt_vcc" >
+                    </th>
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr>
+                    <td class="wt_vcc"  >
+                        <span class="ml-1">{{rowData.name}}</span>
+                    </td>
+                    <td class="wt_vcc_phone"  >{{rowData.phone}}</td>
+                    <td class="wt_vcc_fax"  >{{rowData.fax}}</td>
+                    <td class="wt_vcc"  >{{rowData.workingHour}}</td>
+                    <td class="wt_vcc_add"  >{{rowData.address}}</td>
+                    <td class="text-right wt_vcc">
+                        <div>
+                            <img src="../../../assets/themeIcons/edit.svg" title="&#13; &nbsp; Edit VCC&#13;" width="16px" class="cursor-pointer ml-2 mr-2 mt-2"
+                                (click)="onShowDialog(rowData)" />
+                                <span>
+                                    <label class="switch">
+                                        <input type="checkbox" (click)="onCheckCampaign($event,rowData)" [checked]="rowData.activeInactive" name="{{rowData.id}}" [(ngModel)]="rowData.activeInactive">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </span>
+                        </div>
+
+                    </td>
+                    
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr *ngIf="isNoRecorsFound">
+                    <td colspan="6">No records found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<div *ngIf="display">
+    <edit-vcc  [display]="display" [vccDetails]="vccDetails" [rowData]="rowData" 
+        (displayChange)="onDialogClose($event)">
+    </edit-vcc>
+</div>

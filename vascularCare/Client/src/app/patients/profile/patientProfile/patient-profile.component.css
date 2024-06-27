@@ -1,0 +1,38 @@
+ label {
+    font-weight: bold;
+    font-variant: all-petite-caps !important;
+    color: #969696;
+}
+
+
+::placeholder {
+    font-size: 0.7300rem !important;
+    opacity: 1;
+    padding: 3px;
+}
+
+ :-ms-input-placeholder {
+    font-size: 0.7300rem !important;
+}
+
+ ::-ms-input-placeholder {
+    font-size: 0.7300rem !important;
+}
+
+::-webkit-input-placeholder {
+    /* Edge */
+    color: #232323!important;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer */
+    color: #232323!important;
+}
+
+::placeholder {
+    color: #232323!important;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    margin-left: 0 !important;
+}

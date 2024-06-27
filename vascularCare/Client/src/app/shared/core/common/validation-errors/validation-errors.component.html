@@ -1,0 +1,21 @@
+<!--form validations -->
+<div [hidden]="!formCtrl.errors.required">
+     {{text}} is required
+</div>
+<div [hidden]="!formCtrl.errors.pattern" *ngIf="formCtrl.name=='password'">
+    Password must contain at least one lowercase, uppercase, numeric & special character
+</div>
+
+<div [hidden]="!formCtrl.errors.pattern" *ngIf="formCtrl.name=='email'">
+    Please enter a valid email
+</div>
+<div [hidden]="!formCtrl.errors.pattern" *ngIf="formCtrl.name=='zip'">
+    Enter a 5 digit valid zip
+</div>
+<!-- <div [hidden]="!prevFormCtrl" *ngIf="prevFormCtrl && formCtrl.name=='validaconfirmPassword'" >
+    Password not matched
+</div> -->
+
+<div [hidden]="!formCtrl.errors.minlength">
+    Please enter atleast a 10 digit no.
+</div>

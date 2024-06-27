@@ -1,0 +1,178 @@
+<!-- <div class="preloader">
+    <div class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+    </div>
+</div> -->
+<div class="wrapper clearfix" id="wrapperParallax">
+    <div class="module-content module-fullscreen module-search-box">
+        <div class="pos-vertical-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-8 offset-lg-2">
+                        <form class="form-search">
+                            <input class="form-control" type="text" placeholder="type words then enter" />
+                            <button></button>
+                        </form>
+                        <!-- End .form-search -->
+                    </div>
+                    <!-- End .col-lg-8 -->
+                </div>
+                <!--  End .row-->
+            </div>
+            <!--  End .container-->
+        </div><a class="module-cancel" href="#"><i class="fas fa-times"></i></a>
+    </div>
+    <div class="top-bar-head">
+        <div class="container">
+            <div class="top-contact">
+                <div class="contact-infos">
+                    <!--<i class="fas fa-phone-alt"></i>-->
+                    <div class="contact-body"> <a href="tel:516-717-1839">Request A Consultation Near You:
+                            <span>516-717-1839</span></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="header header-light header-topbar header-topbar6" id="navbar-spy">
+        <nav class="navbar navbar-expand-xl navbar-sticky" id="primary-menu">
+            <div class="container"><a [routerLink]="[ '/home']" class="navbar-brand" href="javascript:void(0)"><img
+                        class="logo logo-dark" src="assets/images/logo/logo-dark.svg" alt="Medisch Logo" /><img
+                        class="logo logo-mobile" src="assets/images/logo/logo-dark.svg" alt="Medisch Logo" /></a>
+                <div  class="module-holder module-holder-phone">
+                    <button #menu class="navbar-toggler collapsed" type="button" data-toggle="collapse"  
+                        data-target="#navbarContent"  aria-expanded="false" aria-controls="navbar-collapse"
+                        aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                </div>
+                <div  class="collapse navbar-collapse"  id="navbarContent" >
+
+                    <ul  class="navbar-nav one-page-scroll-menu">
+                        <li class="nav-item has-dropdown" data-hover="" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="[ '/home/who-we-are']"
+                                href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><span>WHO WE
+                                    ARE <i class="fa">&#xf107;</i></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item" routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{exact: true}"><a (click)="toggleMenu()"
+                                        class="dropdown-item  d-flex align-items-center js-scroll-trigger"
+                                        [routerLink]="[ '/home/clinical-team']"
+                                        routerLinkActive="active font-weight-bold">
+                                        <span>Clinical Team</span></a></li>
+                                <li class="nav-item" routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{exact: true}"><a (click)="toggleMenu()"
+                                        class="dropdown-item  d-flex align-items-center js-scroll-trigger"
+                                        [routerLink]="[ '/home/leadership-team']"
+                                        routerLinkActive="active font-weight-bold">
+                                        <span>Leadership Team</span></a></li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item" data-hover="" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="[ '/home/why-us']" (click)="toggleMenu()"
+                                href="javascript:void(0)"><span>WHY US</span></a></li>
+                        <li class="nav-item has-dropdown" data-hover="" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="[ '/home/services']"
+                                href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><span>SERVICES
+                                    <i class="fa">&#xf107;</i></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item" routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{exact: true}"><a (click)="toggleMenu()"
+                                        class="dropdown-item  d-flex align-items-center"
+                                        [routerLink]="[ '/home/dialysis-access-management']"
+                                        routerLinkActive="active font-weight-bold">
+                                        <span>Dialysis Access</span></a></li>
+                                <li class="nav-item" routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{exact: true}"><a (click)="toggleMenu()"
+                                        class="dropdown-item  d-flex align-items-center"
+                                        [routerLink]="[ '/home/peripheral-artery-disease']"
+                                        routerLinkActive="active font-weight-bold">
+                                        <span>eripheral Arterial
+                                            Disease</span></a></li>
+                                <li class="nav-item" routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{exact: true}"><a (click)="toggleMenu()"
+                                        class="dropdown-item  d-flex align-items-center"
+                                        [routerLink]="[ '/home/uterine-fibroids']"
+                                        routerLinkActive="active font-weight-bold">
+                                        <span>Uterine Fibroids Disease</span></a></li>
+                                <li class="nav-item" routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{exact: true}"><a (click)="toggleMenu()"
+                                        class="dropdown-item  d-flex align-items-center"
+                                        [routerLink]="[ '/home/hemorrhoidal-disease']"
+                                        routerLinkActive="active font-weight-bold">
+                                        <span>Hemorrhoidal Disease</span></a></li>
+                                        <li class="nav-item" routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{exact: true}"><a (click)="toggleMenu()"
+                                        class="dropdown-item  d-flex align-items-center"
+                                        [routerLink]="[ '/home/pelvic-congestion-syndrome']"
+                                        routerLinkActive="active font-weight-bold">
+                                        <span>Pelvic Congestion Syndrome</span></a></li>
+                                        <li class="nav-item" routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{exact: true}"><a (click)="toggleMenu()"
+                                            class="dropdown-item  d-flex align-items-center"
+                                            [routerLink]="[ '/home/prostatic-artery']"
+                                            routerLinkActive="active font-weight-bold">
+                                            <span>Prostatic Artery Embolization</span></a></li>
+                                            <li class="nav-item" routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{exact: true}"><a (click)="toggleMenu()"
+                                            class="dropdown-item  d-flex align-items-center"
+                                            [routerLink]="[ '/home/vericose-veins']"
+                                            routerLinkActive="active font-weight-bold">
+                                            <span>Vericose Veins</span></a></li>
+                                            <li class="nav-item" routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{exact: true}"><a (click)="toggleMenu()"
+                                            class="dropdown-item  d-flex align-items-center"
+                                            [routerLink]="[ '/home/varicocele-embolization']"
+                                            routerLinkActive="active font-weight-bold">
+                                            <span>Varicocele Embolization</span></a></li>
+                            </ul>
+                        </li>
+                        
+                    <!--   <li class="scrollToLink nav-item <?php echo (($current_page=="mobile-access.php")?"active":""); ?>" data-hover=""><a href="mobile-access.php"><span>MOBILE ACCESS</span></a></li>-->
+                    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        data-hover=""><a [routerLink]="[ '/home/testimonials']" (click)="toggleMenu()"
+                            href="javascript:void(0)"><span>TESTIMONIALS</span></a></li>
+                    <li class="nav-item has-dropdown" data-hover="" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="[ '/home/locations']" 
+                            href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><span>LOCATIONS
+                                <i class="fa">&#xf107;</i></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                                *ngFor="let location of locations"><a (click)="toggleMenu()" class="dropdown-item  d-flex align-items-center"
+                                    [routerLink]="[ '/home/locations/details/' + location.name]"
+                                    routerLinkActive="active font-weight-bold">
+                                    <span>{{location.name}}</span></a></li>
+
+
+                        </ul>
+                    </li>
+                    <li class="nav-item" data-hover="" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}"><a #jobActive [routerLink]="[ '/careers']"
+                            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                            href="javascript:void(0)"><span>CAREERS</span></a></li>
+                            <!-- <li class="nav-item" data-hover="" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}"><a 
+                            href="https://careers-mvpmedgroup.icims.com/"><span>CAREERS</span></a></li> -->
+                    <li class="nav-item" data-hover="" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="[ '/home/contact']" (click)="toggleMenu()"
+                            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                            href="javascript:void(0)"><span>CONTACT US</span></a></li>
+
+                    <li class="nav-item m-auto">
+                        <span>
+                            <button [disabled]="clientPortalDisable"
+                                class="btn btn-sm  mvpHoverBorder text-uppercase portal_btn common_btn_topbar"
+                                (click)="onHomeClick()" routerLinkActive="active font-weight-bold"
+                                [routerLinkActiveOptions]="{ exact : true}">Client Portal</button>
+                        </span>
+                    </li>
+
+                    </ul>
+                    <!--  End .module-holder-->
+                </div>
+            </div>
+            <!--  End .container-->
+        </nav>
+        <!--  End .navbar-->
+    </header>
+   

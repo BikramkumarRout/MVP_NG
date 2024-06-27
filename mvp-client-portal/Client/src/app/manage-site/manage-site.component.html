@@ -1,0 +1,63 @@
+<app-spinner></app-spinner>
+
+<app-notification></app-notification>
+<top-bar></top-bar>
+<p-confirmDialog header="" icon="fa fa-question-circle" [style]="{width: '40%'}" [baseZIndex]="20000" #cd>
+    <p-footer>
+        <button type="button" class="py-1 px-2 btn yes-btn" pButton icon="fa-check" label="Yes"
+            (click)="cd.accept()"></button>
+        <button id="confirm-footer-no-btn" type="button" class=" py-1 px-1 btn no-btn" pButton icon="fa-close"
+            label="No" (click)="cd.reject()"></button>
+
+    </p-footer>
+</p-confirmDialog>
+
+<div class="padding-container">
+    <div class="row justify-content-center">
+        <div class="col-md-12 px-3 aos-init aos-animate">
+            <ul class="nav nav-tabs customNav mt-7" id="myTab" role="tablist">
+                <div class="mb-3 p-headermenu">
+                    <h2 class="mb-1 card-title text-black">Manage Site</h2>
+                </div>
+               
+                <li *ngIf="isUserPermission" class="nav-item">
+                    <a (click)="userActive()" #user class="nav-link" id="user-tab" data-toggle="tab" href="#user"
+                        role="tab" aria-controls="user" aria-selected="false">Manage Users</a>
+                </li>
+                <li *ngIf="isRolePermission" class="nav-item">
+                    <a (click)="roleActive()" #role class="nav-link" id="role-tab" data-toggle="tab" href="#role"
+                        role="tab" aria-controls="role" aria-selected="false">Manage Roles</a>
+                </li>
+                <li *ngIf="isPermissionPermission" class="nav-item">
+                    <a (click)="permissionActive()" #permission class="nav-link" id="permission-tab" data-toggle="tab"
+                        href="#permission" role="tab" aria-controls="permission" aria-selected="false">
+                        Permissions</a>
+                </li>
+                
+            </ul>
+            <div class="card shadow px-3 col-md-12 col-lg-12 pb-2">
+
+                <div class="tab-content" id="myTabContent">
+
+                    
+                    <div *ngIf="isUser && isUserPermission" class="tab-pane fade in active icon-hide" id="user" role="tabpanel"
+                        aria-labelledby="user-tab">
+                        <app-users></app-users>
+                    </div>
+                    <div *ngIf="isRole && isRolePermission " class="tab-pane fade in active icon-hide" id="role" role="tabpanel"
+                        aria-labelledby="role-tab">
+                        <app-roles></app-roles>
+                    </div>
+                    <div *ngIf="isPermission && isPermissionPermission" class="tab-pane fade in active icon-hide" id="permission"
+                        role="tabpanel" aria-labelledby="permission-tab">
+                        <app-permissions></app-permissions>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

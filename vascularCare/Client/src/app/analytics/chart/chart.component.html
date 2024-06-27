@@ -1,0 +1,20 @@
+<div class="content-section implementation">
+    <div class="card">
+
+        <div *ngIf="requestTab ==  3">
+            <p-chart  type="line" #lineChart [data]="basicData" [options]="basicOptions"></p-chart>
+        </div>
+        <div *ngIf="requestTab !=  3">
+            <p-chart type="bar" [data]="stackedData" [options]="stackedOptions"></p-chart>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<div class="content-section documentation">
+
+
+</div>

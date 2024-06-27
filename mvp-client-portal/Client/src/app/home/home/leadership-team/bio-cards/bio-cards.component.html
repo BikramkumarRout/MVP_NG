@@ -1,0 +1,23 @@
+
+    <div  *ngIf="isImage" class="team-member-holder">
+        <div class="team-img"><a class="link" href="javascript:void(0)"></a><img  [src]="this.listing.imgUrl"
+                alt="Mark Feuer" />
+
+        </div>
+        <div  class="team-content readmoresection">
+            <div class="team-title">
+                <h4><a href="javascript:void(0)">{{this.listing.firstName}}</a></h4>
+            </div>
+            <div class="team-cat"><a href="javascript:void(0)">{{this.listing.designation}}</a>
+            </div>
+            <read-more [text]="this.listing.description" [maxHeight]="140"></read-more>
+           
+            <div *ngIf="!hideReadMore" class="team-more"><a [routerLink]="[ '/home/clinical-team/details/' + this.listing.name,{bioId: item.id }]" 
+                                
+                routerLinkActive="active font-weight-bold"
+                    class="btn-line btn-line-inversed btn-line-before" href="javascript:void(0)"> <span
+                        class="line"> <span></span></span><span>read
+                        more</span></a></div>
+        </div>
+
+    </div>

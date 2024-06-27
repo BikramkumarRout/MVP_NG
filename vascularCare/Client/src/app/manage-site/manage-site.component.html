@@ -1,0 +1,113 @@
+<app-spinner></app-spinner>
+<app-notification></app-notification>
+<p-confirmDialog header="" icon="fa fa-question-circle" [style]="{width: '40%'}" [baseZIndex]="20000" #cd>
+    <p-footer class="confirm_btn">
+        <button type="button" class="py-1 px-2 btn yes-btn" pButton label="Yes" (click)="cd.accept()"></button>
+        <button id="confirm-footer-no-btn" type="button" class=" py-1 px-1 btn no-btn" pButton label="No"
+            (click)="cd.reject()"></button>
+
+    </p-footer>
+</p-confirmDialog>
+
+<div class="padding-container mb-6 managesite_section_height" id="myTopnav">
+    <div class="row justify-content-center">
+        <div class="col-md-12 px-3 aos-init aos-animate">
+            <ul class="nav nav-tabs customNav mt-7" id="myTab" role="tablist">
+                <div class="mb-3 p-headermenu">
+                    <h2 class="mb-1 card-title text-black">Manage Site</h2>
+                </div>
+                <li *ngIf="isCorporationPermission" class="nav-item" active>
+                    <a routerLinkActive="active" class="nav-link" id="corporation-tab" data-toggle="tab"
+                        data-target="#corporation" role="tab" aria-controls="corporation" aria-selected="true"
+                        routerLink="/manage-site/manage-corporations">Corporations</a>
+                </li>
+                <li *ngIf="isFacilityPermission" class="nav-item">
+                    <a routerLinkActive="active" routerLink="/manage-site/facilities" class="nav-link" id="facility-tab"
+                        data-toggle="tab" data-target="#facility" role="tab" aria-controls="facility"
+                        aria-selected="false">Facilities</a>
+                </li>
+                <li *ngIf="isVccPermission" class="nav-item">
+                    <a routerLinkActive="active" routerLink="/manage-site/vcc" class="nav-link" id="vcc-tab"
+                        data-toggle="tab" data-target="#vcc" role="tab" aria-controls="vcc"
+                        aria-selected="false">VCC</a>
+                </li>
+                <li *ngIf="isUserPermission" class="nav-item">
+                    <a routerLinkActive="active" routerLink="/manage-site/manage-users" class="nav-link" id="user-tab"
+                        data-toggle="tab" data-target="#user" role="tab" aria-controls="user"
+                        aria-selected="false">Users</a>
+                </li>
+                <li *ngIf="isRolePermission" class="nav-item">
+                    <a routerLinkActive="active" routerLink="/manage-site/manage-roles" class="nav-link" id="role-tab"
+                        data-toggle="tab" data-target="#role" role="tab" aria-controls="role"
+                        aria-selected="false">Roles</a>
+                </li>
+                <li *ngIf="isPermissionPermission" class="nav-item">
+                    <a routerLinkActive="active" routerLink="/manage-site/manage-permissions" class="nav-link"
+                        id="permission-tab" data-toggle="tab" data-target="#permission" role="tab"
+                        aria-controls="permission" aria-selected="false">
+                        Permissions</a>
+                </li>
+                <li *ngIf="isCovidPermission" class="nav-item">
+                    <a routerLinkActive="active" routerLink="/manage-site/covid-card" class="nav-link" id="covid-tab"
+                        data-toggle="tab" data-target="#covid-19" role="tab" aria-controls="covid-19"
+                        aria-selected="false">COVID-19 Cards</a>
+                </li>
+                <li *ngIf="isAppSettingPermission" class="nav-item">
+                    <a class="nav-link" id="appSetting-tab" data-toggle="tab" role="tab" aria-controls="appSetting"
+                        aria-selected="false" data-target="#appSetting"
+                        [routerLink]="'/manage-site/application-setting'"
+                        routerLinkActive="active font-weight-bold">Application
+                        Settings</a>
+                </li>
+
+                <li *ngIf="isHrPermission" class="nav-item">
+                    <a routerLinkActive="active" routerLink="/manage-site/hr-menu" class="nav-link" id="hr-tab"
+                        data-toggle="tab" data-target="#hr" role="tab" aria-controls="hr" aria-selected="false">HR
+                    </a>
+                </li>
+                <li *ngIf="isBioPermission" class="nav-item">
+                    <a routerLinkActive="active" routerLink="/manage-site/bio-upload" class="nav-link" id="bio-tab"
+                        data-toggle="tab" data-target="#bio" role="tab" aria-controls="bio"
+                        aria-selected="false">Biographies
+                    </a>
+                </li>
+                <li *ngIf="ismailCampaignPermission && !isHideEmailDropdown" class="nav-item">
+                    <a routerLinkActive="active" [routerLink]="[ '/manage-site/mail-campaign-management']" class="nav-link" id="mailCampagin-tab"
+                        data-toggle="tab" data-target="#mailCampagin" role="tab" aria-controls="mailCampagin"
+                        aria-selected="false">Mail Campaign
+                    </a>
+                    
+                </li>
+                <li *ngIf="isEmailManagerPermission && !isHideEmailDropdown" class="nav-item">
+                    <a routerLinkActive="active" [routerLink]="['/manage-site/email-manager']" class="nav-link" id="emailManager-tab"
+                        data-toggle="tab" data-target="#emailManager" role="tab" aria-controls="emailManager"
+                        aria-selected="false">Email Manager
+                    </a>
+                    
+                </li>
+                <li class="dropdown" *ngIf="isEmailPermission && isHideEmailDropdown">
+                    <a href="javascript:void(0)" class="emailText" style="pointer-events: none;" data-target="#dropdown"  data-toggle="dropdown"><span class="emailText">Emails <i class="fa">&#xf107;</i></span></a>
+                    <div class="dropdown-content">
+                        <a  *ngIf="ismailCampaignPermission"
+                            class="dropdown-item  d-flex align-items-center"
+                            [routerLink]="[ '/manage-site/mail-campaign-management']"
+                            routerLinkActive="active font-weight-bold">
+                            <span>Mail Campaign</span></a> 
+                            <a
+                            *ngIf="isEmailManagerPermission"
+                            class="dropdown-item  d-flex align-items-center"
+                            [routerLink]="[ '/manage-site/email-manager']"
+                            routerLinkActive="active font-weight-bold">
+                            <span>Email Manager</span></a>
+                    </div>
+                </li>
+            </ul>
+            <div class="card shadow px-3 col-md-12 col-lg-12 pb-2">
+                <router-outlet></router-outlet>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<common-footer [portalFooter]="portalFooter"></common-footer>

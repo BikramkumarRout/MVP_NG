@@ -1,0 +1,65 @@
+<app-toast></app-toast>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" [closable]="false"
+    (onHide)="onClose()" class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true"
+    [resizable]="true" [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Edit VCC </h5>
+        <div class="custom-right">
+            <span class="float-right" type="button" (click)="onClose()">
+                <i class="pi pi-times close-icon"></i>
+            </span>
+        </div>
+    </ng-template>
+    <div class="container profile-container">
+        <form #vccEditForm="ngForm" autocomplete="off">
+            <fieldset>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="mt-2 mb-2"><strong>Working Hours</strong></div>
+                        <div class="float-left">
+                            <label class="mr-2">From <span class="text-danger text-small">*</span></label>
+                            <!-- <input type="text" placeholder="Enter Working Hours" class="form-control" name="displayName" required
+                            #displayName="ngModel" [(ngModel)]="vccDetails.workingHour" /> -->
+                            <p-calendar id="vccDatePickerWithTimeOnly" class="mr-1 vccDatePickerWithTimeOnly" [(ngModel)]="vccDetails.workingHourFrom" placeholder="HH:MM"
+                                name="workingHourFrom" #workingHourFrom="ngModel" timeOnly="true" hourFormat="12"
+                                dataType="string" required></p-calendar>
+                            <div *ngIf="workingHourFrom.errors  &&  submittedError" class="text-danger text-small">
+                                <div [hidden]="!workingHourFrom.errors.required">
+                                    Please select the time
+                                </div>
+
+                            </div>
+                            <!-- <label>End Date</label> -->
+
+                            <!-- <div *ngIf="displayName.errors  &&  submittedError" class="text-danger text-small">
+                            <div [hidden]="!displayName.errors.required">
+                                Name is required
+                            </div>
+                        </div> -->
+                        </div>
+                        <div class="float-left">
+                            <label class="mr-2 ml-2"> To <span class="text-danger text-small">*</span> </label>
+                            <p-calendar class="mr-1" name="workingHourTo" #workingHourTo="ngModel"
+                                [(ngModel)]="vccDetails.workingHourTo" placeholder="HH:MM" timeOnly="true"
+                                hourFormat="12" dataType="string" required></p-calendar>
+                            <div *ngIf="workingHourTo.errors  &&  submittedError" class="text-danger text-small">
+                                <div [hidden]="!workingHourTo.errors.required">
+                                    Please select the time
+                                </div>
+                                
+                                <div [hidden]="!workingHourTo.errors.incorrect">
+                                    To Time should be greater than From Time
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <p-footer class="pFooter">
+        <button type="button" [disabled]="!vccEditForm.dirty" class="py-1 px-1 btn btn-primary"
+            (click)="onSave()">Save</button>
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>

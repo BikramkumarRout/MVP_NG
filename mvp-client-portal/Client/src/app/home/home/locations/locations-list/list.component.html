@@ -1,0 +1,122 @@
+<section class="donations vascular-care alllocationPanel" id="ourlocation">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-6">
+                <h2 class="heading-title">Vascular Care <br />Center Locations</h2>
+                <div class="img-hotspot">
+                    <div class="img-hotspot-wrap map-section-panel">
+                        <div class="img-hotspot-bg"> 
+                            <!-- <img src="assets/images/New_York_Counties_no_text.svg" alt="image" /> -->
+                            <img *ngIf="!showMap" src="assets/images/background/world-map.png"
+                                    alt="image" />
+                            <iframe width="100%"  *ngIf="showMap" height="500" [src]="mapUrl"></iframe>
+
+                        </div>
+                        <!-- <div class="img-hotspot-pointers">
+                            <div class="img-hotspot-pointer" data-spot-x="72%" data-spot-y="83%"><img src="assets/images/location-pin.svg" alt="pointer" />
+                                <div class="info right" data-info-x="18px" data-info-y="-97px"><span>
+                                        <h4>Bronx</h4><b>2160 Powell Ave, Bronx,<br> NY 10462</b>
+                                        <a href="https://goo.gl/maps/BZeSBLQQ2RpWD5J77" target="_blank">Direction</a>
+                                    </span></div>
+                            </div>
+                            <div class="img-hotspot-pointer" data-spot-x="73%" data-spot-y="87%"><img src="assets/images/location-pin.svg" alt="pointer" />
+                                <div class="info right" data-info-x="18px" data-info-y="-97px"><span>
+                                        <h4>Brooklyn / Marine Park </h4><b>2174 Flatbush Ave, Brooklyn,<br> NY 11234</b>
+                                        <a href="https://goo.gl/maps/kgtToAqLSwucMSLb6" target="_blank">Direction</a>
+                                    </span></div>
+                            </div>
+
+                            <div class="img-hotspot-pointer" data-spot-x="74%" data-spot-y="75%"><img src="assets/images/location-pin.svg" alt="pointer" />
+                                <div class="info left" data-info-x="-160px" data-info-y="-97px"><span>
+                                        <h4>Westchester / White Plains</h4><b>244 Westchester Ave, Suite 212 West Harrison,<br> NY 10604</b> <a href="https://goo.gl/maps/cPD6kypwwiAMzrXm7" target="_blank">Direction</a>
+                                    </span><span></span></div>
+                            </div>
+
+                            <div class="img-hotspot-pointer" data-spot-x="77%" data-spot-y="90%"><img src="assets/images/location-pin.svg" alt="pointer" />
+                                <div class="info left" data-info-x="-160px" data-info-y="-97px"><span>
+                                        <h4>Brooklyn / Williamsburg</h4><b>16 Sumner Pl, 4th Floor, Brooklyn,<br> NY 11206 </b> <a href="https://goo.gl/maps/DwiRKkk7aGy6GdTT9" target="_blank">Direction</a>
+                                    </span></div>
+                            </div>
+
+
+                            <div class="img-hotspot-pointer" data-spot-x="82%" data-spot-y="87%"><img src="assets/images/location-pin.svg" alt="pointer" />
+                                <div class="info left" data-info-x="-160px" data-info-y="-97px"><span>
+                                        <h4>Queens / Forest Hill</h4><b>64-75 Woodhaven Blvd Rego Park,<br> NY 11374</b>
+                                        <a href="linkgoogle" target="_blank">Direction</a>
+                                    </span></div>
+                            </div>
+
+
+                            <div class="img-hotspot-pointer" data-spot-x="70%" data-spot-y="77%"><img src="assets/images/location-pin.svg" alt="pointer" />
+                                <div class="info left" data-info-x="-160px" data-info-y="-97px"><span>
+                                        <h4>Rockland County</h4><b>222 NY-59, unit 108 Suffern,<br> NY 10901</b>
+                                        <a href="linkgoogle" target="_blank">Direction</a>
+                                    </span></div>
+                            </div>
+
+                            <div class="img-hotspot-pointer" data-spot-x="92%" data-spot-y="83%"><img src="assets/images/location-pin.svg" alt="pointer" />
+                                <div class="info right" data-info-x="18px" data-info-y="-97px"><span>
+                                        <h4>Commack</h4><b>366 Veterans Memorial Hwy Commack,<br> NY 11725</b>
+                                        <a href="https://goo.gl/maps/MKtVAT3fS9m1Vy9N6" target="_blank">Direction</a>
+                                    </span></div>
+                            </div>
+
+
+
+                            <div class="img-hotspot-pointer" data-spot-x="72%" data-spot-y="18%"><img src="assets/images/location-pin.svg" alt="pointer" />
+                                <div class="info left" data-info-x="-160px" data-info-y="-97px"><span>
+                                        <h4>Essex County</h4><b>727 Joralemon St Belleville,<br> NJ 07109</b>
+                                        <a href="linkgoogle" target="_blank">Direction</a>
+                                    </span></div>
+                            </div>
+                            <div class="img-hotspot-pointer" data-spot-x="88%" data-spot-y="86%"><img src="assets/images/location-pin.svg" alt="pointer" />
+                                <div class="info left" data-info-x="-160px" data-info-y="-97px"><span>
+                                        <h4>Massapequa</h4><b>6175 Sunrise Hwy, Massapequa,<br> NY 11758</b>
+                                        <a href="https://goo.gl/maps/dvkte7dK4SvbNL7p7" target="_blank">Direction</a>
+                                    </span></div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 offset-md-0 col-lg-6">
+                <p class="paragraph">MVP’s facilities provide minimally invasive vascular treatment and that sets people on the quick road to recovery.</p>
+
+                <div class="accordion" id="accordion03">
+                    <div class="card" *ngFor="let location of locations; let i = index;">
+                        <div class="card-heading"><a class="card-link collapsed" data-hover="" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapse01-1" href="#collapse01-{{i}}" (click)="showLocationMap(location)">{{location.name}} </a>
+                            <span>
+                                <a href="https://maps.google.com/maps?q={{location.name}},{{location.address}}" target="_blank">Directions</a> <a [routerLink]="[ '/home/locations/details/' + location.name]"  class="seeDetails">See Details</a></span>
+                        </div>
+                        <div class="collapse" id="collapse01-{{i}}" data-bs-parent="#accordion03">
+                            <div class="card-body">
+                                <ul class="mvp-contact-infos">
+                                    <li>
+                                        <h3>Phone:</h3><a href="tel:{{location.phone}}">{{location.phone}}</a>
+                                    </li>
+                                    <li>
+                                        <h3>Fax:</h3><a href="tel:{{location.fax}}">{{location.fax}}</a>
+                                    </li>
+                                    <li>
+                                        <h3>Working Hours:</h3> <span>Monday to Friday</span><span>{{location.workingHour}}</span>
+                                    </li>
+                                    <li>
+                                        <h3>Address:</h3><a href="https://maps.google.com/maps?q={{location.name}},{{location.address}}" target="linkgoogle">{{location.address}}, {{location.city}}<br> {{location.state}} {{location.zip}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                     
+                </div>
+                <!-- <a class="btn btn--primary fluidbtn"  href="#contact">Request Consultation</a>-->
+            </div>
+
+           <!-- <div class="col-12 col-lg12">
+                <div class="text-section">
+                    <p>In addition to the above AAAASF Certified Outpatient based Surgical Centers (OBS), MVP has 60+ office locations in the New York Metro area.</p>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</section>

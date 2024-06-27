@@ -1,0 +1,51 @@
+<!-- <top-bar [isProviderExist]="isProviderExist"></top-bar> -->
+<app-spinner></app-spinner>
+<section class="mt-6 pt-4 pb-4 pt-lg7 pb-lg-2">
+    <div class="padding-container analytics_section">
+        <div class="row justify-content-center">
+            <div class="col-md-12 px-3 aos-init aos-animate">
+                <div class="mb-3 p-headermenu">
+                    <h2 class="mb-1 card-title text-black">Analytics</h2>
+                    <div *ngIf="userRole == 'Facility'" class="col-md-12 px-3">
+                        <div class="dropdown drop-downrow show float-right text-info text-black">
+                            <a class="facility-name dropdown-toggle" href="javascript:void(0)"
+                                *ngFor="let Facility of facilities" id="dropdownMenuLink" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                {{Facility.name}}
+                            </a>
+                        </div>
+                    </div>
+                    <div *ngIf="userRole == 'Corporate' || userRole == 'SuperUser' || userRole == 'MvpAdminstrative' "
+                        class="col-md-12 px-3">
+                        <facility-selector (facilityEmit)="onFacilityEmit($event)">
+                        </facility-selector>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-12 col-lg-12 px-3 aos-init aos-animate" data-aos="fade-down">
+                <div class="card shadow lift mb-5">
+                    <div class="card-body min-ht px-3 py-2">
+
+                        <dos-history (facilityEmit)="onFacilityEmit($event)" (displayEmmiter)="displayEmmiter($event)">
+                        </dos-history>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <common-footer [portalFooter]="portalFooter"></common-footer>
+
+
+</section>
+<div *ngIf="displayEmit">
+    <stat-list [displayEmit]="displayEmit" [currentYear]="currentYear" [previousMonth]="previousMonth"
+        [currentMonth]="currentMonth" [facilityId]="facilityId" [dosCategory]="dosCategory" [flag]="flag" [date]="date"
+        (displayChange)="onStatDialogClose($event)">
+    </stat-list>
+</div>

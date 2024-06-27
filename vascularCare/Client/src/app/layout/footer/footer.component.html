@@ -1,0 +1,59 @@
+<!-- <div class="backtop" id="back-to-top" data-hover="" (click)="backToTopClick($event)"> -->
+
+<div class="footer">
+    <div class="container">
+        <div *ngIf="!portalFooter" class="career-oppotunity"><a href="javascript:void(0)" [routerLink]="[ '/careers']" routerLinkActive="active font-weight-bold"
+            [routerLinkActiveOptions]="{ exact : true} "
+                class="btn btn--white btn-line btn-line-after">Career
+                Opportunities at MVP</a></div>
+        <div class="center-panel">
+            <div class="footer-logo"><a href="javascript:void(0)"><img src="assets/images/logo/logo-footer.svg"
+                        alt="" /></a>
+            </div>
+            <div class="connect-panel">
+                <h5>CONNECT</h5>
+                <ul>
+                    <li><a href="tel:516-717-1839">516-717-1839</a> <a href="tel:516-232-9789">516-232-9789 - FAX</a>
+                    </li>
+                    <li><a href="https://goo.gl/maps/q4R2Kx8NqDkT9fuD9" target="_blank">120 Hicksville Rd.
+                            <br />Bethpage, NY 11714</a></li>
+                    <li><span>Monday - Friday 8 AM - 5 PM</span><span>Saturday - Sunday - Closed</span></li>
+                </ul>
+            </div>
+            <div class="right-panel mt-4">
+                <div class="privacy-policy"><a href="javascript:void(0)" [routerLink]="['/privacy-policy']">Privacy Policy</a></div>
+                <div *ngIf="!portalFooter" class="social-panel">
+                    <p>Find us on social media</p>
+                    <ul class="social-links">
+                        <li class="loginDisplay_btn">
+                            <span *ngIf="!loginDisplay" (click)="onLogin()">
+                                <button class="text-info">&nbsp; login</button></span>
+                                <span *ngIf="loginDisplay" (click)="logout()">
+                                    <button class="text-info">&nbsp; logout</button>
+                                    </span>
+                        </li>
+                        <li> <a class="share-facebook" href="https://www.facebook.com/mobilevascularphysicians/"
+                                target="_blank"><i class="fab fa-facebook-f"> </i></a></li>
+                        <li> <a class="share-instagram" href="https://instagram.com/mvpphysicians?igshid=12yox2t94evqw"
+                                target="_blank"><i class="fab fa-instagram"></i></a></li>
+                        <li> <a class="share-twitter" href="https://www.linkedin.com/company/mobile-vascular-physicians"
+                                target="_blank"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+                <div class="copyright">&copy; 2022 MOBILE VASCULAR PHYSICIANS
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footerbg"><img src="assets/images/footer-bg.jpg" alt="" /></div>
+<div class="backtop" id="back-to-top" data-hover=""  (click)="backToTopClick($event)">
+    <svg class="bi bi-chevron-up" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+            d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z">
+        </path>
+    </svg>
+</div>
+<!-- </div> -->

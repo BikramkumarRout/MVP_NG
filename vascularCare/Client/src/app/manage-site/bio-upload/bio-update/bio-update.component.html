@@ -1,0 +1,492 @@
+<app-toast></app-toast>
+<app-notification></app-notification>
+<p-dialog [(visible)]="display" [closable]="false" modal="modal" [transitionOptions]="'3ms'" [responsive]="true"
+        (onHide)="onClose()" class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true"
+        [resizable]="true" [contentStyle]="{height: '550px'}">
+
+
+        <ng-template pTemplate="header">
+            <span style="position:absolute"><h5 class="m-0 font-weight-bold">{{header}} </h5></span>
+            <div class="custom-right">
+                <span class="float-right" type="button" (click)="onClose()">
+                    <i class="pi pi-times close-icon"></i>
+                </span>
+            </div>
+        </ng-template>
+
+        
+<div class="profile-container">
+    <form #bioForm="ngForm" autocomplete="off">
+        <fieldset>
+    <div class="">
+        <div class="col-md-2 col-lg-2 px-3 float-right">
+            <div class="mb-3 mb-lg-1 mt-n1 ">
+                <div class="profile-row">
+                    <img [src]="safeUrl" class="login-user-lg">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Name <span class="text-danger">*</span></label>
+                <input type="text" placeholder="Enter Name" class="form-control" name="name" required #name="ngModel"
+                    [(ngModel)]="bioDetails.name" />
+                    <pm-validation-errors class="text-danger text-small" *ngIf="name.errors  &&  submittedError"  [formCtrl]="name" [text]="'Name'" ></pm-validation-errors>
+
+                <!-- <div *ngIf="name.errors  &&  submittedError" class="text-danger text-small">
+                    <div [hidden]="!name.errors.required">
+                        Name is required
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="inputEmail4">Designation<span class="text-danger">*</span></label>
+                <input type="text" autocomplete="none" onfocus="this.setAttribute('autocomplete', 'none');"
+                    class="form-control" placeholder="Enter Designation" name="designation" #designation="ngModel"
+                    [(ngModel)]="bioDetails.designation" required />
+                    <pm-validation-errors class="text-danger text-small" *ngIf="designation.errors  &&  submittedError"  [formCtrl]="designation" [text]="'Designation'" ></pm-validation-errors>
+
+                <!-- <div *ngIf="designation.errors  &&  submittedError" class="text-danger text-small">
+                    <div [hidden]="!designation.errors.required">
+                        Designation is required
+                    </div>
+
+                </div> -->
+            </div>
+            <div class="form-group col-md-4 mt-4">
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" (change)="onSelectedRole($event.target.value)" name="userType" id="Clinical"
+                        value="Clinical" checked="checked" #userType="ngModel" [(ngModel)]="bioDetails.teamName"
+                         required>
+                    <label class="form-check-label" for="Clinical">Clinical</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" (change)="onSelectedRole($event.target.value)" name="userType" id="Leadership"
+                        value="Leadership"
+                        #userType="ngModel" [(ngModel)]="bioDetails.teamName" required>
+                    <label class="form-check-label" for="Leadership">Leadership</label>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- <div class="form-row ml-1">
+            <div  class="form-row">
+                                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" (change)="onSelectedRole($event.target.value)" name="userType" id="Clinical"
+                        value="Clinical"  
+                         required>
+                    <label class="form-check-label" for="Clinical">Clinical</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" (change)="onSelectedRole($event.target.value)" name="userType" id="Leadership"
+                        value="Leadership"  
+                         required>
+                    <label class="form-check-label" for="Leadership">Leadership</label>
+                </div>
+                <div class="text-danger text-small"
+                    *ngIf="userRole.errors?.required &&  submittedError && role != 'MvpAdminstrative' && userDetail.id == 0">
+                    User role is required
+                </div>
+            </div>
+        </div> -->
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="inputPassword4">Description<span class="text-danger">*</span></label>
+                <p-editor [(ngModel)]="bioDetails.description"  name="description" #description="ngModel">
+                    <p-header>
+
+                        <span class="ql-formats">
+                            <!-- <select class="ql-header"  tabindex="-1">
+                      <option value="1">Heading</option>
+                      <option value="2">Subheading</option>
+                      <option selected>Normal</option>
+                    </select>
+                    <select class="ql-font"  tabindex="-1">
+                      <option selected>Sans Serif</option>
+                      <option value="serif">Serif</option>
+                      <option value="monospace">Monospace</option>
+                    </select>
+                     -->
+                            <button class="ql-bold" aria-label="Bold" tabindex="-1">
+                            </button>
+                            <button class="ql-italic" aria-label="Italic" tabindex="-1">
+                            </button>
+                            <button class="ql-underline" aria-label="Underline" tabindex="-1">
+                            </button>
+
+                            <select class="ql-color" tabindex="-1"></select>
+                            <select class="ql-background" tabindex="-1"></select>
+
+                            <!-- <button class="ql-list" value="ordered" aria-label="Ordered List" tabindex="-1">
+                            </button> -->
+                            <button class="ql-list" value="bullet" aria-label="Unordered List" tabindex="-1">
+                            </button>
+                            <select class="ql-align" tabindex="-1">
+                                <option selected></option>
+                                <option value="center"></option>
+                                <option value="right"></option>
+                                <option value="justify"></option>
+                            </select>
+                            <!-- 
+                    <button class="ql-link" aria-label="Insert Link"  tabindex="-1"></button>
+                    <button class="ql-image" aria-label="Insert Image"  tabindex="-1"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block"  tabindex="-1"></button>
+                     <button class="ql-clean" aria-label="Remove Styles"  tabindex="-1"></button> -->
+                        </span>
+
+                    </p-header>
+                </p-editor>
+                <pm-validation-errors class="text-danger text-small" *ngIf="description.errors &&  submittedError"  [formCtrl]="description" [text]="'Description'" ></pm-validation-errors>
+
+                <!-- <div *ngIf="!bioDetails.description &&  submittedError" class="text-danger text-small">
+                    Description is required
+                </div> -->
+            </div>
+            <div *ngIf="isClinical" class="form-group col-md-5">
+                <label>Residency: </label>
+                <p-editor [(ngModel)]="bioDetails.residency"  name="residency" #residency="ngModel">
+                    <p-header>
+
+                        <span class="ql-formats">
+                            <!-- <select class="ql-header"  tabindex="-1">
+                      <option value="1">Heading</option>
+                      <option value="2">Subheading</option>
+                      <option selected>Normal</option>
+                    </select>
+                    <select class="ql-font"  tabindex="-1">
+                      <option selected>Sans Serif</option>
+                      <option value="serif">Serif</option>
+                      <option value="monospace">Monospace</option>
+                    </select>
+                     -->
+                            <button class="ql-bold" aria-label="Bold" tabindex="-1">
+                            </button>
+                            <button class="ql-italic" aria-label="Italic" tabindex="-1">
+                            </button>
+                            <button class="ql-underline" aria-label="Underline" tabindex="-1">
+                            </button>
+
+                            <select class="ql-color" tabindex="-1"></select>
+                            <select class="ql-background" tabindex="-1"></select>
+
+                            <!-- <button class="ql-list" value="ordered" aria-label="Ordered List" tabindex="-1">
+                            </button> -->
+                            <button class="ql-list" value="bullet" aria-label="Unordered List" tabindex="-1">
+                            </button>
+                            <select class="ql-align" tabindex="-1">
+                                <option selected></option>
+                                <option value="center"></option>
+                                <option value="right"></option>
+                                <option value="justify"></option>
+                            </select>
+                            <!-- 
+                    <button class="ql-link" aria-label="Insert Link"  tabindex="-1"></button>
+                    <button class="ql-image" aria-label="Insert Image"  tabindex="-1"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block"  tabindex="-1"></button>
+                     <button class="ql-clean" aria-label="Remove Styles"  tabindex="-1"></button> -->
+                        </span>
+
+                    </p-header>
+                </p-editor>
+                <div *ngIf="!bioDetails.residency &&  submittedError" class="text-danger text-small">
+                    Residency is required
+                </div>
+            </div>
+
+            <div *ngIf="isClinical" class="form-group col-md-5">
+                <label>Education </label>
+                <p-editor [(ngModel)]="bioDetails.education" name="education" #education="ngModel">
+                    <p-header>
+
+                        <span class="ql-formats">
+                            <!-- <select class="ql-header"  tabindex="-1">
+                      <option value="1">Heading</option>
+                      <option value="2">Subheading</option>
+                      <option selected>Normal</option>
+                    </select>
+                    <select class="ql-font"  tabindex="-1">
+                      <option selected>Sans Serif</option>
+                      <option value="serif">Serif</option>
+                      <option value="monospace">Monospace</option>
+                    </select>
+                     -->
+                            <button class="ql-bold" aria-label="Bold" tabindex="-1">
+                            </button>
+                            <button class="ql-italic" aria-label="Italic" tabindex="-1">
+                            </button>
+                            <button class="ql-underline" aria-label="Underline" tabindex="-1">
+                            </button>
+
+                            <select class="ql-color" tabindex="-1"></select>
+                            <select class="ql-background" tabindex="-1"></select>
+
+                            <!-- <button class="ql-list" value="ordered" aria-label="Ordered List" tabindex="-1">
+                            </button> -->
+                            <button class="ql-list" value="bullet" aria-label="Unordered List" tabindex="-1">
+                            </button>
+                            <select class="ql-align" tabindex="-1">
+                                <option selected></option>
+                                <option value="center"></option>
+                                <option value="right"></option>
+                                <option value="justify"></option>
+                            </select>
+                            <!-- 
+                    <button class="ql-link" aria-label="Insert Link"  tabindex="-1"></button>
+                    <button class="ql-image" aria-label="Insert Image"  tabindex="-1"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block"  tabindex="-1"></button>
+                     <button class="ql-clean" aria-label="Remove Styles"  tabindex="-1"></button> -->
+                        </span>
+
+                    </p-header>
+                </p-editor>
+                <div *ngIf="!bioDetails.education &&  submittedError" class="text-danger text-small">
+                    Education is required
+                </div>
+            </div>
+            <div *ngIf="isClinical" class="form-group col-md-5">
+                <label>Fellowship: </label>
+                <p-editor [(ngModel)]="bioDetails.fellowship" name="fellowship" #fellowship="ngModel">
+                    <p-header>
+
+                        <span class="ql-formats">
+                            <!-- <select class="ql-header"  tabindex="-1">
+                      <option value="1">Heading</option>
+                      <option value="2">Subheading</option>
+                      <option selected>Normal</option>
+                    </select>
+                    <select class="ql-font"  tabindex="-1">
+                      <option selected>Sans Serif</option>
+                      <option value="serif">Serif</option>
+                      <option value="monospace">Monospace</option>
+                    </select>
+                     -->
+                            <button class="ql-bold" aria-label="Bold" tabindex="-1">
+                            </button>
+                            <button class="ql-italic" aria-label="Italic" tabindex="-1">
+                            </button>
+                            <button class="ql-underline" aria-label="Underline" tabindex="-1">
+                            </button>
+
+                            <select class="ql-color" tabindex="-1"></select>
+                            <select class="ql-background" tabindex="-1"></select>
+
+                            <!-- <button class="ql-list" value="ordered" aria-label="Ordered List" tabindex="-1">
+                            </button> -->
+                            <button class="ql-list" value="bullet" aria-label="Unordered List" tabindex="-1">
+                            </button>
+                            <select class="ql-align" tabindex="-1">
+                                <option selected></option>
+                                <option value="center"></option>
+                                <option value="right"></option>
+                                <option value="justify"></option>
+                            </select>
+                            <!-- 
+                    <button class="ql-link" aria-label="Insert Link"  tabindex="-1"></button>
+                    <button class="ql-image" aria-label="Insert Image"  tabindex="-1"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block"  tabindex="-1"></button>
+                     <button class="ql-clean" aria-label="Remove Styles"  tabindex="-1"></button> -->
+                        </span>
+
+                    </p-header>
+                </p-editor>
+                <div *ngIf="!bioDetails.fellowship &&  submittedError" class="text-danger text-small">
+                    Fellowship is required
+                </div>
+            </div>
+            <div *ngIf="isClinical" class="form-group col-md-5">
+                <label>Speciality </label>
+                <p-editor [(ngModel)]="bioDetails.speciality" name="speciality" #speciality="ngModel">
+                    <p-header>
+
+                        <span class="ql-formats">
+                            <!-- <select class="ql-header"  tabindex="-1">
+                      <option value="1">Heading</option>
+                      <option value="2">Subheading</option>
+                      <option selected>Normal</option>
+                    </select>
+                    <select class="ql-font"  tabindex="-1">
+                      <option selected>Sans Serif</option>
+                      <option value="serif">Serif</option>
+                      <option value="monospace">Monospace</option>
+                    </select>
+                     -->
+                            <button class="ql-bold" aria-label="Bold" tabindex="-1">
+                            </button>
+                            <button class="ql-italic" aria-label="Italic" tabindex="-1">
+                            </button>
+                            <button class="ql-underline" aria-label="Underline" tabindex="-1">
+                            </button>
+
+                            <select class="ql-color" tabindex="-1"></select>
+                            <select class="ql-background" tabindex="-1"></select>
+
+                            <!-- <button class="ql-list" value="ordered" aria-label="Ordered List" tabindex="-1">
+                            </button> -->
+                            <button class="ql-list" value="bullet" aria-label="Unordered List" tabindex="-1">
+                            </button>
+                            <select class="ql-align" tabindex="-1">
+                                <option selected></option>
+                                <option value="center"></option>
+                                <option value="right"></option>
+                                <option value="justify"></option>
+                            </select>
+                            <!-- 
+                    <button class="ql-link" aria-label="Insert Link"  tabindex="-1"></button>
+                    <button class="ql-image" aria-label="Insert Image"  tabindex="-1"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block"  tabindex="-1"></button>
+                     <button class="ql-clean" aria-label="Remove Styles"  tabindex="-1"></button> -->
+                        </span>
+
+                    </p-header>
+                </p-editor>
+                <div *ngIf="!bioDetails.speciality &&  submittedError" class="text-danger text-small">
+                    Speciality is required
+                </div>
+            </div>
+            <div *ngIf="isClinical" class="form-group col-md-5">
+                <label>Internship </label>
+                <p-editor [(ngModel)]="bioDetails.internship" name="internship" #internship="ngModel">
+                    <p-header>
+
+                        <span class="ql-formats">
+                            <!-- <select class="ql-header"  tabindex="-1">
+                      <option value="1">Heading</option>
+                      <option value="2">Subheading</option>
+                      <option selected>Normal</option>
+                    </select>
+                    <select class="ql-font"  tabindex="-1">
+                      <option selected>Sans Serif</option>
+                      <option value="serif">Serif</option>
+                      <option value="monospace">Monospace</option>
+                    </select>
+                     -->
+                            <button class="ql-bold" aria-label="Bold" tabindex="-1">
+                            </button>
+                            <button class="ql-italic" aria-label="Italic" tabindex="-1">
+                            </button>
+                            <button class="ql-underline" aria-label="Underline" tabindex="-1">
+                            </button>
+
+                            <select class="ql-color" tabindex="-1"></select>
+                            <select class="ql-background" tabindex="-1"></select>
+
+                            <!-- <button class="ql-list" value="ordered" aria-label="Ordered List" tabindex="-1">
+                            </button> -->
+                            <button class="ql-list" value="bullet" aria-label="Unordered List" tabindex="-1">
+                            </button>
+                            <select class="ql-align" tabindex="-1">
+                                <option selected></option>
+                                <option value="center"></option>
+                                <option value="right"></option>
+                                <option value="justify"></option>
+                            </select>
+                            <!-- 
+                    <button class="ql-link" aria-label="Insert Link"  tabindex="-1"></button>
+                    <button class="ql-image" aria-label="Insert Image"  tabindex="-1"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block"  tabindex="-1"></button>
+                     <button class="ql-clean" aria-label="Remove Styles"  tabindex="-1"></button> -->
+                        </span>
+
+                    </p-header>
+                </p-editor>
+                
+            </div>
+
+            <div *ngIf="isClinical" class="form-group col-md-5">
+                <label>Hospital And Clinic Affiliations: </label>
+                <p-editor [(ngModel)]="bioDetails.hosAndClinicAff" name="hosAndClinicAff" #hosAndClinicAff="ngModel">
+                    <p-header>
+
+                        <span class="ql-formats">
+                            <!-- <select class="ql-header"  tabindex="-1">
+                      <option value="1">Heading</option>
+                      <option value="2">Subheading</option>
+                      <option selected>Normal</option>
+                    </select>
+                    <select class="ql-font"  tabindex="-1">
+                      <option selected>Sans Serif</option>
+                      <option value="serif">Serif</option>
+                      <option value="monospace">Monospace</option>
+                    </select>
+                     -->
+                            <button class="ql-bold" aria-label="Bold" tabindex="-1">
+                            </button>
+                            <button class="ql-italic" aria-label="Italic" tabindex="-1">
+                            </button>
+                            <button class="ql-underline" aria-label="Underline" tabindex="-1">
+                            </button>
+
+                            <select class="ql-color" tabindex="-1"></select>
+                            <select class="ql-background" tabindex="-1"></select>
+
+                            <!-- <button class="ql-list" value="ordered" aria-label="Ordered List" tabindex="-1">
+                            </button> -->
+                            <button class="ql-list" value="bullet" aria-label="Unordered List" tabindex="-1">
+                            </button>
+                            <select class="ql-align" tabindex="-1">
+                                <option selected></option>
+                                <option value="center"></option>
+                                <option value="right"></option>
+                                <option value="justify"></option>
+                            </select>
+                            <!-- 
+                    <button class="ql-link" aria-label="Insert Link"  tabindex="-1"></button>
+                    <button class="ql-image" aria-label="Insert Image"  tabindex="-1"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block"  tabindex="-1"></button>
+                     <button class="ql-clean" aria-label="Remove Styles"  tabindex="-1"></button> -->
+                        </span>
+
+                    </p-header>
+                </p-editor>
+                <div *ngIf="!bioDetails.hosAndClinicAff &&  submittedError"
+                    class="text-danger text-small">
+                    Hospital And Clinic Affiliations is required
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row ml-1">
+            <div class="col-md-6 upload-zone" style="height: fit-content;" appDragDrop (onFileDropped)="onFileDropped($event)">
+                <input id="uploadFile" type="file" name="name" #fileInput accept=".jpg, .jpeg, .png"
+                    (input)="onFileChanged($event)" (change)="onFileChanged($event)" (change)="onSelectFile($event)"
+                    class="form-control upload-zone input-hidden border-0" />
+                <div class="input-group-append group-append">
+                    <label class="btn  mb-2 py-3 upload_label" style="width: 233px;"
+                        for="uploadFile">
+                        <small class="text-uppercase font-weight-bold text-info fs-1" >Choose
+                            or Drop
+                            Image</small><br>
+                        <span *ngIf="!isEditSave" class="text-small red-clr pdf_only">
+                            (Img Only)*</span>
+                            <span *ngIf="isEditSave" class="text-small red-clr pdf_only" >
+                                    (Img Only)</span>
+                    </label>
+                    <input type="text" disabled [value]="paitentFile" [title]="paitentFile" name="paitentFile"
+                        class="border-0 w-50 text-small  px-2 custom-margin" id="test" />
+                    <span *ngIf="paitentFile"  class="clear-filter mt_clear" (click)="reset()">x</span>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <img [src]="url" height="150">
+            </div>
+        </div>
+    </div>
+        </fieldset>
+    </form>
+    </div>
+<p-footer class="pFooter">
+    <button *ngIf="!isEditSave" type="submit" class="py-1 px-1 btn btn-primary"
+    (click)="onUpload()" [disabled]="(!bioDetails.name) ||(!bioDetails.designation) ||(!bioDetails.description) ||(!this.paitentFile)">Save</button>
+    <button *ngIf="isEditSave" type="submit" class="py-1 px-1 btn btn-primary"
+    (click)="onUpload()" [disabled]="(!bioDetails.name) ||(!bioDetails.designation) ||(!bioDetails.description)">Save</button>
+    <button type="button" class=" py-1 px-1 btn btn-outline-info"
+        (click)="onClose()">Close</button>
+
+</p-footer>
+</p-dialog>

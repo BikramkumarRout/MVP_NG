@@ -1,0 +1,41 @@
+<!-- <top-bar></top-bar> -->
+<app-toast></app-toast>
+<div class="padding-container setting_section">
+    <div class="row justify-content-center">
+        <div class="col-md-12 px-3 aos-init aos-animate">
+            <ul class="nav nav-tabs customNav mt-7" id="myTab" role="tablist">
+                <div class="mb-3 p-headermenu">
+                    <h2 class="mb-1 card-title text-black">Settings</h2>
+                </div>
+                <li class="nav-item" active>
+                    <a routerLinkActive="active" class="nav-link" id="preferences-tab" data-toggle="tab"
+                        data-target="#preferences" role="tab" aria-controls="preferences" aria-selected="true"
+                        routerLink="/setting/preferences">Preferences</a>
+                </li>
+                <li *ngIf="!hideResetPassword" class="nav-item">
+                    <a routerLinkActive="active" routerLink="/setting/reset-password" class="nav-link" id="reset-password-tab"
+                        data-toggle="tab" data-target="#reset-password" role="tab" aria-controls="reset-password"
+                        aria-selected="false">Reset Password</a>
+                </li>
+                <!-- <li class="nav-item" >
+                    <a class="nav-link active" id="Preferences-tab" data-toggle="tab" href="#Preferences" role="tab"
+                        aria-controls="Preferences" aria-selected="true">Preferences</a>
+                </li>
+                <li class="nav-item" *ngIf="!hideResetPassword">
+                    <a class="nav-link" id="corporation-tab" data-toggle="tab" href="#corporation" role="tab"
+                        aria-controls="corporation" aria-selected="true">Reset Password</a>
+                </li> -->
+            </ul>
+            <div class="card shadow px-3 col-md-12 col-lg-12 pb-2">
+                <router-outlet></router-outlet>
+            </div>
+
+            <!-- <div class="tab-content " id="myTabContent">
+                <div *ngIf="!hideResetPassword" class="tab-pane fade in active" id="corporation" role="tabpanel" aria-labelledby="corporation-tab">
+                    <reset-password></reset-password>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<common-footer [portalFooter] ="portalFooter"></common-footer>

@@ -1,0 +1,34 @@
+<div class="custom-btn">
+
+  <ng-container *ngIf="currentPage > 1 && !hideLeftNav">
+    <button class="nav-left border-0 mr-1 bg-white" (click)="setPage(currentPage - 1)">
+      < </button>
+  </ng-container>
+
+  <ng-container *ngIf="showFirst">
+    <button class="nav-page nav-first border-0 mr-1" [class.active]="1 == currentPage" (click)="setPage(1)">
+      1
+    </button>
+    <span *ngIf="!hdeLeftBullet" class="bullet">...</span>
+  </ng-container>
+
+  <button class="nav-page border-0 mr-1" *ngFor="let page of pages" [class.active]="page == currentPage"
+    (click)="setPage(page)">
+    {{ page }}
+  </button>
+
+  <ng-container *ngIf="showLast">
+    <span *ngIf="!hderightBullet" class="bullet">.&nbsp;.&nbsp;.&nbsp;</span>
+    <button class="nav-page nav-last border-0 mr-1" [class.active]="totalPages == currentPage"
+      (click)="setPage(totalPages)">
+      {{ totalPages }}
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="currentPage < totalPages-1 && !hideRightNav">
+    <button class=" nav-right border-0 mr-1 bg-white" (click)="setPage(currentPage + 1)">
+      >
+    </button>
+  </ng-container>
+
+</div>

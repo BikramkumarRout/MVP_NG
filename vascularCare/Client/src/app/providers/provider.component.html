@@ -1,0 +1,99 @@
+<app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual>
+<!-- <top-bar></top-bar> -->
+<section class="mt-6 pt-4 pb-4 pt-lg7 pb-lg-2 mb-6 appointment_section_height">
+    <div class="padding-container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 px-3 aos-init aos-animate">
+                <div class="mb-3 p-headermenu">
+                    <h2 class="mb-1 card-title text-black">Providers</h2>
+                    <div *ngIf="userRole == 'Facility'" class="col-md-12 px-3">
+                        <div class="dropdown drop-downrow show float-right text-info text-black">
+                            <a class="facility-name dropdown-toggle" href="javascript:void(0)" *ngFor="let Facility of facilities" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{Facility.name}}
+                            </a>
+                        </div>
+                    </div>
+                    <div *ngIf="userRole == 'Corporate' || userRole == 'SuperUser' || userRole == 'MvpAdminstrative'" class="col-md-12 px-3">
+                        <facility-selector (facilityEmit)="onFacilityEmit($event)">
+                        </facility-selector>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 px-0">
+                <div class="col-md-12 col-lg-12 px-3 aos-init aos-animate p-mt-00">
+                    <div class="card shadow px-3 col-md-12 col-lg-12">
+                        <div class="card implicit-pag mt-4">
+
+                            <p-table class="table-striped table-hover jobPager" #dt1 [value]="patientList" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" (onFilter)="onFilter($event)" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['primaryProvider','status']"
+                                [rowsPerPageOptions]="[10,25,50,100,500]" sortField="primaryProvider" [sortOrder]="1">
+                                <ng-template pTemplate="caption">
+                                    <div class="p-d-flex search-icon m-2">
+                                        <button *ngIf="searchGlobalText || statusFilter || providerFilter" pButton label="Clear Filters" id="custom-btn" class="p-button-outlined" icon="pi pi-filter-slash" (click)="dt1.filterGlobal($event.target.value, 'contains')" (click)="onClear(dt1)"></button>
+                                        <span class="search-baricon p-ml-auto">
+                                            <i class="pi pi-search" id="search-pi"></i>
+                                            <input pInputText type="text" [(ngModel)]="searchGlobalText" class="form-control-35"
+                                                (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                                                placeholder="Search keyword" />
+                                        </span>
+                                        <span ><img (click)="onExport()" src="../../../assets/images/excel-icon.png" title="&#13; &nbsp; Export&#13;" width="25px"
+                                            class="cursor-pointer ml-2 mt-1" /></span>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pSortableColumn="primaryProvider" class="wt_13rem">
+                                            <div class="p-d-flex  p-ai-center text-uppercase">
+                                                <span class="ml-2">Primary Provider</span>
+                                                <p-sortIcon field="primaryProvider"></p-sortIcon>
+                                                <p-columnFilter type="text" field="primaryProvider" display="primaryProvider"></p-columnFilter>
+                                            </div>
+                                        </th>
+                                        <th>Covid Card</th>
+                                        <th pSortableColumn="status">
+                                            <div class="p-d-flex  p-ai-center text-uppercase ml-1">
+                                                Status
+                                                <p-sortIcon field="status"></p-sortIcon>
+                                                <p-columnFilter type="text" field="status" display="status">
+                                                </p-columnFilter>
+                                            </div>
+                                        </th>
+
+
+
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row>
+                                    <tr>
+                                        <td>{{row.primaryProvider}}</td>
+                                        <td class="text-left">
+                                            <div *ngIf="row.isExist" class="" title="&#13; &nbsp;View Covid-19 Card&#13;">
+                                                <img src="../../assets/images/covid-card.svg" width="24px" (click)="onShowViewCardDialog(row)" class="cursor-pointer ml-2">
+                                            </div>
+                                        </td>
+                                        <td>{{row.status}}</td>
+
+                                    </tr>
+                                </ng-template>
+
+                                <ng-template pTemplate="emptymessage">
+                                    <tr *ngIf="isNoRecorsFound">
+                                        <td colspan="2">No records found.</td>
+                                    </tr>
+                                </ng-template>
+
+                            </p-table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<common-footer [portalFooter] ="portalFooter"></common-footer>
+
+<div *ngIf="displayCovidPrintIcon">
+    <covidCard-view [facilityId]="facilityId" [displayCovidPrintIcon]="displayCovidPrintIcon" [listing]="listing" (displayChange)="onDialogClose($event)">
+    </covidCard-view>
+</div>

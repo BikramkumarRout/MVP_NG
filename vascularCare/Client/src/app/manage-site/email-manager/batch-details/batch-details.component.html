@@ -1,0 +1,63 @@
+<app-toast id="batch"></app-toast>
+<p-dialog [(visible)]="displayDetails" modal="modal" [transitionOptions]="'3ms'" [responsive]="true"
+    (onHide)="onClose()" class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true"
+    [resizable]="true" [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold"> Batch Details</h5>
+
+    </ng-template>
+    <header>
+        <h4>{{this.rowData.subject}} | {{this.rowData.mailCampaignName}}</h4>
+        <br>
+        <!-- <h6>Iftikhar Ahmad</h6>
+
+        <p>Today at 9:15 AM mailto:system_user_ny@legendari.org</p> -->
+        <button (click)="sendMail()"><i class="fa fa-reply mr-1" style="color: #007bff !important" aria-hidden="true"></i><a
+                href="javascript:void(0)">Resend</a></button>
+        <br>
+        <ul>
+            <li>
+                <label for="email" class="font-bold mr-4">To:</label>
+                <span>{{this.rowData.toRecepients}}</span>
+            </li>
+
+            <li>
+                <label for="email" class="font-bold mr-4">CC:</label>
+                <span>{{this.rowData.ccRecepients}}</span>
+            </li>
+        </ul>
+    </header>
+    <hr>
+    <br>
+    <div class="container">
+        <div  [innerHtml]="this.rowData.body"></div>
+       
+    </div>
+    <div *ngIf="this.rowData.documentId" class="cursor-pointer" title="Preview File" (click)="onShowPreview(this.rowData.documentId)">
+        <div>
+            <img class="pdf_icon" src="../../../../assets/images/PDF_icon.png" height="50" width="50" alt="">
+        </div>
+       
+    </div>
+    <footer>
+        <dl>
+            <dt>Mobile Vascular Physicians</dt>
+            <dt>120 Hicksville Road, Bethpage, NY 11714</dt>
+            <dt><b>Patient Referral Fax: 516-232-9789</b></dt>
+            <dt>Office: (516) 717-1839 | Fax: (631) 204-6466</dt>
+            <dt><a href="administrative@mvpmedgroup.com">administrative@mvpmedgroup.com</a></dt>
+            <dt><a href="https://www.mvpmedgroup.com">www.mvpmedgroup.com</a></dt>
+            <dt><img  class="mvp_icon" src="../../../../assets/images/mvp_logo_horizontal.jpg" alt="logo"></dt>
+        </dl>
+    </footer>
+
+    <p-footer class="pFooter">
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>
+
+<div *ngIf="displayFile">
+    <preview-file [displayFile]="displayFile" [folderName]="folderName" [documentId]="documentId" (displayFileChange)="onClosePreview($event)">
+
+    </preview-file>
+</div>

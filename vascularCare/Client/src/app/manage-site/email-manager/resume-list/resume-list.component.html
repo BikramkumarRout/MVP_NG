@@ -1,0 +1,109 @@
+<!-- <app-toast></app-toast> -->
+<p-dialog [(visible)]="displayResume" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true"
+    [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Applicant List</h5>
+        <!-- <div class="custom-right">
+            <span class="float-right" type="button" (click)="onClose()">
+                <i class="pi pi-times mt-1 close-icon"></i>
+            </span>
+        </div> -->
+    </ng-template>
+    <div class="container">
+        <div class="implicit-pag mt-4 calendar">
+            <p-table #dt2 class="table-striped table-hover" [scrollable]="true" scrollDirection="both"
+                [value]="listingData" [paginator]="true" [rows]="10" sortField="name" [sortOrder]="1"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [globalFilterFields]="['id','name','jobId','jobTitle']" [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10,25,50,100,500]">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex search-icon m-2">
+                        <button *ngIf="searchGlobalText " (click)="clear(dt2)"
+                            pButton label="Clear Filters" id="custom-btn" class="p-button-outlined"
+                            icon="pi pi-filter-slash" (click)="dt2.filterGlobal($event.target.value, 'contains')"></button>
+                        <span class=" p-ml-auto search-baricon">
+                            <i class="pi pi-search mt-1"></i>
+                            <input pInputText type="text" class="form-control-35" [(ngModel)]="searchGlobalText"
+                                (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                        </span>
+                        
+                    
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr class="corporate-tr">
+                        <!--  -->
+                        <th pSortableColumn="id" class="wt_12rem" >
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Applicant Id</span>
+                                <p-sortIcon field="id"></p-sortIcon>
+                                <!-- <p-columnFilter type="text" field="id" display="id"></p-columnFilter> -->
+
+                            </div>
+
+                        </th>
+                        <th pSortableColumn="name" class="wt_12rem" >
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Applicant Name</span>
+                                <p-sortIcon field="name"></p-sortIcon>
+                                <!-- <p-columnFilter type="text" field="name" display="name"></p-columnFilter> -->
+                            </div>
+                        </th>
+                        <th pSortableColumn="jobId" class="wt_12rem" >
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Job Id</span>
+                                <p-sortIcon field="jobId"></p-sortIcon>
+                                <!-- <p-columnFilter type="text" field="jobId" display="jobId"></p-columnFilter> -->
+                            </div>
+                        </th>
+                        <th pSortableColumn="jobTitle" class="wt_12rem" >
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Job Title</span>
+                                <p-sortIcon field="jobTitle"></p-sortIcon>
+                                <!-- <p-columnFilter type="text" field="jobTitle" display="jobTitle"></p-columnFilter> -->
+                            </div>
+                        </th>
+                        <th pSortableColumn="status" class="wt_12rem" >
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Resume</span>
+                                <!-- <p-sortIcon field="status"></p-sortIcon> -->
+                                <!-- <p-columnFilter type="text" field="status" display="status"></p-columnFilter> -->
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr >
+                        <td class="wt_2rem" >
+                            <div class="">
+                                <p-checkbox  name="group2" value="rowData" [value]="rowData"  [(ngModel)]="selectedRows" ></p-checkbox>
+                               </div>
+                        </td>
+                        <td class="wt_12rem" >{{rowData.id}}</td>
+                        <td class="wt_12rem" >{{rowData.name}}</td>
+                        <td class="wt_12rem" >{{rowData.jobId}}</td>
+                        <td class="wt_12rem" >{{rowData.jobTitle}}</td>
+
+
+                        <td class="wt_12rem"  class="cursor-pointer" (click)="onShowPreview(rowData.documentId)" >Preview</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr *ngIf="isNoRecorsFound">
+                        <td colspan="6">No records found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <p-footer class="pFooter">
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>
+
+<div *ngIf="displayFile">
+    <preview-file [displayFile]="displayFile" [documentId]="documentId" (displayFileChange)="onClosePreview($event)">
+    
+    </preview-file>
+</div>

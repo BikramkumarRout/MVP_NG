@@ -1,0 +1,16 @@
+.card {
+    
+    word-wrap: none !important;
+    background-clip: auto !important;
+    border: none !important;
+    border-radius: 0px !important;
+}
+
+h2 {
+    font-size: calc(1.3125rem + .75vw) !important;
+}
+
+.btn {
+    font-weight: 700 !important;
+}
+

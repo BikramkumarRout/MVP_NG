@@ -1,0 +1,53 @@
+.container p {
+    color: #000;
+}
+ul li {
+    color: #000;
+}
+h4{
+    font-size: 32px !important;
+    font-weight: 400;
+    line-height: inherit;
+
+}
+
+h6 {
+    color: #000;
+    font-size: 22px !important;
+    font-weight: 500;
+}
+
+hr {
+    background-color: #049fda !important;
+    border-color: #049fda !important;
+}
+
+p {
+    color: #09445ecc;
+    font-size: inherit;
+}
+
+ul li {
+    list-style: disc !important;
+  }
+
+  .num_ul li{
+    list-style:decimal !important;
+  }
+
+  .active_date{
+    text-align: end;
+  }
+
+  .header_911{
+        color: #000;
+        font-size: 19px !important;
+        font-weight: 900;
+        font-family: Serif !important;
+    }
+
+    .privacy_background {
+        background-image: url(../../assets/images/background/pattern.png);
+        background-size: cover;
+    }
+  

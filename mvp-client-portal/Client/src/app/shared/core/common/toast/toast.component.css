@@ -1,0 +1,100 @@
+.toast-container {
+    /* position: absolute;
+    right: 0;
+    top: 30px;
+    left: 0;
+    overflow: inherit;
+    z-index: 9999999999999999 !important;
+    opacity: 0;
+    display: none;
+    border: none;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+   
+    display: flex; 
+    /*  */
+    justify-content: center !important;
+    /* position: absolute !important; */
+    /* top:0; */
+    /* bottom: 0;
+    left: 0;
+    right: 0;
+     */
+    align-items: center !important;
+    text-align: center !important ;
+    left: 0px;
+    margin: auto;
+    top: 0px;
+    right: 0;
+    position:fixed;
+    color: #fff;
+    font-size: 13px;
+    /* letter-spacing: 1px; */
+    /* line-height: 40px; */
+    /* margin-left: -180px; */
+    opacity: 0.9;
+    text-align: center;
+    /* width: 1280px; */
+    /* word-spacing: 20px; */
+    z-index: 50009999999999999999 !important;
+}
+
+
+.toast-card {
+    width: max-content;
+    min-width: 100% !important;
+    min-height: fit-content;
+    /* z-index: 999999999999999; */
+    position: relative;
+    border: 1px solid #CCC;
+    padding: 1rem;
+    text-align: center !important;
+    color: #fff;
+    margin: auto;
+    justify-content: center !important;
+    float: center !important;
+    right: 15px;
+    border-radius: 0.25rem;
+    justify-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.toast-card .toast-title {
+    text-transform: uppercase;
+    font-size: 12px !important;
+    color: #ffffff !important;
+   
+}
+
+#toast {
+    /* position: absolute !important; */
+    display: block;
+    opacity: 1;
+    /* z-index: 99999999999999; */
+}
+
+.alert-success {
+    color: #ffffff !important;
+    background-color: #04ad5c;
+    border-color: #04ad5c;
+}
+
+.alert-error {
+    color: #ffffff !important;
+    background-color: #ff5858;
+    border-color: #ff5858;
+}
+
+.alert-warning {
+    color: #ffffff !important;
+    background-color: #e1be5f;
+    border-color: #e1be5f;
+}
+
+.close {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+}

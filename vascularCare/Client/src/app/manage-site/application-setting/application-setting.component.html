@@ -1,0 +1,86 @@
+<app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual>
+<app-spinner></app-spinner>
+<app-toast></app-toast>
+<div class="profile-container">
+    <div class="d-flex mt-2">
+        <h6 class="">Smtp password update</h6>
+        <div class="" (click)="passwordEditClicked($event)">
+            <img title="&#13; &nbsp; Edit Smtp password&#13;" src="../../../assets/themeIcons/edit.svg" width="16px"
+                class="cursor-pointer ml-2" />
+
+
+        </div>
+    </div>
+   <div *ngIf = "isEdit">
+    <form *ngIf="appSettingForm" [formGroup]="appSettingForm" autocomplete="off">
+        <fieldset>
+            <div *ngFor="let item of listingData">
+                <ng-container [ngSwitch]="item.fieldType">
+                    <ng-container *ngSwitchCase="'Input'">
+                        <div class="form-row form-group">
+                            <div class="form-group col-md-6">
+                                <label>Smtp Password <span class="text-danger text-small"></span></label>
+                                <input type="text" value="{{item.value}}" placeholder="Enter Name" class="form-control"
+                                    formControlName="value" required />
+                            </div>
+                        </div>
+                    </ng-container>
+                    <!-- <ng-container *ngSwitchCase="'ddd'">
+                        <div class="form-row form-group">
+                            <div class="form-group col-md-6">
+                                <label>Name <span class="text-danger text-small"></span></label>
+                                <select>
+                                    <option value="{{item.value}}">{{item.value}}</option>
+                                    
+
+                                </select>
+                            </div>
+                        </div>
+
+                    </ng-container> -->
+                </ng-container>
+            </div>
+        </fieldset>
+    </form>
+   </div>
+    <!-- <form autocomplete="off">
+        <fieldset>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Name <span class="text-danger text-small"></span></label>
+                    <input type="text" placeholder="Enter Email" class="form-control" name="email" required />
+
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Name <span class="text-danger text-small"></span></label>
+                    <input type="text" placeholder="Enter Name" class="form-control" />
+                </div>
+
+
+
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6 corporate">
+                    <label for="inputAddress">State <span class="text-danger text-small">*</span></label>
+                    <div class="top-margin">
+                        <p-dropdown [options]="stateList" placeholder="Select a State" defaultLabel="Select State"
+                            name="state" optionLabel="name">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div class="float-right pFooter">
+        <button type="button" class="py-1 px-1 mr-1 btn btn-primary">Save</button>
+        <button type="button" class=" py-1 px-1 btn btn-outline-info">Cancel</button>
+    </div> -->
+    <div class="float-right pFooter" *ngIf = "isEdit">
+        <button type="button" [disabled]="!appSettingForm.valid || !appSettingForm.dirty"
+            class="py-1 px-1 mr-1 btn btn-primary" (click)="onSave()">Save</button>
+        <button (click)="onCancelClicked($event)" type="button" class=" py-1 px-1 btn btn-outline-info">Cancel</button>
+    </div>
+</div>

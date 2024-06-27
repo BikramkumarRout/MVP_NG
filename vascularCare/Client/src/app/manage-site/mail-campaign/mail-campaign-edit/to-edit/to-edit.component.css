@@ -1,0 +1,12 @@
+label {
+    font-weight: bold;
+    font-variant: all-petite-caps !important;
+    color: #969696;
+    margin-bottom: 5px !important;
+}
+
+.form-control:focus{
+    box-shadow: none !important;
+    border-color: #eee !important;
+}
+

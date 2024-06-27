@@ -1,0 +1,16 @@
+<div class="dropdown drop-downrow show float-right text-info cursor-pointer text-black mt-3 facility_dropdown">
+    <div class="corporate-name text-uppercase text-black">{{facilityInfo.corporateName}}</div>
+    <a class="facility-name dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" data-display="static"
+        aria-haspopup="true" aria-expanded="false">
+        {{selectedFacilityName}} <i class="pi pi-angle-down"></i>
+
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-lg-right facility-dropdown mr-3" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item facility-dropdown-item" (click)="getFacilityId(facility)" href="javascript:void(0)"
+            *ngFor="let facility of facilities">
+
+            <img class="" src="../assets/images/hospital.png" height="20" width="20" alt="icon"> {{facility.name}}
+        </a>
+    </div>
+</div>

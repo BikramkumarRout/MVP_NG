@@ -1,0 +1,64 @@
+<app-toast></app-toast>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true"
+    [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Upload Covid Card : {{listing.primaryProvider}} </h5>
+        <!-- <div class="custom-right">
+            <span class="float-right" type="button" (click)="onClose()">
+                <i class="pi pi-times mt-1 close-icon"></i>
+            </span>
+        </div> -->
+    </ng-template>
+    <div class="container container-xl">
+        <div *ngIf="isFileExist" class="row mb-2">
+            <div class="col-md-8 py-1 h-100">
+                <!-- <img class="" [src]="safeUrl"  style="height: 500px; width: 100%;"> -->
+                <iframe class="overview-video" [src]="safeUrl" width="100%" height="500px" frameBorder="0"
+                    scrolling="no">
+                </iframe>
+
+            </div>
+            <div class="col">
+                <div class="d-flex">
+                    <div class="my-3 float-right">
+                        <button  title="Remove Existing Card"
+                            class="btn btn-info font-normal px-3 py-2 font-weight-normal uploadcovid_btn" [disabled]="!isFileExist"
+                            (click)="onCardRemove()">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!isFileExist">
+            <div class="col-md-8 upload-zone" appDragDrop (onFileDropped)="onFileDropped($event)">
+                <input id="uploadFile" type="file" name="name" #fileInput accept=".pdf,.png,.jpeg,.gif"
+                    (input)="onFileChanged($event)" (change)="onFileChanged($event)"
+                    class="form-control upload-zone input-hidden border-0" />
+                <div class="input-group-append group-append ">
+                    <label class="btn  mb-2 py-3 upload_label" for="uploadFile">
+                        <small class="text-uppercase font-weight-bold text-info">Choose
+                            or Drop
+                            card</small>
+                        <span class="d-block text-small red-clr pdf_only_ref">
+                            (PDF, JPEG, GIF, PNG Only)</span>
+                    </label>
+                    <input style="width: 300px;" type="text" disabled [value]="paitentFile" [title]="paitentFile"
+                        name="paitentFile" class="border-0 text-small  px-2 custom-margin" id="test" />
+                    <span *ngIf="paitentFile" class="clear-filter mt_clear" (click)="reset()">x</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex">
+                    <div class="my-3 float-right">
+                        <button
+                            class="btn btn-info font-normal px-3 py-2 font-weight-normal uploadcovid_btn" [disabled]="!paitentFile"
+                            (click)="onUpload()">Upload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-footer class="pFooter">
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>

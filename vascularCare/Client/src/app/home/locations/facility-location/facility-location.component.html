@@ -1,0 +1,49 @@
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true"
+    [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Vascular Care Center Locations </h5>
+    </ng-template>
+    <div class="col-md-12 px-0" *ngIf="locationList==1">
+        <iframe width="100%" height="400" id="gmap_canvas" *ngIf="locationList==1"
+            src="https://maps.google.com/maps?q=2160%20Powell%20Ave,%20The%20Bronx,%20NY%2010462,%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+    </div>
+    <div class="col-md-12 px-0" *ngIf="locationList==2">
+        <iframe width="100%" height="400" id="gmap_canvas"
+            src="https://maps.google.com/maps?q=2174%20Flatbush%20Ave,%20Brooklyn,%20NY%2011234,%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+    </div>
+    <div class="col-md-12 px-0" *ngIf="locationList==3">
+        <iframe width="100%" height="400" id="gmap_canvas"
+            src="https://maps.google.com/maps?q=366%20Veterans%20Memorial%20Hwy,%20Commack,%20NY%2011725,%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+    </div>
+    <div class="col-md-12 px-0" *ngIf="locationList==4">
+        <iframe width="100%" height="400" id="gmap_canvas"
+            src="https://maps.google.com/maps?q=16%20Sumner%20Pl%204th%20Floor,%20Brooklyn,%20NY%2011206,%20USA&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+    </div>
+    <div class="col-md-12 px-0" *ngIf="locationList==5">
+        <iframe width="100%" height="400" id="gmap_canvas"
+            src="https://maps.google.com/maps?q=Westchester%20County,%20New%20York,%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+
+    </div>
+    <div class="col-md-12 px-0" *ngIf="locationList==6">
+        <iframe width="100%" height="400" id="gmap_canvas"
+            src="https://maps.google.com/maps?q=76-65%20Austin%20St,%20Forest%20Hills,%20NY%2011375,%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+    </div>
+    <div class="col-md-12 px-0" *ngIf="locationList==7">
+        <iframe width="100%" height="400" id="gmap_canvas"
+            src="https://maps.google.com/maps?q=33%20S%20Wood%20Ave,%20Iselin,%20NJ%2008830,%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+
+    </div>
+    <div class="col-md-12 px-0" *ngIf="locationList==8">
+        <iframe width="100%" height="400" id="gmap_canvas"
+            src="https://maps.google.com/maps?q=160%20West%20St%20Building%201%20Suite%20G,%20Cromwell,%20CT%2006416,%20USA&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+    </div>
+</p-dialog>

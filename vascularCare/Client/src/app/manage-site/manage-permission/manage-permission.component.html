@@ -1,0 +1,84 @@
+<app-toast></app-toast>
+<p-confirmDialog header="" icon="fa fa-question-circle" [style]="{width: '40%'}" [baseZIndex]="20000" #cd>
+    <p-footer class="confirm_btn">
+        <button type="button" class="py-1 px-2 btn yes-btn" pButton label="Yes" (click)="cd.accept()"></button>
+        <button id="confirm-footer-no-btn" type="button" class=" py-1 px-1 btn no-btn" pButton label="No"
+            (click)="cd.reject()"></button>
+
+    </p-footer>
+</p-confirmDialog>
+<div class="">
+    <div class="implicit-pag mt-4">
+
+        <p-treeTable #tt [value]="listingData" class="table-striped table-hover" [paginator]="false"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['name','displayName']" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,25,50,100,500]">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex search-icon m-2">
+                    <button *ngIf="searchGlobalText" (click)="clear(tt)" pButton label="Clear Filters" id="custom-btn"
+                        class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="tt.filterGlobal($event.target.value, 'contains')"></button>
+                    <span class=" p-ml-auto search-baricon">
+                        <i class="pi pi-search mt-1"></i>
+                        <input pInputText type="text" class="form-control-35" [(ngModel)]="searchGlobalText"
+                            (input)="tt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+                    <div *ngIf="isEditPermission" class="add_icon"
+                    title="&#13; &nbsp; Create New Permission&#13;">
+                    <i class="pi pi-plus-circle cursor-pointer"
+                    (click)="onShowDialog(permissionDetail)"></i>
+                </div>
+                <!-- <span ><img  src="../../../assets/images/excel-icon.png" title="&#13; &nbsp; Export&#13;" width="25px"
+                    class="cursor-pointer ml-2 mt-1" /></span> -->
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th ttSortableColumn="name">NAME
+                        <p-treeTableSortIcon field="name"></p-treeTableSortIcon>
+                        <!-- <p-columnFilter type="text" field="name" display="name"></p-columnFilter> -->
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode">
+                    <td>
+                        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                        {{rowData.name}}
+                    </td>
+                    <td class="text-right user_edit">
+
+                    </td>
+                    <td class="text-right user_edit">
+                        <div class="float-right">
+                            <span *ngIf="rowData.parentId != null && isEditPermission" class=""
+                                title="&#13; &nbsp; Edit Permission&#13;">
+                                <img src="../../../assets/themeIcons/edit.svg" width="13px" height="13px"
+                                    class="cursor-pointer mr-1" (click)="onShowDialog(rowData)" />
+                            </span>
+
+                            <span *ngIf="isEditPermission">
+                                <img src="../../../assets/images/remove.svg" title="&#13; &nbsp; Delete Permission&#13;"
+                                    width="16px" class="cursor-pointer ml-2" (click)="onDeletePermission(rowData)" />
+                                <!-- <i (click)="onDeletePermission(rowData)" class="pi pi-trash text-black"></i> -->
+                            </span>
+                        </div>
+
+
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+
+
+    </div>
+</div>
+<div *ngIf="display">
+    <create-edit-permission [parentList]="parentList" [permissionDetail]="permissionDetail"
+        (displayChange)="onDialogClose($event)" [display]="display"></create-edit-permission>
+</div>

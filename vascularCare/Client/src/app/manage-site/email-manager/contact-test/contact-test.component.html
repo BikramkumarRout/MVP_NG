@@ -1,0 +1,19 @@
+<app-spinner></app-spinner>
+<!-- <app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual> -->
+<p-dialog [(visible)]="contactDisplay" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true"
+    [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Contact</h5>
+    </ng-template>
+    <div>
+       {{this.mailCampaingId}}
+       {{this.isTesting}}
+        <contact-details></contact-details>
+        </div>
+
+ 
+    <p-footer class="pFooter">
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>

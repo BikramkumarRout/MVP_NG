@@ -1,0 +1,46 @@
+<div class="bg-image bg-cover cover-img w-100 vh-100"></div>
+<div class=container>
+    <div class="row  text-center justify-content-center align-items-center">
+        <div class="col-11 col-md-8 col-lg-5">
+            <div class=row>
+                <div class="square d-flex w-100 mt-8">
+                    <div
+                        class="square-inner bg-white border mx-auto p-4 p-lg-6 d-flex flex-column w-100 justify-content-center">
+                        <h1 class="no-mrg">Client Portal</h1>
+
+                        <p class="text-primary verify_mail_text">A password reset link will be sent to your email to reset your password.
+                            If you don't get an email within a few minutes, please re-try.</p>
+                        <form #verfiyEmailForm="ngForm" (ngSubmit)="onSendPassword(verfiyEmailForm)" autocomplete="off">
+                            <div class="form-group pos-relative">
+                                <span class="p-input-icon-left">
+                                    <i class="pi pi-envelope text-info"></i>
+                                    <input type="email" class="form-control login" placeholder="Email address *"
+                                        name="email" #email="ngModel" [(ngModel)]="verifyEmailDto.email" required
+                                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" />
+                                </span>
+                                <div *ngIf="email.errors  &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!email.errors.required">
+                                        Email is required
+                                    </div>
+                                    <div [hidden]="!email.errors.pattern">
+                                        Please enter valid email.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center pwdBtn">
+                                <button class="btn btn-primary btn-lg btn-block text-uppercase"
+                                    [disabled]="!verfiyEmailForm.dirty || !email.value">Send
+                                    Password</button>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div> <a class="loginlink" [routerLink]="['/login']"><span class="font_800">
+                                            Back to Log in</span></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

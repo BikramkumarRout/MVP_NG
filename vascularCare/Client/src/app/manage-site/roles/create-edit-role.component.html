@@ -1,0 +1,222 @@
+<app-toast></app-toast>
+<app-spinner></app-spinner>
+<app-notification></app-notification>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    [closable]="false" class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true"
+    [resizable]="true" [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">{{header}}</h5>
+        <div class="custom-right">
+            <span class="float-right" type="button" (click)="onClose()">
+                <i class="pi pi-times close-icon"></i>
+            </span>
+        </div>
+    </ng-template>
+    <ul class="nav nav-tabs customNav" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="Detail-tab" data-toggle="tab" href="#Detail" role="tab"
+                aria-controls="Detail" aria-selected="true">Details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="permission-tab" data-toggle="tab" href="#permission" role="tab"
+                aria-controls="permission" aria-selected="false">
+                Permissions</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="permission"
+                aria-selected="false">
+                Users</a>
+        </li>
+    </ul>
+    <div [class.divDisabled]="!isEditPermission" class="tab-content" id="myTabContent">
+        <div class="tab-pane fade in active" id="Detail" role="tabpanel" aria-labelledby="Detail-tab">
+            <div class="px-2 profile-container" id="user-input">
+                <form #corporateForm="ngForm" autocomplete="off">
+                    <fieldset>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Name <span class="text-danger text-small">*</span></label>
+                                <input type="text" [(ngModel)]="roleDetail.name" [class.divDisabled]="isRoleAssigned"
+                                    placeholder="Enter  Name" class="form-control" #name="ngModel" name="name"
+                                    required />
+                                    <pm-validation-errors class="text-danger text-small" *ngIf="name.errors  &&  submittedError"  [formCtrl]="name" [text]="'Name'" ></pm-validation-errors>
+                                <!-- <div *ngIf="name.errors &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!name.errors.required">
+                                        Name is required
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Display Name <span class="text-danger text-small">*</span></label>
+                                <input type="text" [(ngModel)]="roleDetail.displayName" placeholder="Enter Display Name"
+                                    class="form-control" #displayName="ngModel" name="displayName" required />
+                                    <pm-validation-errors class="text-danger text-small" *ngIf="displayName.errors  &&  submittedError"  [formCtrl]="displayName" [text]="'Display Name'" ></pm-validation-errors>
+                                <!-- <div *ngIf="displayName.errors &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!displayName.errors.required">
+                                        Display Name is required
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Role Description <span class="text-danger text-small">*</span></label>
+
+                                <input [ngClass]="{'descriptionRole': roleDetail.name == 'SuperUser'}" type="text"
+                                    [(ngModel)]="roleDetail.roleDescription" placeholder="Enter Roles"
+                                    class="form-control" #roleDescription="ngModel" name="roleDescription" required />
+                                    <pm-validation-errors class="text-danger text-small" *ngIf="roleDescription.errors  &&  submittedError"  [formCtrl]="roleDescription" [text]="'Role'" ></pm-validation-errors>
+                                <!-- <div *ngIf="roleDescription.errors &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!roleDescription.errors.required">
+                                        Role is required
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="form-group col-md-6 corporate"
+                                [ngClass]="{'input-disable': roleDetail.name ==='DefaultRole' || roleDetail.name == 'SuperUser'}">
+                                <label for="inputAddress">Role Type <span
+                                        class="text-danger text-small">*</span></label>
+                                <div class="top-margin">
+                                    <p-dropdown [options]="user" placeholder="Select a User" defaultLabel="Select User"
+                                        name="roleName" #roleName="ngModel" [(ngModel)]="selectedUserRole"
+                                        optionLabel="roleName">
+                                    </p-dropdown>
+                                </div>
+                                <!-- <pm-validation-errors class="text-danger text-small" *ngIf="roleName.errors &&  submittedError"  [formCtrl]="roleName" [text]="'Type'" ></pm-validation-errors> -->
+                                <span *ngIf="!selectedUserRole &&  submittedError" class="text-danger text-small">User
+                                    Type is required </span>
+                            </div>
+
+                        </div>
+                      
+                        <div class="form-row">
+                            <div class="form-group col-md-6 corporate">
+                                <label>Landing Page <span class="text-danger text-small">*</span></label>
+                                <div class="top-margin">
+                                    <p-dropdown [options]="landingPageList" placeholder="Select a Landing Page" defaultLabel="Select Landing Page"
+                                        name="pathName" #pathName="ngModel" [(ngModel)]="landingPagePath"
+                                        optionLabel="label">
+                                    </p-dropdown>
+                                </div>
+                                <!-- <pm-validation-errors class="text-danger text-small" *ngIf="pathName.errors &&  submittedError"  [formCtrl]="pathName" [text]="'Type'" ></pm-validation-errors> -->
+                                <span *ngIf="!landingPagePath &&  submittedError" class="text-danger text-small">Landing
+                                    Page is required </span>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="tab-pane fade mb-10" id="permission" role="tabpanel" aria-labelledby="permission-tab">
+
+            <p-treeTable #tt [value]="listingData" class="table-striped table-hover" [paginator]="false"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [globalFilterFields]="['name','displayName']" [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10,50,100]" [(selection)]="selections">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex search-icon m-2">
+
+                    </div>
+
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th ttSortableColumn="name">NAME
+                            <p-treeTableSortIcon field="name"></p-treeTableSortIcon>
+                        </th>
+
+                        <!-- <th ttSortableColumn="displayName">
+                            <span style="margin-left: -.7rem;">DISPLAY NAME</span>
+                            <p-treeTableSortIcon field="displayName"></p-treeTableSortIcon>
+                        </th> -->
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                    <tr [ttRow]="rowNode">
+
+                        <td>
+                            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                            {{rowData.name}}
+                        </td>
+                        <td></td>
+                        <!-- <td>{{rowData.displayName}}</td> -->
+
+                        <td>
+                            <!-- <div *ngIf="rowData.parentId != null">
+                                <p-checkbox name="rowData.name" id="showLinkedRisksOnlyChkBx" binary="true" [ngModel]="rowData.isGranted" (onChange)="checked(rowNode,$event,rowData)"></p-checkbox>
+                            </div> -->
+                            <p-dropdown [style]="{'width':'200px'}" [options]="permissionsDropdiwn" optionLabel="label"
+                                [(ngModel)]="rowData.permissionDetail"></p-dropdown>
+
+                        </td>
+                        <!-- <td></td> -->
+
+                    </tr>
+                </ng-template>
+            </p-treeTable>
+
+
+        </div>
+        <div class="tab-pane fade mb-10" id="user" role="tabpanel" aria-labelledby="user-tab">
+            <p-table #dt2 class="table-striped table-hover" [scrollable]="true" scrollDirection="both"
+                [value]="userListingData" [paginator]="true" [rows]="10" sortField="name" [sortOrder]="1"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [globalFilterFields]="['name','email','phoneNumber']" [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10,25,50,100,500]">
+                <ng-template pTemplate="header">
+                    <tr class="corporate-tr">
+                        <th pSortableColumn="name" class="user_name">
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Name</span>
+                                <p-sortIcon field="name"></p-sortIcon>
+                                <p-columnFilter type="text" field="name" display="name"></p-columnFilter>
+
+                            </div>
+
+                        </th>
+                        <th pSortableColumn="email" class="user_email">
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Email</span>
+                                <p-sortIcon field="email"></p-sortIcon>
+                                <p-columnFilter type="text" field="email" display="email"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="phoneNumber" class="user_phone">
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Phone</span>
+                                <p-sortIcon field="phoneNumber"></p-sortIcon>
+                                <p-columnFilter type="text" field="phoneNumber" display="phoneNumber"></p-columnFilter>
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr>
+                        <td class="user_name">{{rowData.name}}</td>
+                        <td class="user_email">{{rowData.email}}</td>
+                        <td class="user_phone">{{rowData.phoneNumber | phoneFormat}}</td>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr *ngIf="isNoRecorsFound">
+                        <td colspan="4">No records found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+
+        </div>
+
+    </div>
+    <p-footer class="pFooter">
+        <button [class.divDisabled]="!isEditPermission" (click)="onSaveRole()" type="button"
+            class="py-1 px-1 btn btn-primary">Save</button>
+        <button [class.divDisabled]="!isEditPermission" type="button" class=" py-1 px-1 btn btn-outline-info"
+            (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>

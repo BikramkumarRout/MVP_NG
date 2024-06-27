@@ -1,0 +1,14 @@
+
+
+.btn {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 200px;
+}
+.btn {
+    overflow: hidden;
+}
+.btn--secondary, .btn-video {
+    background: #0e465f;
+    color: #fff;
+}

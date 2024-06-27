@@ -1,0 +1,44 @@
+<section class="about about-1 careerbg team team-grid" id="about-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+                <div class="heading heading-2 text--center">
+                    <h2 class="heading-title">Clinical Team</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="team-all">
+
+
+            <bioDetails-selector [item]="item" *ngFor="let item of bioData" data-hover="" class="col-12 col-md-6 col-lg-4 team-member"></bioDetails-selector>
+
+
+
+            <!-- <div class="col-12 col-md-6  col-lg-4" *ngFor="let item of bioData">
+                <div class="team-member" data-hover="">
+                    <div class="team-member-holder">
+                        <div class="team-img" *ngIf="isExist"><a class="link" href="javascript:void(0)"></a><img [src]="item.imgUrl"
+                                alt="team member" />
+                        </div>
+                        <div class="team-content">
+                            <div class="team-title">
+                                <h4><a href="javascript:void(0)">{{item.firstName}}</a></h4>
+                            </div>
+                            <div class="team-cat"><a href="javascript:void(0)">{{item.designation}}</a></div>
+                            <read-more [text]="item.description" [maxHeight]="140"></read-more>
+
+                           
+                            <div  class="team-more"><a [routerLink]="[ '/home/clinical-team/details/' + item.name,{bioId: item.id }]" 
+                                
+                                routerLinkActive="active font-weight-bold"
+                                    class="btn-line btn-line-inversed btn-line-before" href="javascript:void(0)"> <span
+                                        class="line"> <span></span></span><span>read
+                                        more</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>
+<common-footer></common-footer>

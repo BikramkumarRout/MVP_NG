@@ -1,0 +1,149 @@
+<div>
+    <div>
+        <div class="col-md-12 pl-3">
+        </div>
+        <ul class="nav nav-tabs customNav" role="tablist">
+            <li (click)="onNextDos()">
+                <a href="javascript:void(0)" class="nav-link"
+                    [ngClass]="isNextDos?'active font-weight-bold text-info':''">{{nextDosContent}}</a>
+            </li>
+            <li (click)="onPastAppointment()" class="nav-item">
+                <a href="javascript:void(0)" class="nav-link"
+                    [ngClass]="isPastAppointment?'active font-weight-bold text-info':''">Past Appointments</a>
+            </li>
+            <li (click)="onFutureAppointment()" class="nav-item">
+                <a href="javascript:void(0)" class="nav-link"
+                    [ngClass]="isFutureAppointment?'active font-weight-bold text-info':''">Future Appointments</a>
+            </li>
+
+        </ul>
+
+    </div>
+</div>
+
+<div>
+
+    <div  class="card implicit-pag jobPager">
+        <p-table [scrollable]="true"   id="patientHistory" class="table-striped table-hover" autoLayout="true" #dt2
+            (onFilter)="onFilter($event)" [value]="facilityHistory" [paginator]="true" [rows]="10"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['date','time','roomNumber','patient','provider','exam','location','status']"
+            [rowsPerPageOptions]="[10,25,50,100,500]" sortField="date" [sortOrder]="-1"
+            (sortFunction)="customSort($event)" [customSort]="true" stickyHeader stickyClass="stickyHeader">
+
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex search-icon m-2">
+                    <button
+                        *ngIf="searchGlobalText ||nameFilter || dateFilter || idFilter || examFilter || providerFilter ||roomFilter || locationFilter || statusFilter"
+                        pButton label="Clear Filters" id="custom-btn" class="p-button-outlined"
+                        icon="pi pi-filter-slash" (click)="clear(dt2)"
+                        (click)="dt2.filterGlobal($event.target.value, 'contains')"></button>
+                    <span class=" p-ml-auto search-baricon">
+                        <i class="pi pi-search mt-1"></i>
+                        <input pInputText type="text" class="form-control-35"
+                            (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword"
+                            [(ngModel)]="searchGlobalText" />
+                    </span>
+                    <span ><img (click)="onExport()" src="../../../assets/images/excel-icon.png" title="&#13; &nbsp; Export&#13;" width="25px"
+                        class="cursor-pointer ml-2 mt-1" /></span>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="date" class="popup_common_date_width">
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-2">DATE</span>
+                            <p-sortIcon field="date"></p-sortIcon>
+                            <p-columnFilter type="text" field="date" display="Date"></p-columnFilter>
+                        </div>
+                    </th>
+                    <!-- <th pSortableColumn="time">
+                        <div class="p-d-flex  p-ai-center">
+                            TIME
+                            <p-sortIcon field="time"></p-sortIcon>
+                            <p-columnFilter type="text" field="time" display="Time"></p-columnFilter>
+                        </div>
+                    </th> -->
+                    <th pSortableColumn="roomNumber" class="appointment_room_width">
+                        <div class="p-d-flex  p-ai-center">
+                            ROOM
+                            <p-sortIcon field="roomNumber"></p-sortIcon>
+                            <p-columnFilter type="text" field="roomNumber" display="Room"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="patient" class="appointment_patient_width">
+                        <div class="p-d-flex  p-ai-center">
+                            PATIENT
+                            <p-sortIcon field="patient"></p-sortIcon>
+                            <p-columnFilter type="text" field="patient" display="patient"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th class="appointment_profile_width">
+                        <div class="p-d-flex  p-ai-center">
+                            PROFILE
+                        </div>
+                    </th>
+                    <th pSortableColumn="provider" class="appointment_provider_width">
+                        <div class="p-d-flex  p-ai-center">
+                            PROVIDER
+                            <p-sortIcon field="provider"></p-sortIcon>
+                            <p-columnFilter type="text" field="provider" display="Provider"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="exam" class="appointment_exam_width">
+                        <div class="p-d-flex  p-ai-center">
+                            EXAM
+                            <p-sortIcon field="exam"></p-sortIcon>
+                            <p-columnFilter type="text" field="exam" display="Exam"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="location" class="appointment_room_width">
+                        <div class="p-d-flex  p-ai-center ml-1">
+                            LOCATION
+                            <p-sortIcon field="location"></p-sortIcon>
+                            <p-columnFilter type="text" field="location" display="location"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="status" class="appointment_room_width">
+                        <div class="p-d-flex  p-ai-center">
+                            STATUS
+                            <p-sortIcon field="status"></p-sortIcon>
+                            <p-columnFilter type="text" field="status" display="status"></p-columnFilter>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td class="popup_common_date_width">{{row.date}}</td>
+                    <!-- <td>{{row.time}}</td> -->
+                    <td class="appointment_room_width">{{row.roomNumber}}</td>
+                    <td class="appointment_patient_width">{{row.patient |titlecase}}</td>
+                    <td class="appointment_profile_width">
+                        <div class="" title="&#13; &nbsp; Profile&#13;">
+                            <img src="/assets/themeIcons/single-neutral-id-card-4.svg" width="24px"
+                                class="cursor-pointer ml-2" (click)="showDialog(row.patientId)">
+                        </div>
+                    </td>
+                    <td class="appointment_provider_width">{{row.provider |titlecase}}</td>
+                    <td class="appointment_exam_width">{{row.exam}}</td>
+                    <td class="appointment_room_width">{{row.location}}</td>
+                    <td class="appointment_room_width">{{row.status}}</td>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr *ngIf="isNoRecorsFound">
+                    <td colspan="8">No records found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<div *ngIf="display">
+    <patient-profile [display]="display" [patientId]="patientId" [facilityId]="facilityId"
+        (displayChange)="onDialogClose($event)">
+    </patient-profile>
+</div>

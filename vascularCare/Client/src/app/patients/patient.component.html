@@ -1,0 +1,182 @@
+<app-spinner></app-spinner>
+<!-- <top-bar [isProviderExist]="isProviderExist"></top-bar> -->
+<!-- <app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual> -->
+
+<section class=" mt-6 pt-4 pb-4 pt-lg7 pb-lg-2 mb-6 appointment_section_height">
+    <div class="padding-container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 px-3 aos-init aos-animate">
+                <div class="mb-3 p-headermenu">
+                    <h2 class="mb-1 card-title text-black">Patients</h2>
+                    <div *ngIf="userRole == 'Facility'" class="col-md-12 px-3">
+                        <div class="dropdown drop-downrow show float-right text-info text-black">
+                            <a class="facility-name dropdown-toggle" href="javascript:void(0)"
+                                *ngFor="let Facility of facilities" id="dropdownMenuLink" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                {{Facility.name}}
+                            </a>
+                        </div>
+                    </div>
+                    <div *ngIf="userRole == 'Corporate' || userRole === 'SuperUser' || userRole == 'MvpAdminstrative'"
+                        class="col-md-12 px-3">
+                        <facility-selector (facilityEmit)="onFacilityEmit($event)">
+
+                        </facility-selector>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12 px-0">
+                <div class="col-md-12 col-lg-12 px-3 aos-init aos-animate p-mt-00">
+                    <div class="card shadow px-3 col-md-12 col-lg-12">
+                        <div class="card implicit-pag mt-4 jobPager ">
+                            <p-table class="table-striped table-hover"
+                                [scrollable]="true" scrollDirection="both" #dt1 [value]="patientList" [paginator]="true"
+                                [rows]="10" [showCurrentPageReport]="true" (onFilter)="onFilter($event)"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                [globalFilterFields]="['name','patientId','dob','gender']" [totalRecords]="totalRecords"
+                                [rowsPerPageOptions]="[10,25,50,100,500]" sortField="name" [sortOrder]="1">
+                                <ng-template pTemplate="caption">
+                                    <div class="p-d-flex search-icon m-2">
+                                        <button *ngIf="searchGlobalText || nameFilter || providerFilter || mrnFilter || statusFilter ||genderFilter ||roomFilter
+                                        ||idFilter ||dobFilter || dateFilter" pButton label="Clear Filters"
+                                            id="custom-btn" class="p-button-outlined" icon="pi pi-filter-slash"
+                                            (click)="clear(dt1)"
+                                            (click)="dt1.filterGlobal($event.target.value, 'contains')"></button>
+                                        <span class="search-baricon p-ml-auto">
+                                            <i class="pi pi-search global-search"></i>
+                                            <input pInputText type="text" [(ngModel)]="searchGlobalText"
+                                                class="form-control-35"
+                                                (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                                                placeholder="Search keyword" />
+                                        </span>
+                                        <span><img (click)="onExport()" src="../../../assets/images/excel-icon.png"
+                                                title="&#13; &nbsp; Export&#13;" width="25px"
+                                                class="cursor-pointer ml-2 mt-1" /></span>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pSortableColumn="patientId" class="patientId">
+
+                                            <div class="p-d-flex  p-ai-center ml-2">ID
+                                                <p-sortIcon field="patientId"></p-sortIcon>
+                                                <p-columnFilter type="text" field="patientId" display="PatientId">
+                                                </p-columnFilter>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="name" class="name">
+                                            <div class="p-d-flex  p-ai-center">
+                                                NAME
+                                                <p-sortIcon field="name"></p-sortIcon>
+                                                <p-columnFilter type="text" field="name" display="name">
+                                                </p-columnFilter>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="gender" class="gender">
+                                            <div class="p-d-flex  p-ai-center ">
+                                                GENDER
+                                                <p-sortIcon field="gender"></p-sortIcon>
+                                                <p-columnFilter type="text" field="gender" display="gender">
+                                                </p-columnFilter>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="dateOfLastAppointment" class="dateOfLastAppointment">
+                                            <div class="p-d-flex  p-ai-center ">
+                                                LAST APPOINTMENT
+                                                <p-sortIcon field="dateOfLastAppointment"></p-sortIcon>
+                                                <p-columnFilter type="text" field="dateOfLastAppointment"
+                                                    display="dateOfLastAppointment"></p-columnFilter>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="dob" class="dob">
+                                            <div class="p-d-flex  p-ai-center ">
+                                                DOB
+                                                <p-sortIcon field="dob"></p-sortIcon>
+                                                <p-columnFilter type="text" field="dob" display="dob"></p-columnFilter>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="room" class="room">
+                                            <div class="p-d-flex  p-ai-center">
+                                                ROOM
+                                                <p-sortIcon field="room"></p-sortIcon>
+                                                <p-columnFilter type="text" field="room" display="room">
+                                                </p-columnFilter>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="mrn" class="mrn">
+                                            <div class="p-d-flex  p-ai-center">
+                                                MRN
+                                                <p-sortIcon field="mrn"></p-sortIcon>
+                                                <p-columnFilter type="text" field="mrn" display="MRN"></p-columnFilter>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="provider" class="provider">
+                                            <div class="p-d-flex  p-ai-center">
+                                                PROVIDER
+                                                <p-sortIcon field="provider"></p-sortIcon>
+                                                <p-columnFilter type="text" field="provider" display="Provider">
+                                                </p-columnFilter>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="status" class="status">
+                                            <div class="p-d-flex  p-ai-center">
+                                                STATUS
+                                                <p-sortIcon field="status"></p-sortIcon>
+                                                <p-columnFilter type="text" field="status" display="Status">
+                                                </p-columnFilter>
+                                            </div>
+                                        </th>
+                                        <th class="profile">
+                                            <div class="p-d-flex  p-ai-center">
+                                                PROFILE
+
+                                            </div>
+                                        </th>
+
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row>
+                                    <tr>
+                                        <td class="patientId">{{row.patientId}}</td>
+                                        <td class="name">{{row.name |titlecase}}</td>
+                                        <td class="gender">{{row.gender}}</td>
+                                        <td class="text-left dateOfLastAppointment">{{row.dateOfLastAppointment}}</td>
+                                        <td class="dob">{{row.dob}}</td>
+                                        <td class="room">{{row.room}}</td>
+                                        <td class="mrn">{{row.mrn}}</td>
+                                        <td class="provider">{{row.provider |titlecase}}</td>
+                                        <td class="status">{{row.status}}</td>
+                                        <td class="text-left profileHeader profile">
+                                            <div class="" title="&#13; &nbsp; Profile&#13;">
+                                                <img src="/assets/themeIcons/single-neutral-id-card-4.svg" width="24px"
+                                                    class="cursor-pointer ml-2" (click)="showDialog(row.patientId)">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+
+                                <ng-template pTemplate="emptymessage">
+                                    <tr *ngIf="isNoRecorsFound">
+                                        <td colspan="10">No records found.</td>
+                                    </tr>
+                                </ng-template>
+
+                            </p-table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<common-footer [portalFooter]="portalFooter"></common-footer>
+
+<div *ngIf="display">
+    <patient-profile [display]="display" [patientId]="patientId" [facilityId]="facilityId"
+        (displayChange)="onDialogClose($event)">
+    </patient-profile>
+</div>

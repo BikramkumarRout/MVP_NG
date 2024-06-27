@@ -1,0 +1,10 @@
+<div id="toast" class="alert toast-container" *ngIf="show">
+  
+  <div class="toast-card {{type == 'success'?'alert-success':type === 'warning'?'alert-warning':'alert-error'}}"  role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 style="color:#fff !important;">{{title}}</h5>
+    <h6 class="toast-message" style="color:#fff !important;">{{message}}</h6>
+  </div>
+</div>

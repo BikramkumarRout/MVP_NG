@@ -1,0 +1,205 @@
+<app-toast></app-toast>
+<app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual>
+<app-spinner></app-spinner>
+<div class="">
+    <h4 class="mt-2 h4_tag h4_color">Email Messages</h4>
+    <div class="">
+
+        <div class="implicit-pag mt-4 calendar">
+            <p-table #dt2 id="emailMessages" class="table-striped table-hover" [scrollable]="true"
+                scrollDirection="both" [value]="listingData" [paginator]="true" [rows]="10" sortField="name"
+                [sortOrder]="1" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [globalFilterFields]="['id','subject','toRecepients','createdDate','isSent']"
+                [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50,100,500]">
+                <ng-template pTemplate="caption">
+
+                    <div class="row pb-2">
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 p-0 width440_dev">
+                            <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 wt_150_dev">
+                                <!-- <div style="font-weight: normal; margin-top: -0.5px;color: #969696; display: block;">&nbsp;
+                                </div>
+                                <span class="search-baricon  mr-1">
+                                    <i class="pi pi-search mt-1"></i>
+                                    <input pInputText type="text" class="form-control-25" [(ngModel)]="searchGlobalText"
+                                        (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                        placeholder="Search keyword" />
+                                </span> -->
+                                <div class="form-group" >
+                                    <label>&nbsp;</label>
+                                    <span class="search-baricon  mr-1" style="display:flex;">
+                                        <i class="pi pi-search mt-1"></i>
+                                        <input pInputText type="text" class="form-control-25" style="margin-top:2px!important;width: 125px!important;" [(ngModel)]="searchGlobalText"
+                                            (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                            placeholder="Search keyword" />
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 pl_mob_30" style="display: flex;">
+                               
+                                <div >
+                                <div class="listPageLabel">From</div>
+
+                                <p-calendar (onClose)="onPageReload()" placeholder="MM/DD/YYYY" class="mr-1"
+                                    [(ngModel)]="backdate" [showTime]="true" showButtonBar="true"></p-calendar>
+                               
+                                </div>
+                                <div>
+                                <div class="listPageLabel">To</div>
+
+                                <p-calendar (onClose)="onPageReload()" [showTime]="true" placeholder="MM/DD/YYYY"
+                                    [(ngModel)]="endDate" showButtonBar="true"></p-calendar>
+                                </div>
+                               
+                            </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 p-0 " [ngClass]="hideBatchDropdown ? 'width440_dev' : 'width305_dev'" >
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 wt_210_dev pl_mob_25">
+                                    <div style="margin-bottom: -2.5px;">&nbsp;</div>
+                            <p-multiSelect [options]="listing" [(ngModel)]="selectedCampaign"
+                                (onChange)="onPageReload()" defaultLabel="Select All" optionLabel="name" display="chip">
+                            </p-multiSelect>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 wt_110_dev pl_mob_25" *ngIf="hideBatchDropdown">
+                                    <div  class="status" style="margin-right: 10px;">
+                                        <!--style="display: contents;"-->
+                                        <div style="margin-bottom: -2.5px;">&nbsp;</div>
+                                        <p-multiSelect [options]="batch" [(ngModel)]="selectedType" (onChange)="onPageReload()"
+                                            defaultLabel="Select All" optionLabel="name" display="chip"></p-multiSelect>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 wt_110_dev pl_mob_25">
+                                    <div *ngIf="ishide" class="status">
+                                        <!--style="display: contents;"-->
+                                        <div style="margin-bottom: -2.5px;">&nbsp;</div>
+                                        <p-multiSelect [options]="status" [(ngModel)]="selectedStatus" (onChange)="onPageReload()"
+                                            defaultLabel="Select All" optionLabel="name" display="chip"></p-multiSelect>
+            
+            
+                                    </div>
+                                </div>
+                               </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 width405_dev">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 width202_dev">
+                                    <div *ngIf="ishide" class="cursor-pointer float-left ml_mob_5" >
+                                        <div>&nbsp;</div>
+                                        <div>
+                                            <span class="mr-2 ml-1" (click)="onShowDialog()"
+                                                style="width: auto !important; font-size: 13px; font-weight: normal; color: #049fda;">
+                                                <i class="far fa-envelope mr-1"></i>Prepare Batch</span>
+                                        </div>
+                                    </div>
+    
+                                    <div class="float-left">
+                                        <div>&nbsp;</div>
+                                        <span *ngIf="!ishide" class="mr-2"></span>
+                                        <span (click)="onPageReload()" class="cursor-pointer"
+                                            style="width: auto !important; font-size: 13px; font-weight: normal; color: #049fda;"><i
+                                                class="fas fa-sync"></i> Refresh
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 width180_dev">
+                                    <div *ngIf="ishide" class="cursor-pointer sendPrepareBatch">
+                                        <div>&nbsp;</div>
+                                        <span *ngIf="isChecked" (click)="sendMail()"
+                                            style="text-decoration: underline; width: auto !important; font-size: 13px; font-weight: normal; color: #049fda;"><i
+                                                class="far fa-envelope ml-1"></i> Send Prepared Batch
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+
+
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr class="corporate-tr">
+                        <th class="check1 wt_em_2">
+                            <div class="ml-1">
+                                <p-checkbox (click)="selectAllRow(e.checked)" #e></p-checkbox>
+                                <!-- <p-checkbox (onChange)="onCheckCampaign($event)" name="group2"  [(ngModel)]="selectedRow" ></p-checkbox> -->
+                            </div>
+                        </th>
+                        <th pSortableColumn="id" class="wt_em_id" >
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Id</span>
+                                <p-sortIcon field="id"></p-sortIcon>
+                                <!-- <p-columnFilter type="text" field="id" display="id"></p-columnFilter> -->
+
+                            </div>
+
+                        </th>
+                        <th pSortableColumn="subject" class="wt_em_12" >
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Subject</span>
+                                <p-sortIcon field="subject"></p-sortIcon>
+                                <!-- <p-columnFilter type="text" field="subject" display="subject"></p-columnFilter> -->
+                            </div>
+                        </th>
+                        <th pSortableColumn="toRecepients" class="wt_em_Recepients"  >
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">To</span>
+                                <p-sortIcon field="toRecepients"></p-sortIcon>
+                                <!-- <p-columnFilter type="text" field="toRecepients" display="toRecepients"></p-columnFilter> -->
+                            </div>
+                        </th>
+                        <th pSortableColumn="createdDate" class="wt_em_created" >
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Created Date</span>
+                                <p-sortIcon field="createdDate"></p-sortIcon>
+                                <!-- <p-columnFilter type="text" field="createdDate" display="createdDate"></p-columnFilter> -->
+                            </div>
+                        </th>
+                        <th pSortableColumn="isSent" class="wt_em_status" >
+                            <div class="p-d-flex  p-ai-center">
+                                <span class="ml-1">Status</span>
+                                <p-sortIcon field="isSent"></p-sortIcon>
+                                <!-- <p-columnFilter type="text" field="isSent" display="isSent"></p-columnFilter> -->
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr [ngClass]="{'red-clr_row': rowData.isSent ==='Unsuccessful'}"
+                        (dblclick)="onShowDetailsDialog(rowData)" class="check cursor-pointer">
+                        <td class="wt_em_2" >
+                            <div class="">
+                                <p-checkbox (onChange)="onCheckCampaign(this.selectedRows)" name="group2"
+                                    value="rowData" [value]="rowData" [(ngModel)]="selectedRows"></p-checkbox>
+                            </div>
+                        </td>
+                        <td class="wt_em_id" >{{rowData.id}}</td>
+                        <td class="wt_em_12" >{{rowData.subject}}</td>
+                        <td class="wt_em_Recepients" >{{rowData.toRecepients}}</td>
+                        <td class="wt_em_created" >{{rowData.createdDate}}</td>
+
+
+                        <td class="wt_em_status" >{{rowData.isSent}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr *ngIf="isNoRecorsFound">
+                        <td colspan="6">No records found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+</div>
+<div *ngIf="display">
+
+    <prepare-batch [display]="display" (displayChange)="onDialogClose($event)"></prepare-batch>
+</div>
+
+<div *ngIf="displayDetails">
+
+    <batch-details [rowData]="rowData" [displayDetails]="displayDetails"
+        (displayDetailChange)="onShowDetailsDialogClose($event)"></batch-details>
+</div>

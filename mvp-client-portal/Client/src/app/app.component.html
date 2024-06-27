@@ -1,0 +1,11 @@
+<app-toast></app-toast>
+<app-spinner></app-spinner>
+<home-topbar [locations]="locations" id="customScroll"></home-topbar>
+<div>
+    <div class="row">
+        <div class="col-md-12">
+            <router-outlet #o="outlet"></router-outlet>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

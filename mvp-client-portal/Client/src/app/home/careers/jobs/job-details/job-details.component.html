@@ -1,0 +1,120 @@
+<app-toast></app-toast>
+<app-spinner-manual [isSpinnerVisible]="isSpinnerVisible"></app-spinner-manual>
+
+<app-notification></app-notification>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+     class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true"
+    [resizable]="true" [contentStyle]="{height: '550px'}" [baseZIndex]="10009">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold text-white">Job Details</h5>
+        
+    </ng-template>
+    <div class="col-md-12 col-lg-12 profile-container">
+
+        <h2>{{listingData.jobTitle|titlecase}}</h2>
+
+
+        <div>
+            <!-- <div class="col-md-12">
+                <div class="row">
+                    <p class="col-md-3"><b>Serial Number:</b></p>
+                    <p class="col-md-2"> {{listingData.siNo}}</p>
+                </div>
+            </div> -->
+            <hr class="m-0 mx-1">
+            <div class="col-md-12">
+                <div class="row">
+                    <p class="col-md-3"> <b>Job Title:</b> </p>
+                    <p class="col-md-6"> {{listingData.jobTitle|titlecase}}, {{listingData.location}}</p>
+                </div>
+            </div>
+            <hr class="m-0 mx-1">
+
+            <div class="col-md-12">
+                <div class="row">
+                    <p class="col-md-3"> <b>Date Posted:</b> </p>
+                    <p class="col-md-2"> {{listingData.datePosted}}</p>
+                </div>
+            </div>
+            <hr class="m-1 mx-1">
+            <div class="col-md-12 jobDescriptionHolder">
+                <div class="row">
+                    <p class="col-md-3"><b>Job Description:</b> </p>
+                    <p id="jd" class="col-md-9">
+                        <span id="jobDescription" class="jobDescription" [innerHTML]="this.listingData.jobDescription"></span>
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="jobDescriptionForm">
+            
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Name <span class="text-danger text-small">*</span></label>
+                    <input type="text" placeholder="Enter Name" class="form-control" name="applName" required
+                        #applName="ngModel" [(ngModel)]="applicantName" />
+    
+                    <div *ngIf="applName.errors  &&  submittedError" class="text-danger text-small">
+                        <div [hidden]="!applName.errors.required">
+                            Name is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6" >
+                    <label for="inputPassword4">Phone Number<span
+                            class="text-danger text-small">*</span></label>
+                    <input type="text" phoneMask class="form-control" placeholder="(xxx) xxx-xxxx"
+                        minlength="10" maxlength="14" name="phone" #phone="ngModel"
+                        [(ngModel)]="phoneNumber" required />
+
+                    <div *ngIf="phone.errors  &&  submittedError" class="text-danger text-small">
+                        <div [hidden]="!phone.errors.required">
+                            Phone no. required
+                        </div>
+                        <div [hidden]="!phone.errors.minlength">
+                            Please enter atleast a 10 digit no.
+                        </div>
+                    </div>
+                </div>
+           
+            </div>
+            
+            <div class="row">
+                <div class="col-md-8 upload-zone" appDragDrop (onFileDropped)="onFileDropped($event)">
+                    <input id="uploadFile" type="file" name="name" #fileInput accept="application/pdf"
+                        (input)="onFileChanged($event)" (change)="onFileChanged($event)"
+                        class="form-control upload-zone input-hidden border-0" />
+                    <div class="input-group-append group-append ">
+                        <label class="btn  mb-2 py-3" style="display: inline-table !important;" for="uploadFile">
+                            <small class="text-uppercase font-weight-bold text-info">Attach
+                                or Drop
+                                resume</small>
+                            <span class="text-small red-clr"
+                                style="font-variant: normal !important; font-size: 0.7300rem !important; font-weight: lighter;">
+                                (PDF Only)</span>
+                        </label>
+                        <input type="text" disabled [value]="paitentFile" [title]="paitentFile" name="paitentFile"
+                            class="border-0 w-50 text-small  px-2 custom-margin" id="test" />
+                        <span *ngIf="paitentFile" style="margin-top: 2rem;" class="clear-filter"
+                            (click)="reset()">x</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex">
+                        <div class="my-3 float-right">
+                            <button style="margin-left: 3.5rem;color: #fff;font-weight: 700!important;"
+                                class="btn btn-info font-normal px-3 py-2 font-weight-normal" (click)="onUpload()"
+                                [disabled]="(!paitentFile) ||(!applicantName) ">Apply</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-footer class="pFooter">
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>

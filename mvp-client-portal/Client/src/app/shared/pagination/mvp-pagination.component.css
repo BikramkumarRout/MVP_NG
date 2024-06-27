@@ -1,0 +1,13 @@
+.nav-page.active {
+    background-color: red;
+    /* border: red; */
+    border: 1px solid;
+    color: white;
+    height: 25px;
+    width: 25pxpx;
+    margin-right: 2px;
+}
+
+button.nav-page {
+    background-color: white;
+}

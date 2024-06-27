@@ -1,0 +1,69 @@
+<!-- <home-topbar></home-topbar> -->
+<form novalidate (ngSubmit)="login(loginForm)" #loginForm="ngForm" autocomplete="off">
+    <fieldset>
+        <section id=content>
+            <div class="bg-image bg-cover cover-img w-100 vh-100"></div>
+            <div class=container>
+                <div class="row  text-center justify-content-center align-items-center">
+                    <div class="col-11 col-md-8 col-lg-5">
+                        <div class=row>
+                            <div class="square d-flex w-100 mt-8">
+                                <div
+                                    class="square-inner bg-white border mx-auto p-4 p-lg-6 d-flex flex-column w-100 justify-content-center">
+                                    <h1 class="no-mrg">Client Portal</h1>
+                                    <h1>Log In</h1>
+                                    <div class="form-group pos-relative">
+                                        <span class="p-input-icon-left">
+                                            <i class="pi pi-envelope text-info"></i>
+                                            <input class="form-control login" id="userNameId" type="text"
+                                                placeholder="Email address *" required ngModel name="userName"
+                                                #userNameVar="ngModel"
+                                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" />
+                                        </span>
+                                    </div>
+                                    <div class="form-group pos-relative">
+                                        <span class="p-input-icon-left">
+                                            <i class="pi pi-lock text-info"></i>
+                                            <input class="form-control login" id="passwordId" type="password"
+                                                pattern=".{1,}" placeholder="Password *" required ngModel
+                                                name="password" #passwordVar="ngModel" />
+                                        </span>
+                                        <div *ngIf="passwordVar.errors  &&  submittedError"
+                                            class="text-danger text-small">
+
+                                            <div [hidden]="!passwordVar.errors.pattern">
+                                                Authentication failed.Please enter valid userid and password. </div>
+                                        </div>
+                                        <div *ngIf="invalidCredential" class="text-danger text-small">
+                                            Authentication failed.Please enter valid userid and password.
+                                        </div>
+
+                                    </div>
+                                    <div class=form-group>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block text-uppercase"
+                                            [disabled]="(!userNameVar.value && !passwordVar.value) || (!userNameVar.value && passwordVar.value) 
+                                            || (userNameVar.value && !passwordVar.value)"
+                                            >LogIn</button>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="text-info"> <a class="loginlink" (click)="navigateTo()">
+                                                <span class="forgot_password_link">Forgot your password ?</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </fieldset>
+</form>
+<div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+</div>
+
+<div *ngIf="display">
+    <terms-condition [display]="display" [allowDashboard]="allowDashboard" (displayChange)="onDialogClose($event)">
+    </terms-condition>
+</div>

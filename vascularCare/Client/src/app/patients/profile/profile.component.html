@@ -1,0 +1,59 @@
+<app-spinner></app-spinner>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true"
+    [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Patient Name : {{profileData.firstName | titlecase}} {{profileData.lastName |
+            titlecase}} ({{profileData.patientId}})</h5>
+    </ng-template>
+    <div class="profile-container ">
+        <div>
+            <div class="col-md-12 pl-3">
+            </div>
+            <ul class="nav nav-tabs customNav" role="tablist">
+                <li (click)="onPatientProfile()">
+                    <a href="javascript:void(0)" class="nav-link"
+                        [ngClass]="isPatientProfile?'active font-weight-bold text-info':''">Patient Profile</a>
+                </li>
+                <li (click)="onInsurance()" class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link"
+                        [ngClass]="isInsurance?'active font-weight-bold text-info':''">Insurance</a>
+                </li>
+                <li (click)="onAppointmentsHistory()" class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link"
+                        [ngClass]="isAppointmentHistory?'active font-weight-bold text-info':''">Appointments History</a>
+                </li>
+                <li (click)="onUpcomingAppointments()" class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link"
+                        [ngClass]="isupcomingAppointments?'active font-weight-bold text-info':''">Upcoming
+                        Appointments</a>
+                </li>
+            </ul>
+            <hr class="m-0">
+        </div>
+        <div *ngIf="isAppointmentHistory">
+            <profile-appointment-history [patientId]="patientId"  [facilityId]="facilityId" [patientHistory]="patientHistory">
+            </profile-appointment-history>
+        </div>
+        <div *ngIf="isInsurance">
+            <profile-insurance [insuranceData]="insuranceData">
+            </profile-insurance>
+        </div>
+        <div *ngIf="isPatientProfile">
+            <profile-patient-profile [profileData]="profileData">
+            </profile-patient-profile>
+        </div>
+        <div *ngIf="isupcomingAppointments">
+            <profile-upcomingAppointment [patientId]="patientId" [facilityId]="facilityId">
+            </profile-upcomingAppointment>
+        </div>
+    </div>
+    <p-footer class="pFooter">
+        <button type="button" class=" py-1 px-1 btn btn-outline-info"
+            (click)="onPatientProfileClose();display=false">Close</button>
+    </p-footer>
+</p-dialog>
+
+<!--
+<profile-patient-profile [profileData]="profileData">
+</profile-patient-profile> -->

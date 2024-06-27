@@ -1,0 +1,103 @@
+<app-toast></app-toast>
+<p-dialog [(visible)]="displayTo" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onCloseTo()"
+    class="alert alert-info profile-container" [style]="{width: '70vw'}" [maximizable]="true" [modal]="true"
+    [resizable]="true" [contentStyle]="{height: '450px'}" [closable]="false">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">{{header}} </h5>
+        <div class="custom-right">
+            <span class="float-right" type="button" (click)="onCloseTo()">
+                <i class="pi pi-times close-icon"></i>
+            </span>
+        </div>
+    </ng-template>
+    <div class="implicit-pag mt-4 jobPager" *ngIf="!isNewRecipient">
+        <p-table #dt2 class="table-striped table-hover" [scrollable]="true" scrollDirection="both" [value]="result"
+            [paginator]="true" [rows]="10"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['name']" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50,100,500]">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex search-icon m-2">
+                    <button *ngIf="searchGlobalText || nameFilter ||descriptionFilter ||toFilter
+                    || ccFilter || bccFilter" (click)="clear(dt2)" pButton label="Clear Filters" id="custom-btn"
+                        class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="dt2.filterGlobal($event.target.value, 'contains')"></button>
+                    <span class=" p-ml-auto search-baricon">
+                    </span>
+                    <div class="add_icon"  (click)="onNewRecipientClick($event)"
+                        title="&#13; &nbsp; Create New Recipient&#13;">
+                        <i class="pi pi-plus-circle cursor-pointer" ></i>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr class="corporate-tr">
+                    <th pSortableColumn="name" class="">
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Email</span>
+                            <p-sortIcon field="name"></p-sortIcon>
+                            <p-columnFilter type="text" field="name" display="name"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th class="">
+
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr>
+                    <td>{{rowData.name}}</td>
+                    <td class="">
+                        <span *ngIf="this.rowData">
+                            <img src="../../../assets/images/remove.svg" title="&#13; &nbsp; Delete Email&#13;"
+                                width="16px" class="cursor-pointer ml-2" (click)="onDeleteMail(rowData)" />
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr *ngIf="isNoRecorsFound">
+                    <td colspan="3">No records found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="container" *ngIf="isNewRecipient">
+        <div class="cursor-pointer pFooter float-right">
+            <button type="button" title="Go back to listing" (click)="onBack()" class="py-1 px-1 btn btn-info back_btn"
+                >Back</button>
+        </div>
+        <form #recipientEditForm="ngForm" autocomplete="off">
+            <fieldset>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Email <span class="text-danger text-small">*</span></label>
+                        <input type="text" placeholder="Enter Email" class="form-control" name="email" required
+                            #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$"
+                            [(ngModel)]="recipientDetail.recepientEmail" />
+
+                        <div *ngIf="email.errors  &&  submittedError" class="text-danger text-small">
+                            <div [hidden]="!email.errors.required">
+                                Email is required
+                            </div>
+                            <div [hidden]="!email.errors.pattern">
+                                Please enter a valid email
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Name <span class="text-danger text-small"></span></label>
+                        <input type="text" placeholder="Enter Name" class="form-control" name="displayName"
+                            #displayName="ngModel" [(ngModel)]="name" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <p-footer class="pFooter" *ngIf="!isNewRecipient">
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onCloseTo()">Close</button>
+    </p-footer>
+    <p-footer class="pFooter" *ngIf="isNewRecipient">
+        <button type="button"  class="py-1 px-1 btn btn-primary" (click)="onRecipientSave()">Save</button>
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onCloseTo()">Close</button>
+    </p-footer>
+</p-dialog>

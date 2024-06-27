@@ -1,0 +1,3 @@
+<div class="team_des" [innerHTML]="text" [class.collapsed]="isCollapsed" [style.height]="isCollapsed ? maxHeight+'px' : 'auto'">
+</div>
+    <a class="read-more_less" *ngIf="isCollapsable" (click)="isCollapsed =! isCollapsed">{{isCollapsed? '+ More':'- less'}}</a>

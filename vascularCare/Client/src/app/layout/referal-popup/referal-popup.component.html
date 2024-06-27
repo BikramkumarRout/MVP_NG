@@ -1,0 +1,117 @@
+<app-toast></app-toast>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true" [resizable]="true"
+    [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">Patient Referral</h5>
+    </ng-template>
+    <div class="col-md-12 col-lg-12 px-3 aos-init aos-animate" data-aos="fade-down">
+        <div class="mb-5 refer_form">
+            <div class="min-ht px-3 py-2">
+                <h4 class=" text-body mb-2"> Refer a Patient</h4>
+                <hr class="mt-0">
+                <form #referalForm="ngForm" autocomplete="off">
+                    <fieldset>
+                        <div class="form-group   px-2 profile-container" id="user-input">
+                            <div class="justify-content-between">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4 ">
+                                        <label for="inputEmail4">First Name<span
+                                                class="text-danger text-small">*</span></label>
+                                        <input placeholder="Enter Fast Name" type="text" class="form-control mt-2 pl_3"
+                                            name="firstName" required #firstName="ngModel"
+                                            [(ngModel)]="referalDetails.firstName" />
+
+                                        <div *ngIf="firstName.errors  &&  submittedError"
+                                            class="text-danger text-small">
+                                            <div [hidden]="!firstName.errors.required">
+                                                First Name is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputPassword4">Last Name <span
+                                                class="text-danger text-small">*</span></label>
+                                        <input placeholder="Enter Last Name" type="text" class="form-control mt-2 pl_3"
+                                            name="lastName" required
+                                            #lastName="ngModel" [(ngModel)]="referalDetails.lastName" />
+
+                                        <div *ngIf="lastName.errors  &&  submittedError" class="text-danger text-small">
+                                            <div [hidden]="!lastName.errors.required">
+                                                Last Name is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputPassword4">DOB <span
+                                                class="text-danger text-small">*</span></label>
+                                        <div class="p-field">
+                                            <p-calendar numbersOnly pmCalender placeholder="MM/DD/YYYY" dateFormat="mm/dd/yy"
+                                                [(ngModel)]="referalDetails.dob" [monthNavigator]="true" name="dob"
+                                                #dob="ngModel" [showIcon]="true" inputId="icon" [showOnFocus]="false"
+                                                [yearNavigator]="true" yearRange="1900:2022" inputId="navigators"
+                                                [showButtonBar]="true">
+                                            </p-calendar>
+                                            <div *ngIf="dob.errors  &&  submittedError" class="text-danger text-small">
+                                                <div [hidden]="!dob.errors.required">
+                                                    DOB is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8 upload-zone"  appDragDrop (onFileDropped)="onFileDropped($event)">
+                                        <input id="uploadFile" type="file" name="name" #fileInput
+                                            accept="application/pdf" (input)="onFileChanged($event)" (change)="onFileChanged($event)"
+                                            class="form-control upload-zone input-hidden border-0" />
+                                        <div class="input-group-append group-append ">
+                                            <label class="btn  mb-2 py-3 upload_label" for="uploadFile">
+                                                <small class="text-uppercase font-weight-bold text-info fs-1">Choose
+                                                    or Drop
+                                                    file</small>
+                                                <span class="d-block text-small red-clr pdf_only_ref">
+                                                    (PDF Only)</span>
+                                            </label>
+                                            <input type="text" disabled [value]="paitentFile" [title]="paitentFile"
+                                                name="paitentFile" class="border-0 w-50 text-small  px-2 custom-margin"
+                                                id="test"/>
+                                            <span *ngIf="paitentFile" class="clear-filter mt_clear"
+                                                (click)="reset()">x</span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="d-flex">
+                                            <div class="my-3 float-right">
+                                                <button
+                                                    class="btn btn-info font-normal px-3 py-2 font-weight-normal ml_ref"
+                                                    [disabled]="(!firstName.value||!lastName.value||!dob.value|| !isChecked)"
+                                                    (click)="onUpload()">Refer</button>
+                                                <div 
+                                                    class="mt-2 text-small red-clr Referral ml_ref"><input type="checkbox"
+                                                        (change)='onSelectReferral($event)' name="referral">
+                                                    <label for="Referral" class="EMR_ref">
+                                                        Referral is in EMR</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <ul class="add-details mt-3">
+                    <li><span><img src="/assets/themeIcons/1.svg"></span>(516) 717-1839</li>
+                    <li><span><img src="/assets/themeIcons/answer-machine-paper.svg"></span>(516) 232-9789 - Fax
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <p-footer class="pFooter">
+        <button type="button" class=" py-1 px-1 btn btn-outline-info" (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>

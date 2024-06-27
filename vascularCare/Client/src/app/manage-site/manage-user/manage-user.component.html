@@ -1,0 +1,108 @@
+<app-toast></app-toast>
+<div class="">
+    <p-confirmDialog header="" icon="fa fa-question-circle" [style]="{width: '40%'}" [baseZIndex]="20000" #cd>
+        <p-footer class="confirm_btn">
+            <button type="button" class="py-1 px-2 btn yes-btn" pButton label="Yes" (click)="cd.accept()"></button>
+            <button id="confirm-footer-no-btn" type="button" class=" py-1 px-1 btn no-btn" pButton label="No"
+                (click)="cd.reject()"></button>
+
+        </p-footer>
+    </p-confirmDialog>
+    <div class="implicit-pag mt-4">
+        <p-table #dt2 class="table-striped table-hover" (onFilter)="onFilter($event)" [scrollable]="true"
+            scrollDirection="both" [value]="listingData" [paginator]="true" [rows]="10" sortField="name" [sortOrder]="1"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['name','email','phoneNumber']" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,25,50,100,500]">
+            <ng-template pTemplate="caption">
+                
+                <div class="p-d-flex2 search-icon m-2 userDropdown">
+                   
+                    <button *ngIf="searchGlobalText || nameFilter || emailFilter || PhoneFilter" (click)="clear(dt2)"
+                        pButton label="Clear Filters" id="custom-btn" class="p-button-outlined"
+                        icon="pi pi-filter-slash" (click)="dt2.filterGlobal($event.target.value, 'contains')"></button>
+                    <span class=" p-ml-auto ">
+                        <p-dropdown [options]="userRole" placeholder="External" defaultLabel="External" name="name"
+                            #name="ngModel" [(ngModel)]="selectedUserRole" optionLabel="name"
+                            (onChange)="onSelectRole($event)">
+                        </p-dropdown>
+                    </span>
+                    <span class="search-baricon">
+                        <i class="pi pi-search mt-1"></i>
+                        <input pInputText type="text" class="form-control-35" [(ngModel)]="searchGlobalText"
+                            (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+            <div class="p-d-flex">
+                    <div *ngIf="isEditPermission" class="add_icon"
+                    title="&#13; &nbsp; Create New User&#13;">
+                    <i class="pi pi-plus-circle cursor-pointer" 
+                    (click)="onShowDialog(userDetail,'external')"></i>
+                </div>
+               
+                <span *ngIf="!isEditPermission" class="mr-2"></span>
+
+                <span ><img (click)="onExport()" src="../../../assets/images/excel-icon.png" title="&#13; &nbsp; Export&#13;" width="25px"
+                    class="cursor-pointer mt-1" /></span>
+            </div>
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr class="corporate-tr">
+                    <th pSortableColumn="name" class="user_name">
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Name</span>
+                            <p-sortIcon field="name"></p-sortIcon>
+                            <p-columnFilter type="text" field="name" display="name"></p-columnFilter>
+
+                        </div>
+
+                    </th>
+                    <th pSortableColumn="email" class="user_email">
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Email</span>
+                            <p-sortIcon field="email"></p-sortIcon>
+                            <p-columnFilter type="text" field="email" display="email"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="phoneNumber" class="user_phone">
+                        <div class="p-d-flex  p-ai-center">
+                            <span class="ml-1">Phone</span>
+                            <p-sortIcon field="phoneNumber"></p-sortIcon>
+                            <p-columnFilter type="text" field="phoneNumber" display="phoneNumber"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th class="user_edit text-right"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr>
+                    <td class="user_name"><span class="ml-1">{{rowData.name}}</span></td>
+                    <td class="user_email">{{rowData.email}}</td>
+                    <td class="user_phone">{{rowData.phoneNumber | phoneFormat}}</td>
+                    <td class="text-right user_edit">
+                        <div *ngIf="isEditPermission" class="d-flex">
+                            <img title="&#13; &nbsp; Edit User&#13;" src="../../../assets/themeIcons/edit.svg"
+                                width="16px" class="cursor-pointer ml-2" (click)="onShowDialog(rowData)" />
+                            <span *ngIf="isEditPermission" width="16px" class="cursor-pointer ml-2">
+                            </span>
+                            <span *ngIf="isEditPermission">
+                                <img src="../../../assets/images/remove.svg" title="&#13; &nbsp; Delete User&#13;"
+                                    width="16px" class="cursor-pointer ml-2" (click)="onDeleteUser(rowData)" />
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr *ngIf="isNoRecorsFound">
+                    <td colspan="4">No records found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<div *ngIf="display">
+    <manage-user-detail [roleTypeId]="roleTypeId" [roles]="roles" [display]="display" [listingData]="listingData"
+        [userDetail]="userDetail" (displayChange)="onDialogClose($event)"></manage-user-detail>
+</div>

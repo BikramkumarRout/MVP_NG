@@ -1,0 +1,60 @@
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
+.gm-style-cc { display:none; }  
+#map-report a img { display:none; } 
+
+.gm-style-cc {
+    display: none !important;
+  }
+  
+  .gm-style img:last-child {
+    display: none !important;
+  }
+
+  .gm-style img[src ^="https://https://maps.gstatic.com/mapfiles/embed/images/google4_hdpi.png"]{
+      display: none !important;
+  }
+
+  #example-map > div > div > div:nth-child(3) {
+    display: none;
+  }
+
+  .btn {
+    font-weight: 700 !important;
+}
+
+.form-control {
+    
+  height: 60px;
+  line-height: 59px;
+  
+  background-color: #e6f8fb !important;
+}
+
+textarea.form-control {
+  height: auto !important;
+}
+
+.location-banner .banner-image {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 135px;
+}
+
+@media (max-width: 991px){
+  .location-banner .banner-image {
+    margin-top: 0px;
+  }
+  .location-banner.location-banner-main-page .banner_text .text-panel {
+    text-align: center;
+    margin-left: 0;
+  }
+}

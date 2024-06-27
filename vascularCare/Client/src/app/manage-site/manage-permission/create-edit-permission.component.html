@@ -1,0 +1,76 @@
+<app-toast></app-toast>
+<app-spinner></app-spinner>
+<app-notification></app-notification>
+<p-dialog [(visible)]="display" modal="modal" [transitionOptions]="'3ms'" [responsive]="true" (onHide)="onClose()"
+    [closable]="false" class="alert alert-info" [style]="{width: '80vw'}" [maximizable]="true" [modal]="true"
+    [resizable]="true" [contentStyle]="{height: '550px'}">
+    <ng-template pTemplate="header">
+        <h5 class="m-0 font-weight-bold">{{header}}</h5>
+        <div class="custom-right">
+            <span class="float-right" type="button" (click)="onClose()">
+                <i class="pi pi-times  close-icon"></i>
+            </span>
+        </div>
+    </ng-template>
+
+
+    <div class="tab-content profile-container" id="myTabContent">
+        <div class="tab-pane fade in active" id="Detail" role="tabpanel" aria-labelledby="Detail-tab">
+            <div [class.divDisabled]="!isEditPermission" class="px-2 profile-container" id="user-input">
+
+                <form #permissionForm="ngForm" autocomplete="off">
+                    <fieldset>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Name <span class="text-danger text-small">*</span></label>
+                                <input [class.divDisabled]="isDisabled" #name="ngModel"
+                                    [(ngModel)]="permissionDetail.name" type="text" placeholder="Enter Name"
+                                    class="form-control" name="name" required />
+                                    <pm-validation-errors class="text-danger text-small" *ngIf="name.errors  &&  submittedError"  [formCtrl]="name" [text]="'Name'" ></pm-validation-errors>
+                                <!-- <div *ngIf="name.errors &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!name.errors.required">
+                                        Name is required
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!-- <div class="form-group col-md-6">
+                                <label>Display Name <span class="text-danger text-small">*</span></label>
+                                <input type="text" [(ngModel)]="permissionDetail.displayName"
+                                    placeholder="Enter Display Name" class="form-control" #displayName="ngModel"
+                                    name="displayName" required />
+                                <div *ngIf="displayName.errors &&  submittedError" class="text-danger text-small">
+                                    <div [hidden]="!displayName.errors.required">
+                                        Display Name is required
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 corporate">
+                                <label class="mr-3">Parent Name</label>
+                                <div id="permission">
+                                    <p-dropdown [style]="{'width':'50%'}" [options]="parentList"
+                                        [(ngModel)]="parentPermissions" placeholder="No Parent"
+                                        defaultLabel="No Parent" optionLabel="name"
+                                        name="parentPermission"  #parentPermission="ngModel">
+                                    </p-dropdown>
+                                    
+                                </div>
+                               
+                               
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <p-footer  class="pFooter">
+        <button [class.divDisabled]="!isEditPermission" (click)="onSavePermission()" type="button"
+            class="py-1 px-1 btn btn-primary" [disabled]="!permissionForm.dirty">Save</button>
+        <button [class.divDisabled]="!isEditPermission" type="button" class=" py-1 px-1 btn btn-outline-info"
+            (click)="onClose()">Close</button>
+    </p-footer>
+</p-dialog>

@@ -1,0 +1,23 @@
+.custom-th3 {
+    width: 13rem;
+}
+
+.custom-th1 {
+    width: 8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-th {
+    width: 1rem;
+}
+
+.table-footer {
+    background-color: #dee2e6;
+    height: 34px;
+}
+
+
+
+   
